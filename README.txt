@@ -1,5 +1,3 @@
-TEAM AVENGERS (Sinna)
-TEAM AVENGERS (Henry)
-TEAM AVENGERS (ALEX)
+TEAM AVENGERS (Sinna, Henry, Alex)
 
 
