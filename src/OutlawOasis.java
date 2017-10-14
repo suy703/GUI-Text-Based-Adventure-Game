@@ -10,9 +10,9 @@ public class OutlawOasis extends Application {
 	public void start(Stage stage) {
 		
 		Rooms room = new Rooms();
-		room.titleScreen(stage, room.main);
+		room.mainMenu(stage, room.mainMenu);
 		stage.setTitle("Outlaw Oasis"); // Set the stage title
-		stage.setScene(room.main); // Place the scene in the stage
+		stage.setScene(room.mainMenu); // Place the scene in the stage
 		stage.show(); // Display the stage
 	}
 
