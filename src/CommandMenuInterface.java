@@ -1,5 +1,6 @@
 import javafx.scene.control.MenuItem;
 
+
 public interface CommandMenuInterface {
 
 	//Exit
