@@ -11,8 +11,8 @@ public class OutlawOasis extends Application {
 		Rooms room = new Rooms();
 		
 		room.mainMenu(stage, room.mainMenu);
-		room.room01(stage, room.room01);
-		room.loadGame(stage, room.loadGame);
+		//room.room01(stage, room.room01);
+		//room.loadGame(stage, room.loadGame);
 		stage.setTitle("Outlaw Oasis"); // Set the stage title
 		stage.setScene(room.mainMenu); // Place the scene in the stage
 		stage.show(); // Display the stage
