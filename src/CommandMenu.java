@@ -1,14 +1,20 @@
-import javafx.scene.control.MenuItem;
+import java.io.File;
+import java.util.Formatter;
+import java.util.Scanner;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class CommandMenu implements CommandMenuInterface {
 
-	TextArea displayStory = new TextArea("Outlaw Oasis");
-	TextArea displayCommand = new TextArea("Action\n" +"-> Start New Game (S)\n" + "-> Load Game (L)\n" + 
-			"-> Player Stats (P)\n" + "-> Credit (C)");
+	private Formatter file;
+	private Scanner readFile;
 	
+	TextArea displayStory = new TextArea("Outlaw Oasis");
+	TextArea displayCommand = new TextArea("Action\n" +"-> Start New Game (S)\n" + "-> Load Game (L)\n" 
+			 + "-> Credit (C)");
+	
+	Image icon = new Image("file:images/icon.jpg");
 	Image map = new Image("file:images/BombayHill.png"); 
 	
 	//CENTER PANE--------------------------------------------------------------------------------------
@@ -28,7 +34,7 @@ public class CommandMenu implements CommandMenuInterface {
 		displayStory.setPrefWidth(280);
 	}
 	
-	//COMMAND MENU
+	//COMMAND MENU-------------------------------------------------------------------------------------
 	public TextArea displayCommand(TextArea displayCommand) {
 		displayCommand = this.displayCommand;
 		displayCommandSetting(displayCommand);
@@ -43,23 +49,68 @@ public class CommandMenu implements CommandMenuInterface {
 		displayCommand.setPrefWidth(280);
 	}
 	
-	//LOAD GAME
-	public TextArea loadGameStory(TextArea displayStory) {
+	//SAVE GAME----------------------------------------------------------------------------------------
+	public void saveGame(String fileName) {
+		
+		try {
+			
+			file = new Formatter(fileName);
+			System.out.println("Game Saved");
+		}
+		catch(Exception e) {
+			System.out.println("error: file did not save");
+		}
+		writeFile();
+		closeFile();
+	}
+	//WRITE FILE
+	public void writeFile() {
+		/*
+		 * Write saved game. Use... file.format(format, args);
+		 */
+	}
+	//CLOSE FILE
+	public void closeFile() {
+		
+		file.close();
+	}
+	
+	//LOAD GAME----------------------------------------------------------------------------------------
+	public void loadGame(String fileName) {
+		
+		try {
+			
+			readFile = new Scanner(new File(fileName));
+		}
+		catch(Exception e) {
+			System.out.println("error: could not find file");
+		}
+		
+		//Read file
+		while(readFile.hasNext()) {
+			/*
+			 * Read what is in the saved game file
+			 */
+		}
+		//Close File
+		readFile.close();
+	}
+	public TextArea loadGameStory(TextArea displayStory, String story) {
 		int getStoryLength = this.displayStory.getLength();
-		this.displayStory.replaceText(0, getStoryLength, "Load Game");
+		this.displayStory.replaceText(0, getStoryLength, story);
 		displayStory = this.displayStory;
 		displayStorySetting(displayStory);
 		return displayStory;
 	}
-	public TextArea loadGameCommand(TextArea displayCommand) {
+	public TextArea loadGameCommand(TextArea displayCommand, String command) {
 		int getCommandLength = this.displayCommand.getLength();
-		this.displayCommand.replaceText(0, getCommandLength, "Action\n " + "-> Back (B)");
+		this.displayCommand.replaceText(0, getCommandLength, command);
 		displayCommand = this.displayCommand;
 		displayCommandSetting(displayCommand);
 		return displayCommand;
 	}
 
-	//NAVIGATE MAP
+	//NAVIGATE MAP--------------------------------------------------------------------------------------
 	public ImageView navigateMap(Image map, ImageView viewMap) {
 		map = this.map;
         viewMap.setImage(map);
@@ -67,15 +118,11 @@ public class CommandMenu implements CommandMenuInterface {
         viewMap.setLayoutY(200);
         return viewMap;
 	}
-
-	// Exit
-	public MenuItem exit() {
-		MenuItem exit = new MenuItem("Exit");
-		exit.setOnAction(e -> {
-		    System.exit(0);
-		});
-		
-		return exit;
+	public ImageView navigateIcon(Image icon, ImageView viewIcon, int x, int y) {
+		icon = this.icon;
+		viewIcon.setImage(icon);
+        viewIcon.setLayoutX(x);
+        viewIcon.setLayoutY(y);
+		return viewIcon;
 	}
-
 }

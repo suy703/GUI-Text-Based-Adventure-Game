@@ -1,8 +1,5 @@
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,13 +22,9 @@ public class Rooms {
 	final Background background = new Background(backgroundImage);
 	
 	Scene mainMenu;
-
-	//TOP PANE---------------------------------------------------------------------------------------
-	//MENU PROPERTIES
-	MenuBar menuBar = new MenuBar();
-	Menu menuFile = new Menu("File");
 	
-	Image map;
+	Image map, icon;
+	ImageView viewIcon = new ImageView();
 	ImageView viewMap = new ImageView();
 	TextArea displayStory, displayCommand;
 	
@@ -48,10 +41,6 @@ public class Rooms {
 		borderPane.setTop(topPane);
 		borderPane.setCenter(centerPane);
 		borderPane.setBottom(bottomPane);
-		
-		//TOP PANE---------------------------------------------------------------------------------------
-		//MENU PROPERTIES
-		MenuItem exit = commandMenu.exit();
 		
 		//CENTER PANE--------------------------------------------------------------------------------------
 		//DISPLAY STORY
@@ -72,16 +61,39 @@ public class Rooms {
 				inputCommand.clear();
 				//command = "start";
 			}
+			//MAIN MENU
 			if(command.equalsIgnoreCase("s")) {
-				viewMap = commandMenu.navigateMap(map, viewMap); // In Progress
+				viewMap.setOpacity(100);
+				viewIcon.setOpacity(100);
+				viewMap = commandMenu.navigateMap(map, viewMap);
+				viewIcon = commandMenu.navigateIcon(icon, viewIcon, 420, 275);
+				displayStory = commandMenu.loadGameStory(displayStory, "You are a cowboy named Texas Heck, who is "
+						+ "fed up with his cows getting rustled by a gang known as the Long Riders. He hears the "
+						+ "sheriff won’t be much help, so he takes matters into his own hands. Heck starts his "
+						+ "adventure in center of Bombay Hill, one of three towns controlled by the Long Riders, "
+						+ "his plan is to find the leader of the gang and taking them out.");
+				displayCommand = commandMenu.loadGameCommand(displayCommand, "Action\n" + "-> Save Game (SG)");
 			
 			}
 			else if(command.equalsIgnoreCase("l")) {
-				displayStory = commandMenu.loadGameStory(displayStory);
-				displayCommand = commandMenu.loadGameCommand(displayCommand);
+				displayStory = commandMenu.loadGameStory(displayStory, "Load Game");
+				displayCommand = commandMenu.loadGameCommand(displayCommand, "Action\n" + "-> Back (B)");
+				commandMenu.loadGame("testGame.ini");
 				
 			}
-
+			else if(command.equalsIgnoreCase("b")) {
+				viewMap.setOpacity(0);
+				viewIcon.setOpacity(0);
+				displayStory = commandMenu.loadGameStory(displayStory, "Outlaw Oasis");
+				displayCommand = commandMenu.loadGameCommand(displayCommand, "Action\n" +"-> Start New Game (S)\n" + "-> Load Game (L)\n");
+			}
+			//SAVE GAME
+			if(command.equalsIgnoreCase("sg")) {
+				commandMenu.saveGame("testGame.ini");
+			}
+			if(command.equalsIgnoreCase("exit")) {
+				System.exit(0);
+			}
 		});
         /*
 		//TESTING PURPOSE
@@ -91,10 +103,7 @@ public class Rooms {
 		});
 		*/
 		borderPane.setBackground(background);
-		menuBar.getMenus().add(menuFile);
-		menuFile.getItems().add(exit);
-		topPane.getChildren().add(menuBar);
-		centerPane.getChildren().addAll(displayStory, displayCommand, viewMap);
+		centerPane.getChildren().addAll(displayStory, displayCommand, viewMap, viewIcon);
 		bottomPane.getChildren().add(inputCommand);
 		mainMenu = new Scene(borderPane);
 	}
