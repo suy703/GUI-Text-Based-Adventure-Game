@@ -67,17 +67,20 @@ public class Rooms {
 				//command = "start";
 			}
 			//MAIN MENU
+			//TownHub
 			if((command.equalsIgnoreCase("s") && lockMainMenu) || command.equalsIgnoreCase("e")) {
 				TownHub_1A();
 				lockMainMenu = false;
 				unlockSaveGame = true;
 			}
+			//Load Game
 			else if(command.equalsIgnoreCase("l") && lockMainMenu) {
 				displayStory = commandMenu.loadGameStory(displayStory, "Load Game");
 				displayCommand = commandMenu.loadGameCommand(displayCommand, "Action\n" + "-> Back (B)");
 				commandMenu.loadGame("testGame.ini");
 				
 			}
+			//Back
 			else if(command.equalsIgnoreCase("b") && lockMainMenu) {
 				viewMap.setOpacity(0);
 				viewIcon.setOpacity(0);
@@ -88,10 +91,11 @@ public class Rooms {
 						+ "his plan is to find the leader of the gang and taking them out.");
 				displayCommand = commandMenu.loadGameCommand(displayCommand, "Action\n" + "-> Start New Game (S)\n" + "-> Load Game (L)\n" + "-> Credit (C)");
 			}
-			//SAVE GAME
+			//Save Game
 			if(command.equalsIgnoreCase("sg") && unlockSaveGame) {
 				commandMenu.saveGame("testGame.ini");
 			}
+			//Exit Game
 			if(command.equalsIgnoreCase("exit")) {
 				System.exit(0);
 			}
@@ -113,7 +117,7 @@ public class Rooms {
 		bottomPane.getChildren().add(inputCommand);
 		mainMenu = new Scene(borderPane);
 	}
-	
+	//Town Hub
 	public void TownHub_1A() {
 		
 		viewMap = commandMenu.navigateMap(map, viewMap);
@@ -125,7 +129,7 @@ public class Rooms {
 		displayCommand = commandMenu.loadGameCommand(displayCommand, "Action\n" + "-> Drug Store (NW)\n" + "-> Inn (SW)\n" 
 				+ "-> Saloon (E)\n\n" + "-> Inventory (I)\n" + "-> Save Game (SG)");
 	}
-	
+	//Drug Store
 	public void DrugStore_1B() {
 		
 		viewMap = commandMenu.navigateMap(map, viewMap);
