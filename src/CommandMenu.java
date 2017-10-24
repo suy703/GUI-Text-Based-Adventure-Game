@@ -10,7 +10,11 @@ public class CommandMenu implements CommandMenuInterface {
 	private Formatter file;
 	private Scanner readFile;
 	
-	TextArea displayStory = new TextArea("Outlaw Oasis");
+	TextArea displayStory = new TextArea("Outlaw Oasis\n\n" + "You are a cowboy named Texas Heck, who is "
+			+ "fed up with his cows getting rustled by a gang known as the Long Riders. He hears the "
+			+ "sheriff won’t be much help, so he takes matters into his own hands. Heck starts his "
+			+ "adventure in center of Bombay Hill, one of three towns controlled by the Long Riders, "
+			+ "his plan is to find the leader of the gang and taking them out.");
 	TextArea displayCommand = new TextArea("Action\n" +"-> Start New Game (S)\n" + "-> Load Game (L)\n" 
 			 + "-> Credit (C)");
 	
@@ -30,7 +34,7 @@ public class CommandMenu implements CommandMenuInterface {
 		displayStory.setWrapText(true);
 		displayStory.setLayoutX(10);
 		displayStory.setLayoutY(200);
-		displayStory.setPrefHeight(330);
+		displayStory.setPrefHeight(335);
 		displayStory.setPrefWidth(280);
 	}
 	
@@ -45,7 +49,7 @@ public class CommandMenu implements CommandMenuInterface {
 		displayCommand.setEditable(false);
 		displayCommand.setLayoutX(310);
 		displayCommand.setLayoutY(405);
-		displayCommand.setPrefHeight(125);
+		displayCommand.setPrefHeight(130);
 		displayCommand.setPrefWidth(280);
 	}
 	
