@@ -7,20 +7,24 @@ public interface CommandMenuInterface {
 
 	//CENTER PANE--------------------------------------------------------------------------------------
 	//DISPLAY STORY
-	public TextArea displayStory(TextArea displayStory);
-	public void displayStorySetting(TextArea displayStory);
+	public TextArea getDisplayStory();
+	public void setDisplayStory(TextArea displayStory);
 	//COMMAND MENU
-	public TextArea displayCommand(TextArea displayCommand);
-	public void displayCommandSetting(TextArea displayCommand);
+	public TextArea getDisplayCommand();
+	public void setDisplayCommand(TextArea displayCommand);
 	//SAVE GAME
 	public void saveGame(String fileName);
 	public void writeFile();
 	public void closeFile();
 	//LOAD GAME
 	public void loadGame(String fileName);
-	public TextArea loadGameStory(TextArea displayStory, String story);
-	public TextArea loadGameCommand(TextArea displayCommand, String command);
+	public TextArea getLoadGameStory();
+	public TextArea getLoadGameCommand();
+	public void setLoadGameStory(TextArea displayStory, String story);
+	public void setLoadGameCommand(TextArea displayCommand, String command);
 	//NAVIGATE MAP
-	public ImageView navigateMap(Image map, ImageView viewMap);
-	public ImageView navigateIcon(Image icon, ImageView viewIcon, int x, int y);
+	public ImageView getNavigateMap();
+	public ImageView getNavigateIcon();
+	public void setNavigateMap(Image map, ImageView viewMap);
+	public void setNavigateIcon(Image icon, ImageView viewIcon, int x, int y);
 }

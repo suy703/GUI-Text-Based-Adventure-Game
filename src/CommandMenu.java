@@ -10,26 +10,26 @@ public class CommandMenu implements CommandMenuInterface {
 	private Formatter file;
 	private Scanner readFile;
 	
-	TextArea displayStory = new TextArea("Outlaw Oasis\n\n" + "You are a cowboy named Texas Heck, who is "
-			+ "fed up with his cows getting rustled by a gang known as the Long Riders. He hears the "
-			+ "sheriff won’t be much help, so he takes matters into his own hands. Heck starts his "
-			+ "adventure in center of Bombay Hill, one of three towns controlled by the Long Riders, "
-			+ "his plan is to find the leader of the gang and taking them out.");
-	TextArea displayCommand = new TextArea("Action\n" +"-> Start New Game (S)\n" + "-> Load Game (L)\n" 
-			 + "-> Credit (C)");
-	
-	Image icon = new Image("file:images/icon.jpg");
-	Image map = new Image("file:images/BombayHill.png"); 
-	
+	Image icon, map;
+	ImageView viewIcon, viewMap;
+	TextArea displayStory, displayCommand;
+	public CommandMenu(Image icon, Image map, ImageView viewIcon, ImageView viewMap, TextArea displayStory, TextArea displayCommand) {
+		this.icon = icon;
+		this.map = map;
+		this.viewIcon = viewIcon;
+		this.viewMap = viewMap;
+		this.displayStory = displayStory;
+		this.displayCommand = displayCommand;
+	}
 	//CENTER PANE--------------------------------------------------------------------------------------
 	//DISPLAY STORY
-	public TextArea displayStory(TextArea displayStory) {
-		displayStory = this.displayStory;
-		displayStorySetting(displayStory);
-		return displayStory;
+	public TextArea getDisplayStory() {
+		
+		return this.displayStory;
 	}
 	//DISPLAY SETTING
-	public void displayStorySetting(TextArea displayStory) {
+	public void setDisplayStory(TextArea displayStory) {
+		this.displayStory = displayStory;
 		displayStory.setEditable(false);
 		displayStory.setWrapText(true);
 		displayStory.setLayoutX(10);
@@ -39,13 +39,13 @@ public class CommandMenu implements CommandMenuInterface {
 	}
 	
 	//COMMAND MENU-------------------------------------------------------------------------------------
-	public TextArea displayCommand(TextArea displayCommand) {
-		displayCommand = this.displayCommand;
-		displayCommandSetting(displayCommand);
-		return displayCommand;
+	public TextArea getDisplayCommand() {
+		
+		return this.displayCommand;
 	}
 	//COMMAND SETTING
-	public void displayCommandSetting(TextArea displayCommand) {
+	public void setDisplayCommand(TextArea displayCommand) {
+		this.displayCommand = displayCommand;
 		displayCommand.setEditable(false);
 		displayCommand.setLayoutX(310);
 		displayCommand.setLayoutY(405);
@@ -99,34 +99,48 @@ public class CommandMenu implements CommandMenuInterface {
 		//Close File
 		readFile.close();
 	}
-	public TextArea loadGameStory(TextArea displayStory, String story) {
-		int getStoryLength = this.displayStory.getLength();
-		this.displayStory.replaceText(0, getStoryLength, story);
-		displayStory = this.displayStory;
-		displayStorySetting(displayStory);
-		return displayStory;
+	public TextArea getLoadGameStory() {
+		
+		return this.displayStory;
 	}
-	public TextArea loadGameCommand(TextArea displayCommand, String command) {
+	public void setLoadGameStory(TextArea displayStory, String story) {
+		int getStoryLength = this.displayStory.getLength();
+		displayStory.replaceText(0, getStoryLength, story);
+		this.displayStory = displayStory;
+		setDisplayStory(this.displayStory);
+	}
+	
+	public TextArea getLoadGameCommand() {
+		
+		return this.displayCommand;
+	}
+	public void setLoadGameCommand(TextArea displayCommand, String command) {
 		int getCommandLength = this.displayCommand.getLength();
-		this.displayCommand.replaceText(0, getCommandLength, command);
-		displayCommand = this.displayCommand;
-		displayCommandSetting(displayCommand);
-		return displayCommand;
+		displayCommand.replaceText(0, getCommandLength, command);
+		this.displayCommand = displayCommand;
+		setDisplayCommand(this.displayCommand);
 	}
 
 	//NAVIGATE MAP--------------------------------------------------------------------------------------
-	public ImageView navigateMap(Image map, ImageView viewMap) {
-		map = this.map;
+	public ImageView getNavigateMap() {
+		
+        return this.viewMap;
+	}
+	public void setNavigateMap(Image map, ImageView viewMap) {
+		this.map = map;
         viewMap.setImage(map);
         viewMap.setLayoutX(310);
         viewMap.setLayoutY(200);
-        return viewMap;
 	}
-	public ImageView navigateIcon(Image icon, ImageView viewIcon, int x, int y) {
-		icon = this.icon;
+	
+	public ImageView getNavigateIcon() {
+		
+		return this.viewIcon;
+	}
+	public void setNavigateIcon(Image icon, ImageView viewIcon, int x, int y) {
+		this.icon = icon;
 		viewIcon.setImage(icon);
         viewIcon.setLayoutX(x);
         viewIcon.setLayoutY(y);
-		return viewIcon;
 	}
 }
