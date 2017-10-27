@@ -1,5 +1,5 @@
 /*
- * Sinna, Alex, 
+ * Sinna, Alex, Henry
  */
 import javafx.application.Application;
 import javafx.stage.Stage;
