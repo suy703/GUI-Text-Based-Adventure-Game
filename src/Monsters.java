@@ -8,6 +8,9 @@ public class Monsters {
 	int monsterHealth;
 	int monsterAttackPower;
 	
+	public Monsters() {
+		
+	}
 	
 	public Monsters(String monsterName, String monsterDescription, String monsterRoomLocation, String itemDropped,
 			int monsterProbability, int monsterHealth, int monsterAttackPower) {
