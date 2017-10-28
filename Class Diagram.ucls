@@ -3,7 +3,7 @@
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
   <class id="1" language="java" name="Items" project="Team Avengers" file="/Team Avengers/src/Items.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1021" y="256"/>    
+    <position height="-1" width="-1" x="1027" y="-163"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -12,7 +12,7 @@
   </class>  
   <class id="2" language="java" name="Rooms" project="Team Avengers" file="/Team Avengers/src/Rooms.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="261" width="332" x="-72" y="-238"/>    
+    <position height="-1" width="-1" x="556" y="-303"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -21,7 +21,7 @@
   </class>  
   <class id="3" language="java" name="GameInterface" project="Team Avengers" 
     file="/Team Avengers/src/GameInterface.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="809" y="-46"/>    
+    <position height="-1" width="-1" x="832" y="-239"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -30,7 +30,7 @@
   </class>  
   <class id="4" language="java" name="Weapon" project="Team Avengers" file="/Team Avengers/src/Weapon.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1346" y="546"/>    
+    <position height="-1" width="-1" x="1280" y="-365"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -39,7 +39,7 @@
   </class>  
   <class id="5" language="java" name="OutlawOasis" project="Team Avengers" file="/Team Avengers/src/OutlawOasis.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="117" width="113" x="955" y="-238"/>    
+    <position height="-1" width="-1" x="830" y="23"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -48,7 +48,7 @@
   </class>  
   <class id="6" language="java" name="Potion" project="Team Avengers" file="/Team Avengers/src/Potion.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="853" y="548"/>    
+    <position height="-1" width="-1" x="1028" y="133"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -57,7 +57,7 @@
   </class>  
   <class id="7" language="java" name="Player" project="Team Avengers" file="/Team Avengers/src/Player.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1275" y="267"/>    
+    <position height="-1" width="-1" x="1280" y="-162"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -66,7 +66,7 @@
   </class>  
   <interface id="8" language="java" name="CommandMenuInterface" project="Team Avengers" 
     file="/Team Avengers/src/CommandMenuInterface.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="351" width="246" x="300" y="315"/>    
+    <position height="-1" width="-1" x="191" y="303"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -75,7 +75,7 @@
   </interface>  
   <class id="9" language="java" name="Monsters" project="Team Avengers" file="/Team Avengers/src/Monsters.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="81" width="87" x="1108" y="-238"/>    
+    <position height="-1" width="-1" x="556" y="74"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -84,7 +84,7 @@
   </class>  
   <class id="10" language="java" name="Artifact" project="Team Avengers" file="/Team Avengers/src/Artifact.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1124" y="543"/>    
+    <position height="-1" width="-1" x="1027" y="-392"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -93,7 +93,7 @@
   </class>  
   <class id="11" language="java" name="CommandMenu" project="Team Avengers" file="/Team Avengers/src/CommandMenu.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="513" width="372" x="300" y="-238"/>    
+    <position height="-1" width="-1" x="193" y="-177"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -102,7 +102,7 @@
   </class>  
   <class id="12" language="java" name="Character" project="Team Avengers" file="/Team Avengers/src/Character.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="297" width="138" x="1235" y="-238"/>    
+    <position height="-1" width="-1" x="1284" y="129"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -111,7 +111,7 @@
   </class>  
   <class id="13" language="java" name="Puzzles" project="Team Avengers" file="/Team Avengers/src/Puzzles.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="81" width="87" x="1413" y="-238"/>    
+    <position height="-1" width="-1" x="829" y="132"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -122,34 +122,42 @@
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="12"/>  
   </generalization>  
-  <generalization id="15">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
-  <association id="16">    
+  <association id="15">    
     <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="17" name="inventory"/>      
-      <multiplicity id="18" minimum="0" maximum="2147483647"/>    
+      <attribute id="16" name="inventory">        
+        <position height="0" width="0" x="6" y="-419"/>      
+      </attribute>      
+      <multiplicity id="17" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="6" y="-419"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="19">    
-    <end type="SOURCE" refId="4"/>    
+  <generalization id="18">    
+    <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="1"/>  
   </generalization>  
-  <generalization id="20">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
-  <association id="21">    
+  <association id="19">    
     <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="22" name="equippedWeap"/>      
-      <multiplicity id="23" minimum="0" maximum="1"/>    
+      <attribute id="20" name="equippedWeap">        
+        <position height="0" width="0" x="-66" y="-911"/>      
+      </attribute>      
+      <multiplicity id="21" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-66" y="-911"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <generalization id="22">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <generalization id="23">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
   <realization id="24">    
     <end type="SOURCE" refId="11"/>    
     <end type="TARGET" refId="8"/>  

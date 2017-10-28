@@ -15,9 +15,9 @@ import javafx.stage.Stage;
 
 public class GameInterface {
 	//GAME BACKGROUND----------------------------------------------------------------------------------
-	final Image gameBackground = new Image("file:images/background.jpg");
-	final BackgroundImage backgroundImage = new BackgroundImage(gameBackground, null, null, null, null);
-	final Background background = new Background(backgroundImage);
+	private final Image gameBackground = new Image("file:images/background.jpg");
+	private final BackgroundImage backgroundImage = new BackgroundImage(gameBackground, null, null, null, null);
+	private final Background background = new Background(backgroundImage);
 	
 	Scene mainMenu;
 	
