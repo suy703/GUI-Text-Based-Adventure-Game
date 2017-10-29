@@ -9,9 +9,7 @@ public class Player extends Character{
 		super("Texas Heck", 20, 1);
 		inventory = new ArrayList<Items>();
 		equippedWeap = new Weapon("00", "-empty-", "Your bare hands", 0, 1);
-		
 		totalAtk = baseAtk + equippedWeap.attackPower;
-		
 		
 	}
 	

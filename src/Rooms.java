@@ -8,7 +8,7 @@ public class Rooms {
 	Image map, icon;
 	ImageView viewIcon, viewMap;
 	TextArea displayStory, displayCommand;
-	
+		
 	 public Rooms(Image map, Image icon, ImageView viewIcon, ImageView viewMap, TextArea displayStory, TextArea displayCommand) {
 		 this.map = map;
 		 this.icon = icon;
@@ -29,6 +29,9 @@ public class Rooms {
 				+ "To the East there is a bustling saloon. To your North-West you see a drug store and to the South-West, an Inn.\n\n"
 				+ "-> Drug Store (North West)\n" + "-> Inn (South West)\n" + "-> Saloon (East)");
 		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "-> Inventory (I)\n" + "-> Save Game (SG)");
+		
+		System.out.println("Inside Town Hub"); // Testing purpose
+
 	}
 	//Drug Store
 	public void DrugStore_1B() {
@@ -42,6 +45,8 @@ public class Rooms {
 				+ "and to the East is the door leading to the Town Hub.\n\n" + "-> Town Hub (East)\n" + "-> Inn (South)");
 		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "-> Search Room (SR)\n" 
 				+ "-> Inventory (I)\n" + "-> Save Game (SG)");
+		
+		System.out.println("Inside Drug Store"); // Testing purpose
 	}
 	//Inn
 	public void Inn_1C() {
@@ -56,12 +61,15 @@ public class Rooms {
 				+ "you get a chance to ring the bell and asks you if you want a room.\n\n" + "-> Drug Store (North)\n" + "-> Town Hub (East)");
 		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "-> Search Room (SR)\n" 
 				+ "-> Inventory (I)\n" + "-> Save Game (SG)");
+		
+		System.out.println("Inside Inn"); // Testing purpose
+
 	}
 	//Saloon
 	public void Saloon_1D() {
 		CommandMenu commandMenu = new CommandMenu(map, icon, viewIcon, viewMap, displayStory, displayCommand);
 		commandMenu.setNavigateMap(map, viewMap);
-		commandMenu.setNavigateIcon(icon, viewIcon, 515, 250);
+		commandMenu.setNavigateIcon(icon, viewIcon, 515, 250); 
 		commandMenu.setLoadGameStory(displayStory, "Saloon\n\n" + "This is the most people you have seen in one place. The bar is filled "
 				+ "with forlorn looking people drowning their sorrows in alcohol. There is a poker table in the back, men in expensive "
 				+ "looking suits sit at it smoking cigars and laughing. As you walk in, you notice that all eyes are on you. The barkeep "
@@ -69,5 +77,9 @@ public class Rooms {
 				+ "notice a large door with a padlock on it to the South and to the West is the door to the Town Hub.\n\n" 
 				+ "-> Town Hub (West)\n" + "-> Jail (South)");
 		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "-> Inventory (I)\n" + "-> Save Game (SG)");
+		
+		System.out.println("Inside Saloon Store"); // Testing purpose
+
 	}
+	
 }

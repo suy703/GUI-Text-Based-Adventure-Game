@@ -1,5 +1,6 @@
 public class Monsters {
 	
+	String monsterID;
 	String monsterName;
 	String monsterDescription;
 	String monsterRoomLocation;
@@ -11,10 +12,11 @@ public class Monsters {
 	public Monsters() {
 		
 	}
-	
-	public Monsters(String monsterName, String monsterDescription, String monsterRoomLocation, String itemDropped,
-			int monsterProbability, int monsterHealth, int monsterAttackPower) {
+
+	public Monsters(String monsterID, String monsterName, String monsterDescription, String monsterRoomLocation,
+			String itemDropped, int monsterProbability, int monsterHealth, int monsterAttackPower) {
 		super();
+		this.monsterID = monsterID;
 		this.monsterName = monsterName;
 		this.monsterDescription = monsterDescription;
 		this.monsterRoomLocation = monsterRoomLocation;
@@ -23,6 +25,15 @@ public class Monsters {
 		this.monsterHealth = monsterHealth;
 		this.monsterAttackPower = monsterAttackPower;
 	}
+
+	public String getMonsterID() {
+		return monsterID;
+	}
+
+	public void setMonsterID(String monsterID) {
+		this.monsterID = monsterID;
+	}
+
 	public String getMonsterName() {
 		return monsterName;
 	}

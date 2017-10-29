@@ -37,8 +37,5 @@ public class Items {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	
-	//Test
-	
 
 }

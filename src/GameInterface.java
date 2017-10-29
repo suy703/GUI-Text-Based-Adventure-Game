@@ -135,6 +135,7 @@ public class GameInterface {
 				System.exit(0);
 			}
 		});
+		
         /*
 		//TESTING PURPOSE
 		borderPane.setOnMouseMoved(e -> {
@@ -146,5 +147,7 @@ public class GameInterface {
 		centerPane.getChildren().addAll(displayStory, displayCommand, viewMap, viewIcon);
 		bottomPane.getChildren().add(inputCommand);
 		mainMenu = new Scene(borderPane);
+		
+		System.out.println("Game interface initialized"); // Testing purpose
 	}
 }
