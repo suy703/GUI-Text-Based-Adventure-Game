@@ -41,10 +41,12 @@ public class GameInterface {
 	Boolean drugStore = true;
 	Boolean inn = true;
 	Boolean saloon = true;
-	
+	Player player;
 	public void mainMenu(Stage stage, Scene scene) {
 		CommandMenu commandMenu = new CommandMenu(map, icon, viewIcon, viewMap, displayStory, displayCommand);
 		Rooms room = new Rooms(map, icon, viewIcon, viewMap, displayStory, displayCommand);
+		
+		
 		
 		BorderPane borderPane = new BorderPane();
 		borderPane.setPrefSize(600,600);
@@ -84,6 +86,11 @@ public class GameInterface {
 			//TownHub
 			if((command.equalsIgnoreCase("start") && lockMainMenu) || command.equalsIgnoreCase("east") && townHub || command.equalsIgnoreCase("west")) {
 				room.TownHub_1A();
+				if(command.equalsIgnoreCase("start")) {
+					player = new Player();
+					System.out.println("Player Created");
+					player.inventory.add(new Weapon("0001", "test item", "ignore description" ,10, 10)); //Testing Inventory
+				}
 				lockMainMenu = false;
 				unlockSaveGame = true;
 				townHub = false;
@@ -133,6 +140,12 @@ public class GameInterface {
 			//Exit Game
 			if(command.equalsIgnoreCase("exit")) {
 				System.exit(0);
+			}
+			
+			//Inventory
+			if(command.equalsIgnoreCase("i")) {
+				commandMenu.setLoadGameStory(displayStory, player.displayInventory());
+				commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "->Select Item (Enter Item Number)\n" + "->Back (B)");
 			}
 		});
 		

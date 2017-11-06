@@ -36,5 +36,20 @@ public class Player extends Character{
 	public String displayPlayerStats() {
 		return "Texas Heck\nHealth: " +hp + "/" + maxHp+ "\nAttack Power: " + totalAtk + "\nWeapon: " + equippedWeap.name;
 	}
+	
+	public String displayInventory() {
+		String invDisplay= "Your Inventory";
+		for(int i = 0; i < inventory.size(); i++ ) {
+			invDisplay += "\n(" + (i+1) + ") " + inventory.get(0).name;	
+		}
+		return invDisplay;
+	}
+	public boolean isEquipped(Weapon weap) {
+		if(weap == equippedWeap)
+			return true;
+		else
+			return false;
+		
+	}
 
 }

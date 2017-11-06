@@ -1,9 +1,9 @@
 
 public class Character {
-	public String name;
-	public int hp;
-	public int maxHp;
-	public int baseAtk;
+	String name;
+	int hp;
+	int maxHp;
+	int baseAtk;
 	
 	public Character(String name, int hp, int atk) {
 		this.name = name;
