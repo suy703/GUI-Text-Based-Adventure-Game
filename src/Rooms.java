@@ -5,11 +5,24 @@ import javafx.scene.control.TextArea;
 
 public class Rooms {
 	
+	String ID = "";
+	String name = "";
+	String exits = "";
+	String items = "";
+	
 	Image map, icon;
 	ImageView viewIcon, viewMap;
 	TextArea displayStory, displayCommand;
+	
+	public Rooms(String ID, String name, String exits, String items) {
 		
-	 public Rooms(Image map, Image icon, ImageView viewIcon, ImageView viewMap, TextArea displayStory, TextArea displayCommand) {
+		this.ID = ID;
+		this.name = name;
+		this.exits = exits;
+		this.items = items;
+	}
+	
+	public Rooms(Image map, Image icon, ImageView viewIcon, ImageView viewMap, TextArea displayStory, TextArea displayCommand) {
 		 this.map = map;
 		 this.icon = icon;
 		 this.viewIcon = viewIcon;
