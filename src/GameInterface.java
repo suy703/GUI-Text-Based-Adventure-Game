@@ -31,22 +31,23 @@ public class GameInterface {
 			+ "sheriff won’t be much help, so he takes matters into his own hands. Heck starts his "
 			+ "adventure in center of Bombay Hill, one of three towns controlled by the Long Riders, "
 			+ "his plan is to find the leader of the gang and taking them out.");
-	TextArea displayCommand = new TextArea("Action\n" +"-> Start New Game (Start)\n" + "-> Load Game (Load)\n" 
-			 + "-> Credit (C)");
+	TextArea displayCommand = new TextArea("Action\n" + "1. New Game\n" + "2. Load Game\n" 
+			 + "3. Credit");
 	
 	Boolean lockMainMenu = true;
+	Boolean loadGame = true;
 	Boolean unlockSaveGame = false;
-	
-	Boolean townHub = true;
-	Boolean drugStore = true;
-	Boolean inn = true;
-	Boolean saloon = true;
+	Boolean backToGame = false;
+
 	Player player;
+	
 	public void mainMenu(Stage stage, Scene scene) {
 		CommandMenu commandMenu = new CommandMenu(map, icon, viewIcon, viewMap, displayStory, displayCommand);
 		Rooms room = new Rooms(map, icon, viewIcon, viewMap, displayStory, displayCommand);
-		
-		
+		Rooms TownHub = new Rooms(false, "1A", "Town Hub", "D00, D02, D03, D05", "");
+		Rooms DrugStore = new Rooms(false, "1B", "Drug Store", "D01, D00", "I1, I2, I4");
+		Rooms Inn = new Rooms(false, "1C", "Inn", "D01, D02", "I3");
+		Rooms Saloon = new Rooms(false, "1D", "Saloon", "D03, D04", "");
 		
 		BorderPane borderPane = new BorderPane();
 		borderPane.setPrefSize(600,600);
@@ -80,75 +81,167 @@ public class GameInterface {
 				command = inputCommand.getText();
 				System.out.println(inputCommand.getText()); // Testing Purpose
 				inputCommand.clear();
-				//command = "start";
-			}
+			}	
 			//MAIN MENU
 			//TownHub
-			if((command.equalsIgnoreCase("start") && lockMainMenu) || command.equalsIgnoreCase("east") && townHub || command.equalsIgnoreCase("west")) {
-				room.TownHub_1A();
-				if(command.equalsIgnoreCase("start")) {
+		    if(lockMainMenu && (command.equalsIgnoreCase("1") || command.equalsIgnoreCase("new game")) || 
+		    		(DrugStore.getRoomLocks() && (command.equalsIgnoreCase("1") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("east"))) ||
+		    		(Inn.getRoomLocks() && (command.equalsIgnoreCase("2") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("east"))) ||
+		    		(Saloon.getRoomLocks() && (command.equalsIgnoreCase("1") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("west")))){ //1. Start New Game
+				
+		    	if(command.equalsIgnoreCase("new game")) {
 					player = new Player();
 					System.out.println("Player Created");
 					player.inventory.add(new Weapon("0001", "test item", "ignore description" ,10, 10)); //Testing Inventory
 				}
 				lockMainMenu = false;
 				unlockSaveGame = true;
-				townHub = false;
-			}
-			//Load Game
-			else if(command.equalsIgnoreCase("load") && lockMainMenu) {
-				commandMenu.setLoadGameStory(displayStory, "Load Game");
-				commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "-> Back (Back)");
+				room.TownHub_1A();
+				TownHub.setRoomLocks(true);
+				DrugStore.setRoomLocks(false);
+				Inn.setRoomLocks(false);
+				Saloon.setRoomLocks(false);
+		    }
+		    //Load Game
+		    else if(lockMainMenu && (command.equalsIgnoreCase("2") || command.equalsIgnoreCase("load game"))) { //2. Load Game
+				
+		    	commandMenu.setLoadGameStory(displayStory, "Load Game");
+				commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Back");
 				commandMenu.loadGame("testGame.ini");
+				loadGame = false;
 			}
-			//Back
-			else if(command.equalsIgnoreCase("back") && lockMainMenu) {
+		    //Back
+			else if(lockMainMenu && (command.equalsIgnoreCase("1") || command.equalsIgnoreCase("back"))) { //1. Back
+				
 				commandMenu.setLoadGameStory(displayStory, "Outlaw Oasis\n\n" + "You are a cowboy named Texas Heck, who is "
 						+ "fed up with his cows getting rustled by a gang known as the Long Riders. He hears the "
 						+ "sheriff won’t be much help, so he takes matters into his own hands. Heck starts his "
 						+ "adventure in center of Bombay Hill, one of three towns controlled by the Long Riders, "
 						+ "his plan is to find the leader of the gang and taking them out.");
-				commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "-> Start New Game (Start)\n" + "-> Load Game (Load)\n" + "-> Credit (Credit)");
+				commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. New Game\n" + "2. Load Game\n" + "3. Credit");
+				loadGame = true;
 			}
-			//DrugStore
-			else if((command.equalsIgnoreCase("north west") && drugStore) || command.equalsIgnoreCase("north")) {
+		    //DrugStore
+			else if((TownHub.getRoomLocks() && (command.equalsIgnoreCase("1") || command.equalsIgnoreCase("drug store") || command.equalsIgnoreCase("north west"))) ||
+					(Inn.getRoomLocks() && (command.equalsIgnoreCase("1") || command.equalsIgnoreCase("drug store") || command.equalsIgnoreCase("north")))) {
+				
 				room.DrugStore_1B();
-				townHub = true;
+				TownHub.setRoomLocks(false);
+				DrugStore.setRoomLocks(true);
+				Inn.setRoomLocks(false);
+				Saloon.setRoomLocks(false);
 			}
-			else if(command.equalsIgnoreCase("sr") && drugStore) {
+			else if((command.equalsIgnoreCase("3") || command.equalsIgnoreCase("search room")) && DrugStore.getRoomLocks()) {
+				
 				Potion healthPotion = new Potion("i1", "Health Potion (HP)\n", "A bottle shaped like a human heart with a red liquid inside.", 2, "Potion", 3);
 				Potion attackPotion = new Potion("i2", "Attack Potion (AP)\n", "A perfectly round bottle with a cork in the top. The liquid has a strange yellow color to it but it smells like a delicious tropical fruit when you uncork it.", 3, "Potion", 2);
 				Weapon pistol = new Weapon("i7", "Pistol (P)\n", "A shiney, metalic, little gun. It might be small but it could definitely do some damage!", 5, 5);
 				commandMenu.setLoadGameStory(displayStory, "Drug Store\n\n" + healthPotion.getName() + attackPotion.getName() + pistol.getName() + "\n -> Drug Store (North West)");
-				commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "-> Examine Item (EI)\n" 
-						+ "-> Inventory (I)\n" + "-> Save Game (SG)");
+				commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Examine Item\n" + "2. Inventory\n" + "3. Save Game");
 			}
-			//Inn
-			else if((command.equalsIgnoreCase("south") && inn) || command.equalsIgnoreCase("south west")) {
+		    //Inn
+			else if((DrugStore.getRoomLocks() && (command.equalsIgnoreCase("2") || command.equalsIgnoreCase("inn") || command.equalsIgnoreCase("south"))) || 
+					(TownHub.getRoomLocks() && (command.equalsIgnoreCase("2") || command.equalsIgnoreCase("inn") || command.equalsIgnoreCase("south west")))) {
+				
 				room.Inn_1C();
-				townHub = true;
+				TownHub.setRoomLocks(false);
+				DrugStore.setRoomLocks(false);
+				Inn.setRoomLocks(true);
+				Saloon.setRoomLocks(false);
 			}
-			//Saloon
-			else if(command.equalsIgnoreCase("east") && saloon) {
+		    //Saloon
+			else if((TownHub.getRoomLocks() && (command.equalsIgnoreCase("3") || command.equalsIgnoreCase("saloon") || command.equalsIgnoreCase("east")))) {
+				
 				room.Saloon_1D();
+				TownHub.setRoomLocks(false);
+				DrugStore.setRoomLocks(false);
+				Inn.setRoomLocks(false);
+				Saloon.setRoomLocks(true);
 			}
-			
-			//Save Game
-			if(command.equalsIgnoreCase("sg") && unlockSaveGame) {
+			//Inventory
+			else if(TownHub.getRoomLocks() && (command.equalsIgnoreCase("4") || command.equalsIgnoreCase("inventory")) ||
+					DrugStore.getRoomLocks() && (command.equalsIgnoreCase("4") || command.equalsIgnoreCase("inventory")) ||
+					Inn.getRoomLocks() && (command.equalsIgnoreCase("4") || command.equalsIgnoreCase("inventory")) ||
+					Saloon.getRoomLocks() && (command.equalsIgnoreCase("3") || command.equalsIgnoreCase("inventory"))) {
+				//ERROR ATM!!! - Initialize player class
+				commandMenu.setLoadGameStory(displayStory, player.displayInventory());
+				commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Select Item (Enter Item Number)\n" + "1. Back");
+				
+				if(TownHub.getRoomLocks()==true) {
+					
+					backToGame = TownHub.getRoomLocks();
+					System.out.println("TownHub");
+				}
+				else if(DrugStore.getRoomLocks()==true) {
+					
+					backToGame = DrugStore.getRoomLocks();
+					System.out.println("DrugStore");
+				}
+				else if(Inn.getRoomLocks()==true) {
+					
+					backToGame = Inn.getRoomLocks();
+					System.out.println("Inn");
+				}
+				else if(Saloon.getRoomLocks()==true) {
+					
+					backToGame = Saloon.getRoomLocks();
+					System.out.println("Saloon");
+				}
+			}
+		    //Back
+			else if(backToGame && (command.equalsIgnoreCase("1") || command.equalsIgnoreCase("back"))) { //1. Back
+				
+				//CHANGE backToGame INTO A INVENTORY BOOLEAN PROPERTY
+				//TEST PURPOSE
+				if(TownHub.getRoomLocks()==true) {
+					
+					room.TownHub_1A();
+					TownHub.setRoomLocks(true);
+					DrugStore.setRoomLocks(false);
+					Inn.setRoomLocks(false);
+					Saloon.setRoomLocks(false);
+					System.out.println("TownHub");
+				}
+				else if(DrugStore.getRoomLocks()==true) {
+					
+					room.DrugStore_1B();
+					TownHub.setRoomLocks(false);
+					DrugStore.setRoomLocks(true);
+					Inn.setRoomLocks(false);
+					Saloon.setRoomLocks(false);
+					System.out.println("DrugStore");
+				}
+				else if(Inn.getRoomLocks()==true) {
+					
+					room.Inn_1C();
+					TownHub.setRoomLocks(false);
+					DrugStore.setRoomLocks(false);
+					Inn.setRoomLocks(true);
+					Saloon.setRoomLocks(false);
+					System.out.println("Inn");
+				}
+				else if(Saloon.getRoomLocks()==true) {
+					
+					room.Saloon_1D();
+					TownHub.setRoomLocks(false);
+					DrugStore.setRoomLocks(false);
+					Inn.setRoomLocks(false);
+					Saloon.setRoomLocks(true);
+					System.out.println("Saloon");
+				}
+			}
+		    //Save Game
+			else if(unlockSaveGame && (command.equalsIgnoreCase("4") || command.equalsIgnoreCase("5") || command.equalsIgnoreCase("save game"))) {
+				
 				commandMenu.saveGame("testGame.ini");
 			}
+		    
 			//Exit Game
 			if(command.equalsIgnoreCase("exit")) {
+				
 				System.exit(0);
 			}
-			
-			//Inventory
-			if(command.equalsIgnoreCase("i")) {
-				commandMenu.setLoadGameStory(displayStory, player.displayInventory());
-				commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "->Select Item (Enter Item Number)\n" + "->Back (B)");
-			}
 		});
-		
         /*
 		//TESTING PURPOSE
 		borderPane.setOnMouseMoved(e -> {

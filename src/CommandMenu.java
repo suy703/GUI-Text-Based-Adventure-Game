@@ -13,7 +13,7 @@ public class CommandMenu implements CommandMenuInterface {
 	Image icon, map;
 	ImageView viewIcon, viewMap;
 	TextArea displayStory, displayCommand;
-	String[] action;
+	
 	public CommandMenu(Image icon, Image map, ImageView viewIcon, ImageView viewMap, TextArea displayStory, TextArea displayCommand) {
 		this.icon = icon;
 		this.map = map;
@@ -145,23 +145,5 @@ public class CommandMenu implements CommandMenuInterface {
         viewIcon.setLayoutY(y);
 	}
 	
-	//PARSE ACTION---------------------------------------------------------------------------------------
-	public void setAction(String action) {
-		String input = action;
-		String delims = "[ .]+";
-		String[] lineCommand = input.split(delims);
-		this.action = new String[lineCommand.length];
-		for (int split = 0; split < lineCommand.length; split++) {
-		    this.action[split] = lineCommand[split];
-		}
-	}
-	public String getAction(String action) {
-		String newAction = "";
-		for (int split = 0; split < this.action.length; split++) {
-		    if(action.equalsIgnoreCase(this.action[split])) {
-		    	newAction = action;
-		    }
-		}
-		return newAction;
-	}
+	
 }
