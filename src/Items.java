@@ -4,13 +4,13 @@ public class Items {
 	public String name;
 	public String description;
 	public int price;
+	boolean canEquip = false;
 	
 	public Items(String id, String name, String description, int price) {
 		itemID = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;
-		
 	}
 	
 	public String getItemID() {

@@ -38,6 +38,8 @@ public class GameInterface {
 	Boolean loadGame = true;
 	Boolean unlockSaveGame = false;
 	Boolean backToGame = false;
+	boolean newGame = true; //This will change to false when the game is started
+	boolean inventoryView = false;
 
 	Player player;
 	
@@ -88,11 +90,14 @@ public class GameInterface {
 		    		(DrugStore.getRoomLocks() && (command.equalsIgnoreCase("1") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("east"))) ||
 		    		(Inn.getRoomLocks() && (command.equalsIgnoreCase("2") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("east"))) ||
 		    		(Saloon.getRoomLocks() && (command.equalsIgnoreCase("1") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("west")))){ //1. Start New Game
-				
-		    	if(command.equalsIgnoreCase("new game")) {
+		    	
+		    	if(command.equalsIgnoreCase("new game")|| (command.equalsIgnoreCase("1") && newGame)) {
+		    		newGame = false;
 					player = new Player();
 					System.out.println("Player Created");
-					player.inventory.add(new Weapon("0001", "test item", "ignore description" ,10, 10)); //Testing Inventory
+					Items testWeap = new Weapon("0001", "test item", "ignore description" ,10, 10);//Testing Inventory
+					player.inventory.add(testWeap); //Testing Inventory
+					player.equipWeapon(player.inventory.get(0));
 				}
 				lockMainMenu = false;
 				unlockSaveGame = true;
@@ -163,9 +168,9 @@ public class GameInterface {
 					DrugStore.getRoomLocks() && (command.equalsIgnoreCase("4") || command.equalsIgnoreCase("inventory")) ||
 					Inn.getRoomLocks() && (command.equalsIgnoreCase("4") || command.equalsIgnoreCase("inventory")) ||
 					Saloon.getRoomLocks() && (command.equalsIgnoreCase("3") || command.equalsIgnoreCase("inventory"))) {
-				//ERROR ATM!!! - Initialize player class
+				//ERROR ATM!!! - HAVE TO ENTER  "NEW GAME" IN ORDER TO CREATE CHARACTER
 				commandMenu.setLoadGameStory(displayStory, player.displayInventory());
-				commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Select Item (Enter Item Number)\n" + "1. Back");
+				commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "Select Item (Enter Item Number)\n" + "0. Back");
 				
 				if(TownHub.getRoomLocks()==true) {
 					
@@ -189,7 +194,7 @@ public class GameInterface {
 				}
 			}
 		    //Back
-			else if(backToGame && (command.equalsIgnoreCase("1") || command.equalsIgnoreCase("back"))) { //1. Back
+			else if(backToGame && (command.equalsIgnoreCase("0") || command.equalsIgnoreCase("back"))) { //1. Back
 				
 				//CHANGE backToGame INTO A INVENTORY BOOLEAN PROPERTY
 				//TEST PURPOSE

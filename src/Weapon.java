@@ -4,6 +4,7 @@ public class Weapon extends Items{
 	public Weapon(String id, String name, String description, int price, int attackPower) {
 		super(id, name, description, price);
 		this.attackPower = attackPower;
+		canEquip = true;
 	}
 	
 	
