@@ -127,5 +127,16 @@ public class Rooms {
 		System.out.println("Inside Saloon Store"); // Testing purpose
 
 	}
-	
+	//Jail
+	public void Jail_1E() {
+		CommandMenu commandMenu = new CommandMenu(map, icon, viewIcon, viewMap, displayStory, displayCommand);
+		commandMenu.setNavigateMap(map, viewMap);
+		commandMenu.setNavigateIcon(icon, viewIcon, 495, 340); 
+		commandMenu.setLoadGameStory(displayStory, "Jail\n\n" + "A small room with a couple of cells in the corner. The Deputy Sheriffs "
+				+ "desk is in the other corner. As the Deputy Sheriff shoves you into the cells, you notice a small window. Between the "
+				+ "bars of the window you can see the sun shining down on your horse, waiting for you outside..");
+		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Saloon (North)\n" + "2. Inventory\n" + "3. Save Game");
+		
+		System.out.println("Inside Jail"); // Testing purpose
+	}
 }

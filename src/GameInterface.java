@@ -50,6 +50,7 @@ public class GameInterface {
 		Rooms DrugStore = new Rooms(false, "1B", "Drug Store", "D01, D00", "I1, I2, I4");
 		Rooms Inn = new Rooms(false, "1C", "Inn", "D01, D02", "I3");
 		Rooms Saloon = new Rooms(false, "1D", "Saloon", "D03, D04", "");
+		Rooms Jail = new Rooms(false, "1E", "Jail", "D04", "");
 		
 		BorderPane borderPane = new BorderPane();
 		borderPane.setPrefSize(600,600);
@@ -106,6 +107,7 @@ public class GameInterface {
 				DrugStore.setRoomLocks(false);
 				Inn.setRoomLocks(false);
 				Saloon.setRoomLocks(false);
+				Jail.setRoomLocks(false);
 		    }
 		    //Load Game
 		    else if(lockMainMenu && (command.equalsIgnoreCase("2") || command.equalsIgnoreCase("load game"))) { //2. Load Game
@@ -135,6 +137,7 @@ public class GameInterface {
 				DrugStore.setRoomLocks(true);
 				Inn.setRoomLocks(false);
 				Saloon.setRoomLocks(false);
+				Jail.setRoomLocks(false);
 			}
 			else if((command.equalsIgnoreCase("3") || command.equalsIgnoreCase("search room")) && DrugStore.getRoomLocks()) {
 				
@@ -153,15 +156,28 @@ public class GameInterface {
 				DrugStore.setRoomLocks(false);
 				Inn.setRoomLocks(true);
 				Saloon.setRoomLocks(false);
+				Jail.setRoomLocks(false);
 			}
 		    //Saloon
-			else if((TownHub.getRoomLocks() && (command.equalsIgnoreCase("3") || command.equalsIgnoreCase("saloon") || command.equalsIgnoreCase("east")))) {
+			else if((TownHub.getRoomLocks() && (command.equalsIgnoreCase("3") || command.equalsIgnoreCase("saloon") || command.equalsIgnoreCase("east"))) ||
+					(Jail.getRoomLocks() && (command.equalsIgnoreCase("1") || command.equalsIgnoreCase("saloon") || command.equalsIgnoreCase("north")))) {
 				
 				room.Saloon_1D();
 				TownHub.setRoomLocks(false);
 				DrugStore.setRoomLocks(false);
 				Inn.setRoomLocks(false);
 				Saloon.setRoomLocks(true);
+				Jail.setRoomLocks(false);
+			}
+		    //Jail
+			else if((Saloon.getRoomLocks() && /* INSERT BOOLEAN PUZZLE LOCK */ /* && */ (command.equalsIgnoreCase("2") || command.equalsIgnoreCase("jail") || command.equalsIgnoreCase("south")))) {
+				
+				room.Jail_1E();
+				TownHub.setRoomLocks(false);
+				DrugStore.setRoomLocks(false);
+				Inn.setRoomLocks(false);
+				Saloon.setRoomLocks(false);
+				Jail.setRoomLocks(true);
 			}
 			//Inventory
 			else if(TownHub.getRoomLocks() && (command.equalsIgnoreCase("4") || command.equalsIgnoreCase("inventory")) ||
@@ -192,9 +208,14 @@ public class GameInterface {
 					backToGame = Saloon.getRoomLocks();
 					System.out.println("Saloon");
 				}
+				else if(Jail.getRoomLocks()==true) {
+					
+					backToGame = Jail.getRoomLocks();
+					System.out.println("Jail");
+				}
 			}
 		    //Back
-			else if(backToGame && (command.equalsIgnoreCase("0") || command.equalsIgnoreCase("back"))) { //1. Back
+			else if(backToGame && (command.equalsIgnoreCase("0") || command.equalsIgnoreCase("back"))) {
 				
 				//CHANGE backToGame INTO A INVENTORY BOOLEAN PROPERTY
 				//TEST PURPOSE
@@ -205,6 +226,7 @@ public class GameInterface {
 					DrugStore.setRoomLocks(false);
 					Inn.setRoomLocks(false);
 					Saloon.setRoomLocks(false);
+					Jail.setRoomLocks(false);
 					System.out.println("TownHub");
 				}
 				else if(DrugStore.getRoomLocks()==true) {
@@ -214,6 +236,7 @@ public class GameInterface {
 					DrugStore.setRoomLocks(true);
 					Inn.setRoomLocks(false);
 					Saloon.setRoomLocks(false);
+					Jail.setRoomLocks(false);
 					System.out.println("DrugStore");
 				}
 				else if(Inn.getRoomLocks()==true) {
@@ -223,6 +246,7 @@ public class GameInterface {
 					DrugStore.setRoomLocks(false);
 					Inn.setRoomLocks(true);
 					Saloon.setRoomLocks(false);
+					Jail.setRoomLocks(false);
 					System.out.println("Inn");
 				}
 				else if(Saloon.getRoomLocks()==true) {
@@ -232,13 +256,25 @@ public class GameInterface {
 					DrugStore.setRoomLocks(false);
 					Inn.setRoomLocks(false);
 					Saloon.setRoomLocks(true);
+					Jail.setRoomLocks(false);
 					System.out.println("Saloon");
+				}
+				else if(Jail.getRoomLocks()==true) {
+					
+					room.Jail_1E();
+					TownHub.setRoomLocks(false);
+					DrugStore.setRoomLocks(false);
+					Inn.setRoomLocks(false);
+					Saloon.setRoomLocks(true);
+					Jail.setRoomLocks(true);
+					System.out.println("Jail");
 				}
 			}
 		    //Save Game
-			else if(unlockSaveGame && (command.equalsIgnoreCase("4") || command.equalsIgnoreCase("5") || command.equalsIgnoreCase("save game"))) {
+			else if(unlockSaveGame && (command.equalsIgnoreCase("3") || command.equalsIgnoreCase("4") || command.equalsIgnoreCase("5") || command.equalsIgnoreCase("save game"))) {
 				
 				commandMenu.saveGame("testGame.ini");
+				System.out.println("Save Game"); //Testing Purpose
 			}
 		    
 			//Exit Game
