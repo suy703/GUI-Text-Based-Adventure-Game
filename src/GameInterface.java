@@ -184,7 +184,6 @@ public class GameInterface {
 					DrugStore.getRoomLocks() && (command.equalsIgnoreCase("4") || command.equalsIgnoreCase("inventory")) ||
 					Inn.getRoomLocks() && (command.equalsIgnoreCase("4") || command.equalsIgnoreCase("inventory")) ||
 					Saloon.getRoomLocks() && (command.equalsIgnoreCase("3") || command.equalsIgnoreCase("inventory"))) {
-				//ERROR ATM!!! - HAVE TO ENTER  "NEW GAME" IN ORDER TO CREATE CHARACTER
 				commandMenu.setLoadGameStory(displayStory, player.displayInventory());
 				commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "Select Item (Enter Item Number)\n" + "0. Back");
 				

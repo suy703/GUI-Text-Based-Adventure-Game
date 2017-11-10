@@ -5,6 +5,7 @@ public class Items {
 	public String description;
 	public int price;
 	boolean canEquip = false;
+	boolean canUse = false;
 	
 	public Items(String id, String name, String description, int price) {
 		itemID = id;
@@ -16,26 +17,50 @@ public class Items {
 	public String getItemID() {
 		return itemID;
 	}
+	
 	public void setItemID(String itemID) {
 		this.itemID = itemID;
 	}
+	
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	public String getDescription() {
 		return description;
 	}
+	
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 	public int getPrice() {
 		return price;
 	}
+	
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	
+	public String displayItemOptions(Player p){
+		String invDisplay = name;
+		if(canEquip) {
+			if(equals(p.equippedWeap))
+				invDisplay += "\n2. Unequip";
+			else
+				invDisplay += "\n2. Equip";
+			invDisplay += "\n3. Drop";
+		}else if(canUse) {
+			invDisplay += "\n2. Use\n3. Drop";
+		}else {
+			invDisplay += "\n2. Drop";
+		}
+		return invDisplay;
+	}
+
 
 }

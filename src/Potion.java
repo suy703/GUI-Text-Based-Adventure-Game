@@ -7,6 +7,7 @@ public class Potion extends Items{
 		super(id, name, description, price);
 		this.type = type;
 		this.strength = strength;
+		canUse = true;
 		
 	}
 
@@ -25,7 +26,5 @@ public class Potion extends Items{
 	public void setStrength(int strength) {
 		this.strength = strength;
 	}
-	
-	
 
 }

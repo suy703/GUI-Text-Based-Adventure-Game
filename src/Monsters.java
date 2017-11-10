@@ -1,4 +1,4 @@
-public class Monsters {
+public class Monsters extends Character{
 	
 	String monsterID;
 	String monsterName;
@@ -9,21 +9,15 @@ public class Monsters {
 	int monsterHealth;
 	int monsterAttackPower;
 	
-	public Monsters() {
-		
-	}
-
+	
 	public Monsters(String monsterID, String monsterName, String monsterDescription, String monsterRoomLocation,
-			String itemDropped, int monsterProbability, int monsterHealth, int monsterAttackPower) {
-		super();
+			String itemDropped, int monsterProbability, int monsterHealth, int monsterAttackPower, int gold) {
+		super(monsterName,monsterHealth,monsterAttackPower,gold);
 		this.monsterID = monsterID;
-		this.monsterName = monsterName;
 		this.monsterDescription = monsterDescription;
 		this.monsterRoomLocation = monsterRoomLocation;
 		this.itemDropped = itemDropped;
 		this.monsterProbability = monsterProbability;
-		this.monsterHealth = monsterHealth;
-		this.monsterAttackPower = monsterAttackPower;
 	}
 
 	public String getMonsterID() {
