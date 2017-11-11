@@ -64,6 +64,13 @@ public class Rooms {
 		this.items = items;
 	}
 	
+	//Display Room
+	public void display(String story, String command) {
+		CommandMenu commandMenu = new CommandMenu(map, icon, viewIcon, viewMap, displayStory, displayCommand);
+		commandMenu.setLoadGameStory(displayStory, story);
+		commandMenu.setLoadGameCommand(displayCommand, command);
+	}
+	
 	//Town Hub
 	public void TownHub_1A() {
 		CommandMenu commandMenu = new CommandMenu(map, icon, viewIcon, viewMap, displayStory, displayCommand);

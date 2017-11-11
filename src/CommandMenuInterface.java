@@ -1,6 +1,7 @@
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 
 
 public interface CommandMenuInterface {
@@ -27,4 +28,7 @@ public interface CommandMenuInterface {
 	public ImageView getNavigateIcon();
 	public void setNavigateMap(Image map, ImageView viewMap);
 	public void setNavigateIcon(Image icon, ImageView viewIcon, int x, int y);
+	//BOTTOM PANE---------------------------------------------------------------------------------------
+	//PROMPT MESSAGE
+	public void prompt(Text prompt, String message);
 }

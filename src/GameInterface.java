@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class GameInterface {
@@ -34,12 +35,12 @@ public class GameInterface {
 	TextArea displayCommand = new TextArea("Action\n" + "1. New Game\n" + "2. Load Game\n" 
 			 + "3. Credit");
 	
-	Boolean lockMainMenu = true;
-	Boolean loadGame = true;
-	Boolean unlockSaveGame = false;
+	Boolean lockMainMenu = true; //This will change to false when the game is started
+	Boolean lockLoadGame = true; //This will change to false when the game is started
+	Boolean unlockSaveGame = false; //This will change to true when the game is started
 	Boolean backToGame = false;
-	boolean newGame = true; //This will change to false when the game is started
-	boolean inventoryView = false;
+	Boolean newGame = true; //This will change to false when the game is started
+	Boolean inventoryView = false;
 
 	Player player;
 	
@@ -58,6 +59,7 @@ public class GameInterface {
 		Pane centerPane = new Pane();
 		//StackPane rightPane = new StackPane();
 		HBox bottomPane = new HBox();
+		bottomPane.setStyle("-fx-background-color: #000000;");
 		bottomPane.setPadding(new Insets(10, 10, 10, 10));
 		bottomPane.setSpacing(10);
 		borderPane.setTop(topPane);
@@ -73,17 +75,20 @@ public class GameInterface {
 		displayCommand = commandMenu.getDisplayCommand();
 		//DISPLAY MAP
 		
-		//BOTTOM PANE------------------------------------------------------------------------------------
+		//BOTTOM PANE-------------------------------------------------------------------------------------
+		Text prompt = new Text(); //Error message
 		//EVENTHANDLER COMAMND
         TextField inputCommand = new TextField();
         inputCommand.setPromptText("Enter your command.");
         inputCommand.setPrefWidth(280);
 		inputCommand.setOnKeyPressed(e -> {
 			String command = "";
+			
 			if(e.getCode() == KeyCode.ENTER) {
 				command = inputCommand.getText();
 				System.out.println(inputCommand.getText()); // Testing Purpose
 				inputCommand.clear();
+				commandMenu.prompt(prompt, ""); //Reset prompt
 			}	
 			//MAIN MENU
 			//TownHub
@@ -110,23 +115,20 @@ public class GameInterface {
 				Jail.setRoomLocks(false);
 		    }
 		    //Load Game
-		    else if(lockMainMenu && (command.equalsIgnoreCase("2") || command.equalsIgnoreCase("load game"))) { //2. Load Game
+		    else if(lockMainMenu && (command.equalsIgnoreCase("2") || command.equalsIgnoreCase("load game"))) {
 				
-		    	commandMenu.setLoadGameStory(displayStory, "Load Game");
-				commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Back");
+		    	room.display("Load Game", "Action\n" + "0. Back");
 				commandMenu.loadGame("testGame.ini");
-				loadGame = false;
+				lockLoadGame = false;
 			}
 		    //Back
-			else if(lockMainMenu && (command.equalsIgnoreCase("1") || command.equalsIgnoreCase("back"))) { //1. Back
+			else if(lockMainMenu && (command.equalsIgnoreCase("0") || command.equalsIgnoreCase("back"))) {
 				
-				commandMenu.setLoadGameStory(displayStory, "Outlaw Oasis\n\n" + "You are a cowboy named Texas Heck, who is "
-						+ "fed up with his cows getting rustled by a gang known as the Long Riders. He hears the "
-						+ "sheriff won’t be much help, so he takes matters into his own hands. Heck starts his "
-						+ "adventure in center of Bombay Hill, one of three towns controlled by the Long Riders, "
-						+ "his plan is to find the leader of the gang and taking them out.");
-				commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. New Game\n" + "2. Load Game\n" + "3. Credit");
-				loadGame = true;
+				room.display("Outlaw Oasis\n\n" + "You are a cowboy named Texas Heck, who is fed up with his cows getting rustled by a gang known as the Long Riders. "
+						+ "He hears the sheriff won’t be much help, so he takes matters into his own hands. Heck starts his adventure in center of Bombay Hill, one of "
+						+ "three towns controlled by the Long Riders, his plan is to find the leader of the gang and taking them out.", "Action\n" + "1. New Game\n" 
+						+ "2. Load Game\n" + "3. Credit");
+				lockLoadGame = true;
 			}
 		    //DrugStore
 			else if((TownHub.getRoomLocks() && (command.equalsIgnoreCase("1") || command.equalsIgnoreCase("drug store") || command.equalsIgnoreCase("north west"))) ||
@@ -139,17 +141,44 @@ public class GameInterface {
 				Saloon.setRoomLocks(false);
 				Jail.setRoomLocks(false);
 			}
-			else if((command.equalsIgnoreCase("3") || command.equalsIgnoreCase("search room")) && DrugStore.getRoomLocks()) {
+			else if(DrugStore.getRoomLocks() && (command.equalsIgnoreCase("3") || command.equalsIgnoreCase("search room"))) {
 				
-				Potion healthPotion = new Potion("i1", "Health Potion (HP)\n", "A bottle shaped like a human heart with a red liquid inside.", 2, "Potion", 3);
-				Potion attackPotion = new Potion("i2", "Attack Potion (AP)\n", "A perfectly round bottle with a cork in the top. The liquid has a strange yellow color to it but it smells like a delicious tropical fruit when you uncork it.", 3, "Potion", 2);
-				Weapon pistol = new Weapon("i7", "Pistol (P)\n", "A shiney, metalic, little gun. It might be small but it could definitely do some damage!", 5, 5);
-				commandMenu.setLoadGameStory(displayStory, "Drug Store\n\n" + healthPotion.getName() + attackPotion.getName() + pistol.getName() + "\n -> Drug Store (North West)");
-				commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Examine Item\n" + "2. Inventory\n" + "3. Save Game");
+				Potion healthPotion = new Potion("i1", "Health Potion (HP)", "A bottle shaped like a human heart with a red liquid inside.\n", 2, "H", 3);
+				Potion attackPotion = new Potion("i2", "Attack Potion (AP)", "A perfectly round bottle with a cork in the top. The liquid has a strange yellow color to it but it smells like a delicious tropical fruit when you uncork it.\n", 3, "A", 2);
+				Weapon pistol = new Weapon("i7", "Pistol (P)", "A shiney, metalic, little gun. It might be small but it could definitely do some damage!\n", 5, 5);
+				room.display("Drug Store > Search Room\n\n" + healthPotion.getName() + "----------------------------------\n" + healthPotion.getDescription() 
+				+ attackPotion.getName() + "----------------------------------\n" + attackPotion.getDescription() + pistol.getName() 
+				+ "---------------------------------------------\n" + pistol.getDescription(), "Action\n" + "0. Back\n" + "1. Pickup Item\n" + "2. Inventory\n" 
+				+ "3. Save Game\n");
+			}
+			else if(DrugStore.getRoomLocks() && (command.equalsIgnoreCase("0") || command.equalsIgnoreCase("back"))) {
+				
+				room.DrugStore_1B();
+				TownHub.setRoomLocks(false);
+				DrugStore.setRoomLocks(true);
+				Inn.setRoomLocks(false);
+				Saloon.setRoomLocks(false);
+				Jail.setRoomLocks(false);
 			}
 		    //Inn
 			else if((DrugStore.getRoomLocks() && (command.equalsIgnoreCase("2") || command.equalsIgnoreCase("inn") || command.equalsIgnoreCase("south"))) || 
 					(TownHub.getRoomLocks() && (command.equalsIgnoreCase("2") || command.equalsIgnoreCase("inn") || command.equalsIgnoreCase("south west")))) {
+				
+				room.Inn_1C();
+				TownHub.setRoomLocks(false);
+				DrugStore.setRoomLocks(false);
+				Inn.setRoomLocks(true);
+				Saloon.setRoomLocks(false);
+				Jail.setRoomLocks(false);
+			}
+			else if(Inn.getRoomLocks() && (command.equalsIgnoreCase("3") || command.equalsIgnoreCase("search room"))) {
+				
+				Items gold = new Items("i3", "Gold (1)", "A shiney gold coin with a creepy looking face in the center.", 1);
+				room.display("Drug Store > Search Room\n\n" + gold.getName() + "---------------------------------------------\n" + gold.getDescription(), "Action\n" 
+				+ "0. Back\n" + "1. Pickup Item\n" + "2. Inventory\n" + "3. Save Game\n");
+				
+			}
+			else if(Inn.getRoomLocks() && (command.equalsIgnoreCase("0") || command.equalsIgnoreCase("back"))) {
 				
 				room.Inn_1C();
 				TownHub.setRoomLocks(false);
@@ -184,8 +213,8 @@ public class GameInterface {
 					DrugStore.getRoomLocks() && (command.equalsIgnoreCase("4") || command.equalsIgnoreCase("inventory")) ||
 					Inn.getRoomLocks() && (command.equalsIgnoreCase("4") || command.equalsIgnoreCase("inventory")) ||
 					Saloon.getRoomLocks() && (command.equalsIgnoreCase("3") || command.equalsIgnoreCase("inventory"))) {
-				commandMenu.setLoadGameStory(displayStory, player.displayInventory());
-				commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "Select Item (Enter Item Number)\n" + "0. Back");
+				
+				room.display(player.displayInventory(), "Action\n" + "Select Item (Enter Item Number)\n" + "0. Back");
 				
 				if(TownHub.getRoomLocks()==true) {
 					
@@ -216,8 +245,6 @@ public class GameInterface {
 		    //Back
 			else if(backToGame && (command.equalsIgnoreCase("0") || command.equalsIgnoreCase("back"))) {
 				
-				//CHANGE backToGame INTO A INVENTORY BOOLEAN PROPERTY
-				//TEST PURPOSE
 				if(TownHub.getRoomLocks()==true) {
 					
 					room.TownHub_1A();
@@ -272,6 +299,7 @@ public class GameInterface {
 		    //Save Game
 			else if(unlockSaveGame && (command.equalsIgnoreCase("3") || command.equalsIgnoreCase("4") || command.equalsIgnoreCase("5") || command.equalsIgnoreCase("save game"))) {
 				
+				commandMenu.prompt(prompt, "GAME SAVED");
 				commandMenu.saveGame("testGame.ini");
 				System.out.println("Save Game"); //Testing Purpose
 			}
@@ -282,16 +310,9 @@ public class GameInterface {
 				System.exit(0);
 			}
 		});
-        /*
-		//TESTING PURPOSE
-		borderPane.setOnMouseMoved(e -> {
-			
-			System.out.println("X: " + e.getX() + " Y: " + e.getY());
-		});
-		*/
 		borderPane.setBackground(background);
 		centerPane.getChildren().addAll(displayStory, displayCommand, viewMap, viewIcon);
-		bottomPane.getChildren().add(inputCommand);
+		bottomPane.getChildren().addAll(inputCommand, prompt);
 		mainMenu = new Scene(borderPane);
 		
 		System.out.println("Game interface initialized"); // Testing purpose

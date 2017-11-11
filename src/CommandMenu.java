@@ -4,6 +4,10 @@ import java.util.Scanner;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 public class CommandMenu implements CommandMenuInterface {
 
@@ -144,6 +148,12 @@ public class CommandMenu implements CommandMenuInterface {
         viewIcon.setLayoutX(x);
         viewIcon.setLayoutY(y);
 	}
-	
+	//PROMPT MESSAGE-------------------------------------------------------------------------------------
+	public void prompt(Text prompt, String message) {
+		
+		prompt.setText(message);
+		prompt.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+		prompt.setFill(Color.RED);
+	}
 	
 }
