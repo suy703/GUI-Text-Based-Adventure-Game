@@ -53,6 +53,8 @@ public class GameInterface {
 		Rooms Saloon = new Rooms(false, "1D", "Saloon", "D03, D04", "");
 		Rooms Jail = new Rooms(false, "1E", "Jail", "D04", "");
 		
+		Puzzles puzzle = new Puzzles(map, icon, viewIcon, viewMap, displayStory, displayCommand);
+		
 		BorderPane borderPane = new BorderPane();
 		borderPane.setPrefSize(600,600);
 		VBox topPane = new VBox();
@@ -113,6 +115,9 @@ public class GameInterface {
 				Inn.setRoomLocks(false);
 				Saloon.setRoomLocks(false);
 				Jail.setRoomLocks(false);
+				
+				System.out.println("Town Hub called : Location Game Interface"); // Testing purpose
+
 		    }
 		    //Load Game
 		    else if(lockMainMenu && (command.equalsIgnoreCase("2") || command.equalsIgnoreCase("load game"))) {
@@ -140,6 +145,9 @@ public class GameInterface {
 				Inn.setRoomLocks(false);
 				Saloon.setRoomLocks(false);
 				Jail.setRoomLocks(false);
+				
+				System.out.println("Drug Store Called : Location Game Interface"); // Testing purpose
+
 			}
 			else if(DrugStore.getRoomLocks() && (command.equalsIgnoreCase("3") || command.equalsIgnoreCase("search room"))) {
 				
@@ -170,6 +178,7 @@ public class GameInterface {
 				Inn.setRoomLocks(true);
 				Saloon.setRoomLocks(false);
 				Jail.setRoomLocks(false);
+				
 			}
 			else if(Inn.getRoomLocks() && (command.equalsIgnoreCase("3") || command.equalsIgnoreCase("search room"))) {
 				
@@ -187,8 +196,12 @@ public class GameInterface {
 				Saloon.setRoomLocks(false);
 				Jail.setRoomLocks(false);
 			}
+		    
+// ----------------------------------------------------------------------------------------------------------------------------------------------------		    
 		    //Saloon
-			else if((TownHub.getRoomLocks() && (command.equalsIgnoreCase("3") || command.equalsIgnoreCase("saloon") || command.equalsIgnoreCase("east"))) ||
+		    
+		    // If player is inside the saloon
+			else if ((TownHub.getRoomLocks() && (command.equalsIgnoreCase("3") || command.equalsIgnoreCase("saloon") || command.equalsIgnoreCase("east"))) ||
 					(Jail.getRoomLocks() && (command.equalsIgnoreCase("1") || command.equalsIgnoreCase("saloon") || command.equalsIgnoreCase("north")))) {
 				
 				room.Saloon_1D();
@@ -197,9 +210,48 @@ public class GameInterface {
 				Inn.setRoomLocks(false);
 				Saloon.setRoomLocks(true);
 				Jail.setRoomLocks(false);
-			}
+				
+				System.out.println("Saloon called : Location Game Interface"); // Testing purpose
+			} 
+			
+			// if player is inside the saloon AND wants to go to jail, the puzzle will be prompt
+			else if(Saloon.getRoomLocks() && command.equalsIgnoreCase("2") || command.equalsIgnoreCase("jail") || command.equalsIgnoreCase("south")) {
+				puzzle.puzzleP01();
+				System.out.println("Jail is locked by a puzzle"); // testing purpose
+				
+		    } 
+			
+			// if player is inside saloon and puzzle is prompt but hits the "back" command
+			else if(Saloon.getRoomLocks() && puzzle.getPuzzleLock() && command.equalsIgnoreCase("3") || command.equalsIgnoreCase("back")) {
+				
+		    	room.Saloon_1D();
+				TownHub.setRoomLocks(false);
+				DrugStore.setRoomLocks(false);
+				Inn.setRoomLocks(false);
+				Saloon.setRoomLocks(true);
+				Jail.setRoomLocks(false);
+				
+				System.out.println("Back out in the Saloon from the puzzle"); // Testing purpose
+		    }
+			
+			// if player is in the saloon and puzzle is prompt but hits the "hint" command
+            else if(Saloon.getRoomLocks() && puzzle.getPuzzleLock() && command.equalsIgnoreCase("hint") || command.equalsIgnoreCase("2")) {
+
+               	room.Saloon_1D();
+            	TownHub.setRoomLocks(false);
+            	DrugStore.setRoomLocks(false);
+            	Inn.setRoomLocks(false);
+            	Saloon.setRoomLocks(true);
+            	Jail.setRoomLocks(false);
+            	
+				puzzle.setPuzzleID("P01");
+				puzzle.display(puzzle.getPuzzleHint(), "Action\n" + "1. Hint\n" + "2. Description\n" + "3. Back");
+				System.out.println("Back out in the Saloon from the puzzle"); // Testing purpose
+		    }
+		    	
+//--------------------------------------------------------------------------------------------------------------------------------------------------------
 		    //Jail
-			else if((Saloon.getRoomLocks() && /* INSERT BOOLEAN PUZZLE LOCK */ /* && */ (command.equalsIgnoreCase("2") || command.equalsIgnoreCase("jail") || command.equalsIgnoreCase("south")))) {
+			else if((Saloon.getRoomLocks() && (command.equalsIgnoreCase("2") || command.equalsIgnoreCase("jail") || command.equalsIgnoreCase("south")))) {
 				
 				room.Jail_1E();
 				TownHub.setRoomLocks(false);
@@ -207,7 +259,10 @@ public class GameInterface {
 				Inn.setRoomLocks(false);
 				Saloon.setRoomLocks(false);
 				Jail.setRoomLocks(true);
+				System.out.println("Jail Room called : Location GameInterface"); // Testing purpose
+
 			}
+
 			//Inventory
 			else if(TownHub.getRoomLocks() && (command.equalsIgnoreCase("4") || command.equalsIgnoreCase("inventory")) ||
 					DrugStore.getRoomLocks() && (command.equalsIgnoreCase("4") || command.equalsIgnoreCase("inventory")) ||

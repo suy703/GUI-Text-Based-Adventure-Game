@@ -181,7 +181,7 @@ public class Player extends Character{
 	 * @param m  The monster being attacked.
 	 */
 	public void attackMonster(Monsters m) {
-		m.hp -= (totalAtk + bonusAtk);
+		m.monsterHealth -= (totalAtk + bonusAtk);
 		bonusAtk = 0; //Potion Effect wears off after attack
 		totalAtk = baseAtk + equippedWeap.attackPower + bonusAtk; //The player's totalAtk is updated after the effect of the potion wears off.
 	}

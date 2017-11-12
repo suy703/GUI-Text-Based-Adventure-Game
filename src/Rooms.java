@@ -83,7 +83,7 @@ public class Rooms {
 		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Drug Store (North West)\n" + "2. Inn (South West)\n" + "3. Saloon (East)\n" 
 				+ "4. Inventory\n" + "5. Save Game");
 		
-		System.out.println("Inside Town Hub"); // Testing purpose
+		System.out.println("Loading Town Hub: Location Rooms Class"); // Testing purpose
 
 	}
 	//Drug Store
@@ -99,7 +99,7 @@ public class Rooms {
 		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Town Hub (East)\n" + "2. Inn (South)\n" + "3. Search Room\n" 
 				+ "4. Inventory\n" + "5. Save Game");
 		
-		System.out.println("Inside Drug Store"); // Testing purpose
+		System.out.println("Loading Drug Store : Location Rooms Class"); // Testing purpose
 	}
 	//Inn
 	public void Inn_1C() {
@@ -115,7 +115,7 @@ public class Rooms {
 		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Drug Store (North)\n" + "2. Town Hub (East)\n" + "3. Search Room\n" 
 				+ "4. Inventory\n" + "5. Save Game");
 		
-		System.out.println("Inside Inn"); // Testing purpose
+		System.out.println("Loading Inn Room : Location Rooms Class"); // Testing purpose
 
 	}
 	//Saloon
@@ -128,10 +128,10 @@ public class Rooms {
 				+ "looking suits sit at it smoking cigars and laughing. As you walk in, you notice that all eyes are on you. The barkeep "
 				+ "gives you an inquisitive look, and then goes back to wiping down the bar with a rag that is dirtier than the bar. You "
 				+ "notice a large door with a padlock on it to the South and to the West is the door to the Town Hub.");
-		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Town Hub (West)\n" + "2. Jail (South)\n"+ "3. Inventory\n" 
-				+ "4. Save Game");
+		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Town Hub (West)\n" + "2. Jail (South)\n"+ "3. Inventory\n" + "4. Search Room\n" 
+				+ "5. Save Game");
 		
-		System.out.println("Inside Saloon Store"); // Testing purpose
+		System.out.println("Loading Saloon Store : Location Rooms class"); // Testing purpose
 
 	}
 	//Jail
@@ -144,6 +144,6 @@ public class Rooms {
 				+ "bars of the window you can see the sun shining down on your horse, waiting for you outside..");
 		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Saloon (North)\n" + "2. Inventory\n" + "3. Save Game");
 		
-		System.out.println("Inside Jail"); // Testing purpose
+		System.out.println("Loading Jail : Location Rooms Class"); // Testing purpose
 	}
 }
