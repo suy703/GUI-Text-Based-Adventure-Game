@@ -46,6 +46,9 @@ public class GameInterface {
 	Boolean unlockDoor = false;
 	
 	Player player;
+	Potion healthPotion = new Potion("i1", "Health Potion", "A bottle shaped like a human heart with a red liquid inside.\n", 2, "H", 3);
+	Potion attackPotion = new Potion("i2", "Attack Potion", "A perfectly round bottle with a cork in the top. The liquid has a strange yellow color to it but it smells like a delicious tropical fruit when you uncork it.\n", 3, "A", 2);
+	Weapon pistol = new Weapon("i7", "Pistol", "A shiney, metalic, little gun. It might be small but it could definitely do some damage!\n", 5, 5);
 	
 	public void mainMenu(Stage stage, Scene scene) {
 		CommandMenu commandMenu = new CommandMenu(map, icon, viewIcon, viewMap, displayStory, displayCommand);
@@ -208,15 +211,12 @@ public class GameInterface {
 					Inn.setRoomExits("");
 				}
 			    //DRUG STORE > Search
-				else if(DrugStore.getRoomLocks() && (command.equals("3") || command.equalsIgnoreCase("search room"))) {
+				else if(DrugStore.getRoomLocks() && (command.equalsIgnoreCase("3") || command.equalsIgnoreCase("shop"))) {
 					
-					Potion healthPotion = new Potion("i1", "Health Potion (HP)", "A bottle shaped like a human heart with a red liquid inside.\n", 2, "H", 3);
-					Potion attackPotion = new Potion("i2", "Attack Potion (AP)", "A perfectly round bottle with a cork in the top. The liquid has a strange yellow color to it but it smells like a delicious tropical fruit when you uncork it.\n", 3, "A", 2);
-					Weapon pistol = new Weapon("i7", "Pistol (P)", "A shiney, metalic, little gun. It might be small but it could definitely do some damage!\n", 5, 5);
-					room.display("Drug Store > Search Room\n\n" + healthPotion.getName() + "----------------------------------\n" + healthPotion.getDescription() 
-					+ attackPotion.getName() + "----------------------------------\n" + attackPotion.getDescription() + pistol.getName() 
-					+ "---------------------------------------------\n" + pistol.getDescription(), "Action\n" + "0. Back\n" + "1. Pickup Item\n" + "2. Inventory\n" 
-					+ "3. Save Game\n");
+					Items[] drugstore1 = {healthPotion,attackPotion, pistol};
+					Store store1 = new Store(drugstore1);
+					room.display("Drug Store > Shop\n\n" + store1.displayStore(), "Action\n" + "0. Back\n" + store1.displayPurchaseCommands());
+				
 				}
 			    //DRUG STORE > Search Room > Back
 				else if(DrugStore.getRoomLocks() && (command.equals("0") || command.equalsIgnoreCase("back"))) {

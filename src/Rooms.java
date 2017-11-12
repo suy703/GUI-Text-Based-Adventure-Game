@@ -103,7 +103,7 @@ public class Rooms {
 				+ "could almost measure the amount of dust accumulation on them. A man with a large mustache and a tattered suit "
 				+ "stands behind the counter looking hopeful. To the South is a small passageway leading into a small, dimly lit, room "
 				+ "and to the East is the door leading to the Town Hub.");
-		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Town Hub (East)\n" + "2. Inn (South)\n" + "3. Search Room\n" 
+		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Town Hub (East)\n" + "2. Inn (South)\n" + "3. Shop\n" 
 				+ "4. Inventory\n" + "5. Save Game");
 		
 		System.out.println("Loading Drug Store : Location Rooms Class"); // Testing purpose
