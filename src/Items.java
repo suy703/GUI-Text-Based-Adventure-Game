@@ -47,17 +47,17 @@ public class Items {
 	}
 	
 	public String displayItemOptions(Player p){
-		String invDisplay = name;
+		String invDisplay = name +"------------------\n0. Back";
 		if(canEquip) {
 			if(equals(p.equippedWeap))
-				invDisplay += "\n2. Unequip";
+				invDisplay += "\n1. Unequip";
 			else
-				invDisplay += "\n2. Equip";
-			invDisplay += "\n3. Drop";
-		}else if(canUse) {
-			invDisplay += "\n2. Use\n3. Drop";
-		}else {
+				invDisplay += "\n1. Equip";
 			invDisplay += "\n2. Drop";
+		}else if(canUse) {
+			invDisplay += "\n1. Use\n2. Drop";
+		}else {
+			invDisplay += "\n1. Drop";
 		}
 		return invDisplay;
 	}

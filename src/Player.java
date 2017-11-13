@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+
+import javafx.scene.text.Text;
 /**
  * This class is used to create Player objects the represent the user's int game character. 
  * @author Alex
@@ -26,7 +28,7 @@ public class Player extends Character{
 	 * Constructor. Define's the player's attributes.
 	 */
 	public Player() {
-		super("Texas Heck", 20, 1, 100);
+		super("Texas Heck", 20, 1, 50);
 		inventory = new ArrayList<Items>();
 		equippedWeap = new Weapon("00", "-empty-", "Your bare hands", 0, 1);
 		totalAtk = baseAtk + equippedWeap.attackPower;
@@ -61,7 +63,7 @@ public class Player extends Character{
 
 	/**
 	 * Changes the charcter's equipped weapon.
-	 * @param equippedWeap The new weapom
+	 * @param equippedWeap The new weapon
 	 */
 	public void setEquippedWeap(Weapon equippedWeap) {
 		this.equippedWeap = equippedWeap;
@@ -80,7 +82,7 @@ public class Player extends Character{
 	}
 	
 	/**
-	 * Unequips the character's current wewapon. Change's it to a "bare hands" default weapon.
+	 * Unequip the character's current weapon. Change's it to a "bare hands" default weapon.
 	 */
 	public void unequipWeapon() {
 		equippedWeap = new Weapon("00", "-empty-", "Your bare hands", 0, 1);
@@ -104,9 +106,9 @@ public class Player extends Character{
 		String invDisplay= "Your Inventory";
 		for(int i = 0; i < inventory.size(); i++ ) {
 			if(isEquipped(inventory.get(i)))
-				invDisplay += "\n(" + (i+1) + ") " + inventory.get(0).name + " (EQUIPPED)";	
+				invDisplay += "\n(" + (i+1) + ") " + inventory.get(i).name + " (EQUIPPED)";	
 			else
-				invDisplay += "\n(" + (i+1) + ") " + inventory.get(0).name;	
+				invDisplay += "\n(" + (i+1) + ") " + inventory.get(i).name;	
 		}
 		return invDisplay;
 	}
@@ -128,12 +130,16 @@ public class Player extends Character{
 	 * Removes the price of an item displayed at a store in game  from the player's gold and adds that item to the players inventory.
 	 * @param i The item being purchased.
 	 */
-	public void buyItem(Items i) {
-		if(gold > i.price) {
+	public void buyItem(Items i, CommandMenu cm, Text prompt, Store s) {
+		if(gold >= i.price && inventory.size() < 10) {
 			gold -= i.price;
 			inventory.add(i);
+			cm.prompt(prompt, i.name.toUpperCase() + " PURCHASED");
+			
+		}else if(gold < i.price) {
+			cm.prompt(prompt, "NOT ENOUGH GOLD");
 		}else {
-			System.out.println("Insufficient gold");
+			cm.prompt(prompt, "YOU CAN'T CARRY ANY MORE");
 		}
 	}
 		
@@ -141,25 +147,34 @@ public class Player extends Character{
 	 * Removes an item from the player's inventory and add's the item's price to the player's gold.
 	 * @param i The item being purchased.
 	 */
-	public void sellItem(Items i) {
-		inventory.remove(i);
-		gold += i.price;
+	public void sellItem(Items i, CommandMenu cm, Text prompt, Store s) {
+			if(isEquipped(i)){
+				cm.prompt(prompt,"CAN'T SELL EQUIPPED ITEMS");
+			}else {
+				inventory.remove(i);
+				gold += i.price;
+				cm.prompt(prompt, i.name.toUpperCase() + " SOLD");
+				}
 		}
 	
 	/**
 	 * Consumes an item and adjusts the player's stats according to the items strength and type (effect).
 	 * @param i The potion being consumed.
 	 */
-	public void useItem(Potion i) {
+	public void useItem(Potion i,  CommandMenu cm, Text prompt) {
 		if(i.canUse && i.type.equals("H")) {
-			if(i.strength+ hp> maxHp)
+			if(i.strength+ hp> maxHp) {
 				hp = maxHp;
-			else
+				cm.prompt(prompt, "HP RESTORED");
+			}else {
+				cm.prompt(prompt, i.strength + " HP RESTORED");
 				hp += i.strength;
+			}
 			inventory.remove(i);
 		}else if(i.canUse && i.type.equals("A")){
 			bonusAtk = i.strength;
 			totalAtk = baseAtk + equippedWeap.attackPower + bonusAtk; //Updates the player's totalAtk
+			cm.prompt(prompt, "ATTACK POWER INCREASED");
 			inventory.remove(i);
 			}
 		else {
@@ -184,6 +199,15 @@ public class Player extends Character{
 		m.monsterHealth -= (totalAtk + bonusAtk);
 		bonusAtk = 0; //Potion Effect wears off after attack
 		totalAtk = baseAtk + equippedWeap.attackPower + bonusAtk; //The player's totalAtk is updated after the effect of the potion wears off.
+	}
+	
+	public String sellItemCommands() {
+		String display = "0. Back\n";
+		for(int i = 0; i < inventory.size(); i++) {
+			display +=  (i + 1) + ". Sell " + inventory.get(i).name + "\n";
+		}
+		return display;
+		
 	}
 
 }

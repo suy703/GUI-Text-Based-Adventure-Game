@@ -29,7 +29,7 @@ public class Store {
 		for(int i = 0; i < storeInventory.length; i++) {
 			display += (i+1)+ ". Buy " + storeInventory[i].name + " (" + storeInventory[i].price + " gold)\n";
 		}
-		display += (storeInventory.length+2) + ". Sell Items";
+		display += (storeInventory.length+1) + ". Sell Items";
 		return display;
 	}
 	

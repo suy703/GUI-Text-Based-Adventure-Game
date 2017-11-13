@@ -41,6 +41,10 @@ public class GameInterface {
 	Boolean backToGame = false;
 	Boolean newGame = true; //This will change to false when the game is started
 	Boolean inventoryView = false;
+	boolean storeView = false;
+	boolean itemView = false;
+	int itemIndex;
+
 
 	Boolean testPuzzle = true;
 	Boolean unlockDoor = false;
@@ -49,6 +53,8 @@ public class GameInterface {
 	Potion healthPotion = new Potion("i1", "Health Potion", "A bottle shaped like a human heart with a red liquid inside.\n", 2, "H", 3);
 	Potion attackPotion = new Potion("i2", "Attack Potion", "A perfectly round bottle with a cork in the top. The liquid has a strange yellow color to it but it smells like a delicious tropical fruit when you uncork it.\n", 3, "A", 2);
 	Weapon pistol = new Weapon("i7", "Pistol", "A shiney, metalic, little gun. It might be small but it could definitely do some damage!\n", 5, 5);
+	Items[] drugstore1 = {healthPotion,attackPotion, pistol};
+	Store store1 = new Store(drugstore1);
 	
 	public void mainMenu(Stage stage, Scene scene) {
 		CommandMenu commandMenu = new CommandMenu(map, icon, viewIcon, viewMap, displayStory, displayCommand);
@@ -137,7 +143,7 @@ public class GameInterface {
 					lockLoadGame = true;
 				}
 			    //TOWN HUB---------------------------------------------------------------------------------------------------------------------------
-				else if((DrugStore.getRoomLocks() && (command.equals("1") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("east"))) ||
+				else if((DrugStore.getRoomLocks() && !storeView &&(command.equals("1") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("east"))) ||
 			    		(Inn.getRoomLocks() && (command.equals("2") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("east"))) ||
 			    		(Saloon.getRoomLocks() && (command.equals("1") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("west")))) {
 					//TOWN HUB > Door
@@ -210,15 +216,141 @@ public class GameInterface {
 					TownHub.setRoomExits("");
 					Inn.setRoomExits("");
 				}
-			    //DRUG STORE > Search
-				else if(DrugStore.getRoomLocks() && (command.equalsIgnoreCase("3") || command.equalsIgnoreCase("shop"))) {
-					
-					Items[] drugstore1 = {healthPotion,attackPotion, pistol};
-					Store store1 = new Store(drugstore1);
-					room.display("Drug Store > Shop\n\n" + store1.displayStore(), "Action\n" + "0. Back\n" + store1.displayPurchaseCommands());
+			    //DRUG STORE > Shop
+				else if(DrugStore.getRoomLocks() && !storeView &&(command.equalsIgnoreCase("3") || command.equalsIgnoreCase("shop"))) {
+					storeView = true;
+					room.display("Drug Store > Shop\n\n" + store1.displayStore() + "\nYou have " + player.gold + 
+							" gold", "Action\n" + "0. Back\n" + store1.displayPurchaseCommands());
 				
 				}
-			    //DRUG STORE > Search Room > Back
+			    //Purchase Item -Health Potion
+				else if(DrugStore.getRoomLocks() && !inventoryView && storeView && (command.equals("1") || command.equalsIgnoreCase("Health Potion"))){
+					player.buyItem(store1.storeInventory[0],commandMenu,prompt,store1);
+					room.display("Drug Store > Shop\n\n" + store1.displayStore() + "\nYou have " + player.gold + 
+							" gold", "Action\n" + "0. Back\n" + store1.displayPurchaseCommands());
+					
+				} 
+			    //Purchase Item -Attack Potion
+				else if(DrugStore.getRoomLocks() &&!inventoryView && storeView && (command.equals("2") || command.equalsIgnoreCase("Attack Potion"))){
+					player.buyItem(store1.storeInventory[1],commandMenu,prompt,store1);
+					room.display("Drug Store > Shop\n\n" + store1.displayStore() + "\nYou have " + player.gold + 
+							" gold", "Action\n" + "0. Back\n" + store1.displayPurchaseCommands());
+					
+				}
+			    //Purchase Item -Pistol
+				else if(DrugStore.getRoomLocks() &&!inventoryView && storeView && (command.equals("3") || command.equalsIgnoreCase("Pistol"))){
+					player.buyItem(store1.storeInventory[2],commandMenu,prompt,store1);
+					room.display("Drug Store > Shop\n\n" + store1.displayStore() + "\nYou have " + player.gold + " gold", "Action\n" + "0. Back\n" + store1.displayPurchaseCommands());
+					
+				}
+			    //Sell Item Menu
+				else if(DrugStore.getRoomLocks() && !inventoryView &&storeView && (command.equals("4") || command.equalsIgnoreCase("Sell"))){
+					inventoryView = true;
+					room.display(player.displayInventory() + "\nYou have " + player.gold + " gold", player.sellItemCommands());
+					
+				}
+			    //Sell Item 1
+				else if(DrugStore.getRoomLocks() && inventoryView &&storeView && (command.equals("1"))) {
+					if(player.inventory.size()>0) {
+						player.sellItem(player.inventory.get(0),commandMenu,prompt,store1);
+						room.display(player.displayInventory() + "\nYou have " + player.gold + " gold", player.sellItemCommands());
+					}else {
+						System.out.println(player.inventory.size()+ "S");
+						commandMenu.prompt(prompt, "INVALID COMMAND");
+					}
+				}
+			  //Sell Item 2
+				else if(DrugStore.getRoomLocks() && inventoryView &&storeView && (command.equals("2"))) {
+					if(player.inventory.size()>1) {
+						player.sellItem(player.inventory.get(1),commandMenu,prompt,store1);
+						room.display(player.displayInventory() + "\nYou have " + player.gold + " gold", player.sellItemCommands());
+					}else {
+						
+						commandMenu.prompt(prompt, "INVALID COMMAND");
+					}
+				}
+			  //Sell Item 3
+				else if(DrugStore.getRoomLocks() && inventoryView &&storeView && (command.equals("3"))) {
+					if(player.inventory.size()>2) {
+						player.sellItem(player.inventory.get(2),commandMenu,prompt,store1);
+						room.display(player.displayInventory() + "\nYou have " + player.gold + " gold", player.sellItemCommands());
+					}else {
+						commandMenu.prompt(prompt, "INVALID COMMAND");
+					}	
+				}
+			  //Sell Item 4
+				else if(DrugStore.getRoomLocks() && inventoryView &&storeView && (command.equals("4"))) {
+					if(player.inventory.size()>3) {
+						player.sellItem(player.inventory.get(3),commandMenu,prompt,store1);
+						room.display(player.displayInventory() + "\nYou have " + player.gold + " gold", player.sellItemCommands());
+					}else {
+						commandMenu.prompt(prompt, "INVALID COMMAND");
+					}
+				}
+			  //Sell Item 5
+				else if(DrugStore.getRoomLocks() && inventoryView &&storeView && (command.equals("5"))) {
+					if(player.inventory.size()>4) {
+						player.sellItem(player.inventory.get(4),commandMenu,prompt,store1);
+						room.display(player.displayInventory() + "\nYou have " + player.gold + " gold", player.sellItemCommands());
+					}else {
+						commandMenu.prompt(prompt, "INVALID COMMAND");
+					}	
+				}
+			  //Sell Item 6
+				else if(DrugStore.getRoomLocks() && inventoryView &&storeView && (command.equals("6"))) {
+					if(player.inventory.size()>5) {
+						player.sellItem(player.inventory.get(5),commandMenu,prompt,store1);
+						room.display(player.displayInventory() + "\nYou have " + player.gold + " gold", player.sellItemCommands());
+					}else {
+						commandMenu.prompt(prompt, "INVALID COMMAND");
+					}	
+				}
+			  //Sell Item 7
+				else if(DrugStore.getRoomLocks() && inventoryView &&storeView && (command.equals("7"))) {
+					if(player.inventory.size()>6) {
+						player.sellItem(player.inventory.get(6),commandMenu,prompt,store1);
+						room.display(player.displayInventory() + "\nYou have " + player.gold + " gold", player.sellItemCommands());
+					}else {
+						commandMenu.prompt(prompt, "INVALID COMMAND");
+					}	
+				}
+			  //Sell Item 8
+				else if(DrugStore.getRoomLocks() && inventoryView &&storeView && (command.equals("8"))) {
+					if(player.inventory.size()>7) {
+						player.sellItem(player.inventory.get(7),commandMenu,prompt,store1);
+						room.display(player.displayInventory() + "\nYou have " + player.gold + " gold", player.sellItemCommands());
+					}else {
+						commandMenu.prompt(prompt, "INVALID COMMAND");
+					}	
+				}
+			  //Sell Item 9
+				else if(DrugStore.getRoomLocks() && inventoryView &&storeView && (command.equals("9"))) {
+					if(player.inventory.size()>8) {
+						player.sellItem(player.inventory.get(8),commandMenu,prompt,store1);
+						room.display(player.displayInventory() + "\nYou have " + player.gold + " gold", player.sellItemCommands());
+					}else {
+						commandMenu.prompt(prompt, "INVALID COMMAND");
+					}	
+				}
+			  //Sell Item 10
+				else if(DrugStore.getRoomLocks() && inventoryView &&storeView && (command.equals("10"))) {
+					if(player.inventory.size()>9) {
+						player.sellItem(player.inventory.get(2),commandMenu,prompt,store1);
+						room.display(player.displayInventory() + "\nYou have " + player.gold + " gold", player.sellItemCommands());
+					}else {
+						commandMenu.prompt(prompt, "INVALID COMMAND");
+					}	
+				}
+				else if(DrugStore.getRoomLocks() && inventoryView &&storeView && (command.equals("11"))) {
+					if(player.inventory.size()>10) {
+						player.sellItem(player.inventory.get(10),commandMenu,prompt,store1);
+						room.display(player.displayInventory() + "\nYou have " + player.gold + " gold", player.sellItemCommands());
+					}else {
+						commandMenu.prompt(prompt, "INVALID COMMAND");
+					}	
+				}
+
+			    //DRUG STORE > Shop > Back
 				else if(DrugStore.getRoomLocks() && (command.equals("0") || command.equalsIgnoreCase("back"))) {
 					
 					room.DrugStore_1B();
@@ -227,12 +359,14 @@ public class GameInterface {
 					Inn.setRoomLocks(false);
 					Saloon.setRoomLocks(false);
 					Jail.setRoomLocks(false);
+					storeView = false;
+					inventoryView = false;
 					
 					TownHub.setRoomExits("");
 					Inn.setRoomExits("");
 				}
 			    //INN--------------------------------------------------------------------------------------------------------------------------------
-				else if((DrugStore.getRoomLocks() && (command.equals("2") || command.equalsIgnoreCase("inn") || command.equalsIgnoreCase("south"))) || 
+				else if((DrugStore.getRoomLocks() && (command.equals("2") &&!storeView || command.equalsIgnoreCase("inn") || command.equalsIgnoreCase("south"))) || 
 						(TownHub.getRoomLocks() && (command.equals("2") || command.equalsIgnoreCase("inn") || command.equalsIgnoreCase("south west")))) {
 					//INN > Door
 					if(DrugStore.getRoomLocks() && (command.equals("2") || command.equalsIgnoreCase("inn") || command.equalsIgnoreCase("south"))) {
@@ -361,13 +495,13 @@ public class GameInterface {
 					}
 				}
 				//Inventory
-				if(TownHub.getRoomLocks() && (command.equalsIgnoreCase("4") || command.equalsIgnoreCase("inventory")) ||
+				if(!storeView && (TownHub.getRoomLocks() && (command.equalsIgnoreCase("4") || command.equalsIgnoreCase("inventory")) ||
 						DrugStore.getRoomLocks() && (command.equalsIgnoreCase("4") || command.equalsIgnoreCase("inventory")) ||
 						Inn.getRoomLocks() && (command.equalsIgnoreCase("4") || command.equalsIgnoreCase("inventory")) ||
-						Saloon.getRoomLocks() && (command.equalsIgnoreCase("3") || command.equalsIgnoreCase("inventory"))) {
+						Saloon.getRoomLocks() && (command.equalsIgnoreCase("3") || command.equalsIgnoreCase("inventory")))) {
 					
 					room.display(player.displayInventory(), "Action\n" + "Select Item (Enter Item Number)\n" + "0. Back");
-					
+					inventoryView = true;
 					if(TownHub.getRoomLocks()==true) {
 						
 						backToGame = TownHub.getRoomLocks();
@@ -394,9 +528,113 @@ public class GameInterface {
 						System.out.println("Jail");
 					}
 				}
+				else if(!storeView && inventoryView && command.equals("1")) {
+					if(player.inventory.size()>0) {
+						room.display(player.inventory.get(0).name + "\n-----------------\n" + player.inventory.get(0).description,player.inventory.get(0).displayItemOptions(player));
+						itemView = true;
+						itemIndex = 0;
+					}
+					else {
+						commandMenu.prompt(prompt, "INVALID COMMAND");
+					}
+					
+				}
+				else if(!storeView && inventoryView && command.equals("2")) {
+					if(player.inventory.size()>1) {
+						room.display(player.inventory.get(1).name + "\n-----------------\n" + player.inventory.get(1).description,player.inventory.get(1).displayItemOptions(player));
+						itemView = true;
+						itemIndex = 1;
+					}
+					else {
+						commandMenu.prompt(prompt, "INVALID COMMAND");
+					}
+				}
+				else if(!storeView && inventoryView && command.equals("3")) {
+					if(player.inventory.size()>2) {
+						room.display(player.inventory.get(2).name + "\n-----------------\n" + player.inventory.get(2).description,player.inventory.get(2).displayItemOptions(player));
+						itemView = true;
+						itemIndex =2;
+					}
+					else {
+						commandMenu.prompt(prompt, "INVALID COMMAND");
+					}
+				}
+				else if(!storeView && inventoryView && command.equals("4")) {
+					if(player.inventory.size()>3) {
+						room.display(player.inventory.get(3).name + "\n-----------------\n" + player.inventory.get(3).description,player.inventory.get(3).displayItemOptions(player));
+						itemView = true;
+						itemIndex =3;
+					}
+					else {
+						commandMenu.prompt(prompt, "INVALID COMMAND");
+					}
+				}
+				else if(!storeView && inventoryView && command.equals("5")) {
+					if(player.inventory.size()>4) {
+						room.display(player.inventory.get(4).name + "\n-----------------\n" + player.inventory.get(4).description,player.inventory.get(4).displayItemOptions(player));
+						itemView = true;
+						itemIndex =4;
+					}
+					else {
+						commandMenu.prompt(prompt, "INVALID COMMAND");
+					}
+				}
+				else if(!storeView && inventoryView && command.equals("6")) {
+					if(player.inventory.size()>5) {
+						room.display(player.inventory.get(5).name + "\n-----------------\n" + player.inventory.get(5).description,player.inventory.get(5).displayItemOptions(player));
+						itemView = true;
+						itemIndex =5;
+					}
+					else {
+						commandMenu.prompt(prompt, "INVALID COMMAND");
+					}
+				}
+				else if(!storeView && inventoryView && command.equals("7")) {
+					if(player.inventory.size()>6) {
+						room.display(player.inventory.get(6).name + "\n-----------------\n" + player.inventory.get(6).description,player.inventory.get(6).displayItemOptions(player));
+						itemView = true;
+						itemIndex =6;
+					}
+					else {
+						commandMenu.prompt(prompt, "INVALID COMMAND");
+					}
+				}
+				else if(!storeView && inventoryView && command.equals("8")) {
+					if(player.inventory.size()>7) {
+						room.display(player.inventory.get(7).name + "\n-----------------\n" + player.inventory.get(7).description,player.inventory.get(7).displayItemOptions(player));
+						itemView = true;
+						itemIndex =7;
+					}
+					else {
+						commandMenu.prompt(prompt, "INVALID COMMAND");
+					}
+				}
+				else if(!storeView && inventoryView && command.equals("9")) {
+					if(player.inventory.size()>8) {
+						room.display(player.inventory.get(8).name + "\n-----------------\n" + player.inventory.get(8).description,player.inventory.get(8).displayItemOptions(player));
+						itemView = true;
+						itemIndex =8;
+					}
+					else {
+						commandMenu.prompt(prompt, "INVALID COMMAND");
+					}
+				}
+				else if(!storeView && inventoryView && command.equals("10")) {
+					if(player.inventory.size()>9) {
+						room.display(player.inventory.get(9).name + "\n-----------------\n" + player.inventory.get(9).description,player.inventory.get(9).displayItemOptions(player));
+						itemView = true;
+						itemIndex =9;
+					}
+					else {
+						commandMenu.prompt(prompt, "INVALID COMMAND");
+					}
+					
+				}
+				
 			    //Back
 				else if(backToGame && (command.equalsIgnoreCase("0") || command.equalsIgnoreCase("back"))) {
-					
+					inventoryView = false;
+					itemView = false;
 					if(TownHub.getRoomLocks()==true) {
 						
 						room.TownHub_1A();
