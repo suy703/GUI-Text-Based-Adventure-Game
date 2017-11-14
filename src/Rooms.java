@@ -135,7 +135,7 @@ public class Rooms {
 				+ "looking suits sit at it smoking cigars and laughing. As you walk in, you notice that all eyes are on you. The barkeep "
 				+ "gives you an inquisitive look, and then goes back to wiping down the bar with a rag that is dirtier than the bar. You "
 				+ "notice a large door with a padlock on it to the South and to the West is the door to the Town Hub.");
-		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Town Hub (West)\n" + "2. Jail (South)\n"+ "3. Inventory\n" + "4. Search Room\n" 
+		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Town Hub (West)\n" + "2. Jail (South)\n"+ "3. Search Room\n" + "4. Inventory\n" 
 				+ "5. Save Game");
 		
 		System.out.println("Loading Saloon Store : Location Rooms class"); // Testing purpose

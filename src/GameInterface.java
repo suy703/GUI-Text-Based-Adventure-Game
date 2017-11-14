@@ -64,6 +64,7 @@ public class GameInterface {
 		Rooms Inn = new Rooms("Bombay Hill", false, "1C", "Inn", "", "I3");
 		Rooms Saloon = new Rooms("Bombay Hill", false, "1D", "Saloon", "", "");
 		Rooms Jail = new Rooms("Bombay Hill", false, "1E", "Jail", "", "");
+	
 		Puzzles puzzle = new Puzzles(map, icon, viewIcon, viewMap, displayStory, displayCommand);
 		
 		BorderPane borderPane = new BorderPane();
@@ -398,14 +399,14 @@ public class GameInterface {
 					DrugStore.setRoomExits("");
 				}
 			    //INN > Search Room
-				else if(Inn.getRoomLocks() && (command.equals("3") || command.equalsIgnoreCase("search room"))) {
+				else if(Inn.getRoomLocks() && Inn.getRoomID().equals("1C") && (command.equals("3") || command.equalsIgnoreCase("search room"))) {
 					
 					Items gold = new Items("i3", "Gold (1)", "A shiney gold coin with a creepy looking face in the center.", 1);
 					room.display("Drug Store > Search Room\n\n" + gold.getName() + "---------------------------------------------\n" + gold.getDescription(), "Action\n" 
 					+ "0. Back\n" + "1. Pickup Item\n" + "2. Inventory\n" + "3. Save Game\n");
 				}
 			    //INN > Search Room > Back
-				else if(Inn.getRoomLocks() && (command.equals("0") || command.equalsIgnoreCase("back"))) {
+				else if(Inn.getRoomLocks() && Inn.getRoomID().equals("1C") && (command.equals("0") || command.equalsIgnoreCase("back"))) {
 					
 					room.Inn_1C();
 					TownHub.setRoomLocks(false);
@@ -427,12 +428,29 @@ public class GameInterface {
 						TownHub.setRoomLocks(false);
 						TownHub.setRoomExits("D06");
 					}
-					//SALOON > Unlocked Door
+					//SALOON > Locked Door/Unlocked Door
 					else if(Jail.getRoomLocks() && (command.equals("1") || command.equalsIgnoreCase("saloon") || command.equalsIgnoreCase("north"))) {
-						room.display("Jail > Unlocked Door\n\nA very well guarded door that leads into the Deputy Sheriff’s office. There must be "
-						+ "some way to get in there...", "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
-						Jail.setRoomLocks(false);
-						Jail.setRoomExits("D09");
+						
+						if(Jail.getRoomLocks() && testPuzzle && (command.equals("1") || command.equalsIgnoreCase("saloon") || command.equalsIgnoreCase("north"))) {
+							
+							room.display("Jail > Locked Door\n\nA very well guarded door that leads into the Deputy Sheriff’s office. There must be "
+							+ "some way to get in there...", "Action\n" + "0. Leave Door\n" + "1. Unlock Door");
+							Jail.setRoomLocks(false);
+							Jail.setRoomExits("D09");
+							//AFTER FIGHT W/ BOSS IN JAIL
+							//unlockDoor = true; //Testing Purpose
+							if(unlockDoor == true) { 
+								unlockDoor = true;
+								testPuzzle = false;
+							}
+						}
+						else if(Jail.getRoomLocks() && unlockDoor && (command.equals("1") || command.equalsIgnoreCase("saloon") || command.equalsIgnoreCase("north"))) {
+							
+							room.display("Jail > Unlocked Door\n\nA very well guarded door that leads into the Deputy Sheriff’s office. There must be "
+							+ "some way to get in there...", "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
+							Jail.setRoomLocks(false);
+							Jail.setRoomExits("D09");
+						}
 					}
 				}
 				else if((TownHub.getRoomExits().contains("D06") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) || 
@@ -440,14 +458,57 @@ public class GameInterface {
 						(Saloon.getRoomExits().contains("D08") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
 						(Jail.getRoomExits().contains("D09") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y")))) {
 					
-					room.Saloon_1D();
+					if((TownHub.getRoomExits().contains("D06") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) || 
+						(Saloon.getRoomExits().contains("D07") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
+						(Saloon.getRoomExits().contains("D08") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n")))) {
+						room.Saloon_1D();
+						TownHub.setRoomLocks(false);
+						DrugStore.setRoomLocks(false);
+						Inn.setRoomLocks(false);
+						Saloon.setRoomLocks(true);
+						Jail.setRoomLocks(false);
+						
+						TownHub.setRoomExits("");
+					}
+					else if(Jail.getRoomExits().contains("D09") && testPuzzle && (command.equals("1") || command.equalsIgnoreCase("unlock door"))) {
+						
+						room.display("Jail > Locked Door\n\nA very well guarded door that leads into the Deputy Sheriff’s office. There must be "
+						+ "some way to get in there...", "Action\n" + "0. Leave Door\n" + "1. Unlock Door");
+						Jail.setRoomExits("D09");
+						commandMenu.prompt(prompt, "CANNOT OPEN DOOR");
+						
+					}
+					else if(Jail.getRoomExits().contains("D09") && unlockDoor && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) {
+						
+						room.Saloon_1D();
+						TownHub.setRoomLocks(false);
+						DrugStore.setRoomLocks(false);
+						Inn.setRoomLocks(false);
+						Saloon.setRoomLocks(true);
+						Jail.setRoomLocks(false);
+						
+						TownHub.setRoomExits("");
+					}
+				}
+			    //SALOON > Search Room
+				else if(Saloon.getRoomLocks() && Saloon.getRoomID().equals("1D") && (command.equals("3") || command.equalsIgnoreCase("search room"))) {
+					
+					//ENCOUNTER HENCHMAN THEN FIGHT BOSS
+					//Call Monster class
+					room.display("Drug Store > Search Room\n\nHenchman", "Action\n" + "0. Back\n" + "1. Fight Henchman\n" + "2. Inventory\n" + "3. Save Game\n");
+				}
+			    //SALOON > Search Room > Back
+				else if(Saloon.getRoomLocks() && Saloon.getRoomID().equals("1D") && (command.equals("0") || command.equalsIgnoreCase("back"))) {
+					
+					room.Inn_1C();
 					TownHub.setRoomLocks(false);
 					DrugStore.setRoomLocks(false);
-					Inn.setRoomLocks(false);
-					Saloon.setRoomLocks(true);
+					Inn.setRoomLocks(true);
+					Saloon.setRoomLocks(false);
 					Jail.setRoomLocks(false);
 					
 					TownHub.setRoomExits("");
+					DrugStore.setRoomExits("");
 				}
 			    //JAIL-------------------------------------------------------------------------------------------------------------------------------
 				else if((Saloon.getRoomLocks() && (command.equals("2") || command.equalsIgnoreCase("jail") || command.equalsIgnoreCase("south")))) {
@@ -460,7 +521,7 @@ public class GameInterface {
 						Saloon.setRoomExits("D08");
 						//SOLVE & UNLOCK PUZZLE
 						//If FALSE, cannot access jail and throws error message
-						unlockDoor = true; //Testing Purpose
+						//unlockDoor = true; //Testing Purpose
 						if(unlockDoor == true) { 
 							unlockDoor = true;
 							testPuzzle = false;
@@ -492,6 +553,8 @@ public class GameInterface {
 						Inn.setRoomLocks(false);
 						Saloon.setRoomLocks(false);
 						Jail.setRoomLocks(true);
+						//testPuzzle = true; //Testing Purpose
+						//unlockDoor = false; //Testing Purpose
 					}
 				}
 				//Inventory
