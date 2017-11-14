@@ -1,3 +1,4 @@
+
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
@@ -75,6 +76,6 @@ public class GameInterface {
 		bottomPane.getChildren().addAll(inputCommand, prompt);
 		mainMenu = new Scene(borderPane);
 		
-		System.out.println("Game interface initialized"); // Testing purpose
+		System.out.println("Game Interface Initialized"); // Testing purpose
 	}
 }

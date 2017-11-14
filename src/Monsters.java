@@ -11,8 +11,8 @@ public class Monsters{
 
 	
 
-	public Monsters(String monsterID) {
-		this.monsterID = monsterID;
+	public Monsters() {
+		
 	}
 
 	public String getMonsterID() {
@@ -96,7 +96,7 @@ public class Monsters{
 		} else if (monsterID.equalsIgnoreCase("M12")) {
 			monsterDescription = "Tall and slender, and at first glance he might look frail. "
 					+ "His eyes are an ice cold blue, and you can tell from his gaze "
-					+ "that he is utterly unforgiving";
+					+ "that he is utterly unforgiving, finish him off to a duel to avoid 10 years in the darkness of a cold cell";
 		}
 		return monsterDescription;
 	}

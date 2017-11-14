@@ -14,13 +14,13 @@ import javafx.stage.Stage;
 public class OutlawOasis extends Application {
 
 	public static void main(String[] args) {
-		System.out.println("Main method initialized"); // Testing purpose
+		System.out.println("Main Method Initialized"); // Testing purpose
 
 		launch(args);
 	}
 	
 	public void start(Stage stage) {
-		System.out.println("Start method initialized"); // Testing purpose
+		System.out.println("Start Method Initialized"); // Testing purpose
 
 		GameInterface ui = new GameInterface();
 		ui.mainMenu(stage, ui.mainMenu);
