@@ -39,9 +39,7 @@ public class GameInterface {
 		CommandMenu commandMenu = new CommandMenu(map, icon, viewIcon, viewMap, displayStory, displayCommand);
 		Rooms room = new Rooms(map, icon, viewIcon, viewMap, displayStory, displayCommand);
 		GameControl control = new GameControl();
-	
-		Puzzles puzzle = new Puzzles(map, icon, viewIcon, viewMap, displayStory, displayCommand);
-		
+
 		BorderPane borderPane = new BorderPane();
 		borderPane.setPrefSize(600,600);
 		VBox topPane = new VBox();
