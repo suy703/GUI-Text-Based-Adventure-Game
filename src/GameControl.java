@@ -14,7 +14,6 @@ public class GameControl {
 	boolean itemView = false;
 	int itemIndex;
 
-	Text prompt = new Text(); //Error message
 	Boolean testPuzzle = true;
 	Boolean unlockDoor = false;
 	
@@ -25,7 +24,7 @@ public class GameControl {
 	Items[] drugstore1 = {healthPotion,attackPotion, pistol};
 	Store store1 = new Store(drugstore1);
 	
-	public void gameControl(TextField inputCommand, CommandMenu commandMenu, Rooms room) {
+	public void gameControl(TextField inputCommand, Text prompt, CommandMenu commandMenu, Rooms room) {
 		Rooms TownHub = new Rooms("Bombay Hill", false, "1A", "Town Hub", "", "");
 		Rooms DrugStore = new Rooms("Bombay Hill", false, "", "Drug Store", "", "I1, I2, I4");
 		Rooms Inn = new Rooms("Bombay Hill", false, "", "Inn", "", "I3");

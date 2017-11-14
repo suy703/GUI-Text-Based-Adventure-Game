@@ -68,7 +68,7 @@ public class GameInterface {
 		//EVENTHANDLER COMAMND
         TextField inputCommand = new TextField();
       
-		control.gameControl(inputCommand, commandMenu, room);
+		control.gameControl(inputCommand, prompt, commandMenu, room);
 			
 		borderPane.setBackground(background);
 		centerPane.getChildren().addAll(displayStory, displayCommand, viewMap, viewIcon);
