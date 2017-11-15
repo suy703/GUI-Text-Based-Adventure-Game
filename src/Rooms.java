@@ -15,7 +15,9 @@ public class Rooms {
 	Image map, icon;
 	ImageView viewIcon, viewMap;
 	TextArea displayStory, displayCommand;
-	
+	/*
+	 * CONSTRUCTOR
+	 */
 	public Rooms(String level, Boolean locks, String ID, String name, String exits, String items) {
 		
 		this.levels = level;
@@ -25,7 +27,9 @@ public class Rooms {
 		this.exits = exits;
 		this.items = items;
 	}
-	
+	/*
+	 * CONSTRUCTOR
+	 */
 	public Rooms(Image map, Image icon, ImageView viewIcon, ImageView viewMap, TextArea displayStory, TextArea displayCommand) {
 		 this.map = map;
 		 this.icon = icon;
@@ -34,7 +38,7 @@ public class Rooms {
 		 this.displayStory = displayStory;
 		 this.displayCommand = displayCommand;
 	 }
-	
+
 	public String getRoomLevel() {
 		return this.levels;
 	}
@@ -78,6 +82,7 @@ public class Rooms {
 		commandMenu.setLoadGameStory(displayStory, story);
 		commandMenu.setLoadGameCommand(displayCommand, command);
 	}
+	
 	//Town Hub
 	public void TownHub_1A() {
 		CommandMenu commandMenu = new CommandMenu(map, icon, viewIcon, viewMap, displayStory, displayCommand);

@@ -17,7 +17,15 @@ public class CommandMenu implements CommandMenuInterface {
 	Image icon, map;
 	ImageView viewIcon, viewMap;
 	TextArea displayStory, displayCommand;
-	
+	/*
+	 * CONSTRUCTOR
+	 */
+	public CommandMenu() {
+		// TODO Auto-generated constructor stub
+	}
+	/*
+	 * CONSTRUCTOR
+	 */
 	public CommandMenu(Image icon, Image map, ImageView viewIcon, ImageView viewMap, TextArea displayStory, TextArea displayCommand) {
 		this.icon = icon;
 		this.map = map;
@@ -26,6 +34,7 @@ public class CommandMenu implements CommandMenuInterface {
 		this.displayStory = displayStory;
 		this.displayCommand = displayCommand;
 	}
+	
 	//CENTER PANE--------------------------------------------------------------------------------------
 	//DISPLAY STORY
 	public TextArea getDisplayStory() {

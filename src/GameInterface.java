@@ -36,10 +36,7 @@ public class GameInterface {
 			 + "3. Credit");
 	
 	public void mainMenu(Stage stage, Scene scene) {
-		CommandMenu commandMenu = new CommandMenu(map, icon, viewIcon, viewMap, displayStory, displayCommand);
-		Rooms room = new Rooms(map, icon, viewIcon, viewMap, displayStory, displayCommand);
 		GameControl control = new GameControl();
-
 		BorderPane borderPane = new BorderPane();
 		borderPane.setPrefSize(600,600);
 		VBox topPane = new VBox();
@@ -54,20 +51,13 @@ public class GameInterface {
 		borderPane.setBottom(bottomPane);
 		
 		//CENTER PANE--------------------------------------------------------------------------------------
-		//DISPLAY STORY
-		commandMenu.setDisplayStory(displayStory);
-		displayStory = commandMenu.getDisplayStory();
-		//COMMAND MENU
-		commandMenu.setDisplayCommand(displayCommand);
-		displayCommand = commandMenu.getDisplayCommand();
-		//DISPLAY MAP
-		
+		//DISPLAY STORY & COMMAND MENU
+		control.controlDisplay(displayStory, displayCommand);
 		//BOTTOM PANE-------------------------------------------------------------------------------------
 		Text prompt = new Text(); //Error message
 		//EVENTHANDLER COMAMND
         TextField inputCommand = new TextField();
-      
-		control.gameControl(inputCommand, prompt, commandMenu, room);
+        control.gameControl(inputCommand, prompt, icon, map, viewIcon, viewMap, displayStory, displayCommand);
 			
 		borderPane.setBackground(background);
 		centerPane.getChildren().addAll(displayStory, displayCommand, viewMap, viewIcon);
