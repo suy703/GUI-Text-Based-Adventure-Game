@@ -3,6 +3,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 public class GameControl {
@@ -16,6 +18,10 @@ public class GameControl {
 	boolean itemView = false;
 	int itemIndex;
 
+	int maxHealth = 280;
+	int damage = 0;
+	int totalHealth = 280;
+	
 	Boolean testPuzzle = true;
 	Boolean unlockDoor = false;
 	Boolean inBattle = true;
@@ -28,6 +34,51 @@ public class GameControl {
 	
 	Player player;
 	//CENTER PANE--------------------------------------------------------------------------------------
+	//DISPLAY HEALTH BAR
+	public void displayHealthBar(Rectangle maxHealthBar, Rectangle healthBar, Image healthIcon, ImageView viewHealthIcon) {
+		//Setting the properties of the rectangle 
+		maxHealthBar.setX(10); 
+		maxHealthBar.setY(215); 
+		maxHealthBar.setWidth(maxHealth); 
+		maxHealthBar.setHeight(20);
+		maxHealthBar.setStroke(Color.WHITE);
+		maxHealthBar.setFill(Color.CRIMSON);
+	  
+		healthBar.setX(10);
+		healthBar.setY(215);
+		healthBar.setWidth(maxHealth);
+		healthBar.setHeight(20);
+		healthBar.setStroke(Color.WHITE);
+		healthBar.setFill(Color.GREEN);
+		
+		viewHealthIcon.setImage(healthIcon);
+		viewHealthIcon.setLayoutX(10);
+		viewHealthIcon.setLayoutY(200);
+	}
+	//ADJUST HEALTH BAR
+	public int healthMeter(Rectangle healthBar, int totalHealth, int adjustHealth, Text prompt) {
+		CommandMenu commandMenu = new CommandMenu();
+		//adjustHealth = damage(negative value)
+		if(adjustHealth < 0) {
+			totalHealth = totalHealth + adjustHealth;
+			healthBar.setWidth(totalHealth);
+			healthBar.getWidth();
+		}
+		//adjustHealth = heal(positive value)
+		else if (adjustHealth > 0 && totalHealth != maxHealth) {
+			totalHealth = totalHealth + adjustHealth;
+			healthBar.setWidth(totalHealth);
+			healthBar.getWidth();
+		}
+		if(totalHealth == maxHealth) {
+			commandMenu.prompt(prompt, "HEALTH IS FULL");
+		}
+		else if(totalHealth == 0) {
+			commandMenu.prompt(prompt, "GAME OVER");
+		}
+		return totalHealth;
+	}
+	
 	//DISPLAY STORY & COMMAND MENU
 	public void controlDisplay(TextArea displayStory, TextArea displayCommand) {
 		CommandMenu commandMenu = new CommandMenu();
@@ -39,7 +90,7 @@ public class GameControl {
 	//BOTTOM PANE-------------------------------------------------------------------------------------
 	//EVENTHANDLER COMAMND
 	public void gameControl(TextField inputCommand, Text prompt, Image icon, Image map, ImageView viewIcon, ImageView viewMap, TextArea displayStory, 
-			TextArea displayCommand) {
+			TextArea displayCommand, Rectangle maxHealthBar, Rectangle healthBar, Image healthIcon, ImageView viewHealthIcon) {
 		CommandMenu commandMenu = new CommandMenu(map, icon, viewIcon, viewMap, displayStory, displayCommand);
 		Rooms room = new Rooms(map, icon, viewIcon, viewMap, displayStory, displayCommand);
 		
@@ -83,6 +134,8 @@ public class GameControl {
 				Saloon.setRoomLocks(false);
 				Jail.setRoomLocks(false);
 				TownHub.setRoomExits("D00");
+				
+				displayHealthBar(maxHealthBar, healthBar, healthIcon, viewHealthIcon);
 		    }
 		    //MAIN MENU > Load Game
 		    else if(lockMainMenu && (command.equals("2") || command.equalsIgnoreCase("load game"))) {

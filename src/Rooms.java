@@ -87,7 +87,7 @@ public class Rooms {
 	public void TownHub_1A() {
 		CommandMenu commandMenu = new CommandMenu(map, icon, viewIcon, viewMap, displayStory, displayCommand);
 		commandMenu.setNavigateMap(map, viewMap);
-		commandMenu.setNavigateIcon(icon, viewIcon, 420, 275);
+		commandMenu.setNavigateIcon(icon, viewIcon, 420, 290);
 		commandMenu.setLoadGameStory(displayStory, "Town Hub\n\nA dusty road leads into town and a tumbleweed "
 				+ "rolls across your path.  In the town square there is a statue of a menacing looking figure with a sheriff’s "
 				+ "badge on. The buildings look a bit run down and people seem to shuffle from place to place without interacting. "
@@ -102,7 +102,7 @@ public class Rooms {
 	public void DrugStore_1B() {
 		CommandMenu commandMenu = new CommandMenu(map, icon, viewIcon, viewMap, displayStory, displayCommand);
 		commandMenu.setNavigateMap(map, viewMap);
-		commandMenu.setNavigateIcon(icon, viewIcon, 340, 250);
+		commandMenu.setNavigateIcon(icon, viewIcon, 340, 265);
 		commandMenu.setLoadGameStory(displayStory, "Drug Store\n\nA mostly bare room with a worn down looking counter "
 				+ "top. Glass bottles full of medicine line the walls, but they look as if they haven’t been touched in years. You "
 				+ "could almost measure the amount of dust accumulation on them. A man with a large mustache and a tattered suit "
@@ -117,7 +117,7 @@ public class Rooms {
 	public void Inn_1C() {
 		CommandMenu commandMenu = new CommandMenu(map, icon, viewIcon, viewMap, displayStory, displayCommand);
 		commandMenu.setNavigateMap(map, viewMap);
-		commandMenu.setNavigateIcon(icon, viewIcon, 345, 334);
+		commandMenu.setNavigateIcon(icon, viewIcon, 345, 349);
 		commandMenu.setLoadGameStory(displayStory, "Inn\n\nYou walk into the inn and you see "
 				+ "a counter with a bell on it. There doesn’t appear to be anyone around, but you see a few "
 				+ "rooms with the doors closed. There are a few dusty painting hanging on the wall, they look "
@@ -134,7 +134,7 @@ public class Rooms {
 	public void Saloon_1D() {
 		CommandMenu commandMenu = new CommandMenu(map, icon, viewIcon, viewMap, displayStory, displayCommand);
 		commandMenu.setNavigateMap(map, viewMap);
-		commandMenu.setNavigateIcon(icon, viewIcon, 515, 250); 
+		commandMenu.setNavigateIcon(icon, viewIcon, 515, 265); 
 		commandMenu.setLoadGameStory(displayStory, "Saloon\n\nThis is the most people you have seen in one place. The bar is filled "
 				+ "with forlorn looking people drowning their sorrows in alcohol. There is a poker table in the back, men in expensive "
 				+ "looking suits sit at it smoking cigars and laughing. As you walk in, you notice that all eyes are on you. The barkeep "
@@ -150,7 +150,7 @@ public class Rooms {
 	public void Jail_1E() {
 		CommandMenu commandMenu = new CommandMenu(map, icon, viewIcon, viewMap, displayStory, displayCommand);
 		commandMenu.setNavigateMap(map, viewMap);
-		commandMenu.setNavigateIcon(icon, viewIcon, 495, 340); 
+		commandMenu.setNavigateIcon(icon, viewIcon, 495, 355); 
 		commandMenu.setLoadGameStory(displayStory, "Jail\n\nA small room with a couple of cells in the corner. The Deputy Sheriffs "
 				+ "desk is in the other corner. As the Deputy Sheriff shoves you into the cells, you notice a small window. Between the "
 				+ "bars of the window you can see the sun shining down on your horse, waiting for you outside..");

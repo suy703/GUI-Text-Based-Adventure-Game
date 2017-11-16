@@ -36,6 +36,10 @@ public class CommandMenu implements CommandMenuInterface {
 	}
 	
 	//CENTER PANE--------------------------------------------------------------------------------------
+	//PLAYER STATUS
+	public void playerStats() {
+		
+	}
 	//DISPLAY STORY
 	public TextArea getDisplayStory() {
 		
@@ -47,8 +51,8 @@ public class CommandMenu implements CommandMenuInterface {
 		displayStory.setEditable(false);
 		displayStory.setWrapText(true);
 		displayStory.setLayoutX(10);
-		displayStory.setLayoutY(200);
-		displayStory.setPrefHeight(335);
+		displayStory.setLayoutY(240);
+		displayStory.setPrefHeight(315);
 		displayStory.setPrefWidth(280);
 	}
 	
@@ -62,7 +66,7 @@ public class CommandMenu implements CommandMenuInterface {
 		this.displayCommand = displayCommand;
 		displayCommand.setEditable(false);
 		displayCommand.setLayoutX(310);
-		displayCommand.setLayoutY(405);
+		displayCommand.setLayoutY(425);
 		displayCommand.setPrefHeight(130);
 		displayCommand.setPrefWidth(280);
 	}
@@ -144,7 +148,7 @@ public class CommandMenu implements CommandMenuInterface {
 		this.map = map;
         viewMap.setImage(map);
         viewMap.setLayoutX(310);
-        viewMap.setLayoutY(200);
+        viewMap.setLayoutY(215);
 	}
 	
 	public ImageView getNavigateIcon() {

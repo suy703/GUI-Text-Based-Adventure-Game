@@ -1,4 +1,3 @@
-
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
@@ -11,6 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -22,7 +22,8 @@ public class GameInterface {
 	
 	Scene mainMenu;
 	
-	Image icon = new Image("file:images/icon.jpg");
+	
+	Image icon = new Image("file:images/icon.png");
 	Image map = new Image("file:images/BombayHill.png"); 
 	ImageView viewIcon = new ImageView();
 	ImageView viewMap = new ImageView();
@@ -34,6 +35,12 @@ public class GameInterface {
 			+ "his plan is to find the leader of the gang and taking them out.");
 	TextArea displayCommand = new TextArea("Action\n" + "1. New Game\n" + "2. Load Game\n" 
 			 + "3. Credit");
+	
+	Image healthIcon = new Image("file:images/healthIcon.png");
+	ImageView viewHealthIcon = new ImageView();
+	int maxHealth = 280;
+	int damage = 0;
+	int health = 280;
 	
 	public void mainMenu(Stage stage, Scene scene) {
 		GameControl control = new GameControl();
@@ -51,16 +58,21 @@ public class GameInterface {
 		borderPane.setBottom(bottomPane);
 		
 		//CENTER PANE--------------------------------------------------------------------------------------
+		//PLAYER HEALTH
+		Rectangle maxHealthBar = new Rectangle();  
+		Rectangle healthBar = new Rectangle();  
+		
 		//DISPLAY STORY & COMMAND MENU
 		control.controlDisplay(displayStory, displayCommand);
 		//BOTTOM PANE-------------------------------------------------------------------------------------
 		Text prompt = new Text(); //Error message
 		//EVENTHANDLER COMAMND
         TextField inputCommand = new TextField();
-        control.gameControl(inputCommand, prompt, icon, map, viewIcon, viewMap, displayStory, displayCommand);
+        control.gameControl(inputCommand, prompt, icon, map, viewIcon, viewMap, displayStory, displayCommand, maxHealthBar, healthBar, 
+        		healthIcon, viewHealthIcon);
 			
 		borderPane.setBackground(background);
-		centerPane.getChildren().addAll(displayStory, displayCommand, viewMap, viewIcon);
+		centerPane.getChildren().addAll(maxHealthBar, healthBar, viewHealthIcon, displayStory, displayCommand, viewMap, viewIcon);
 		bottomPane.getChildren().addAll(inputCommand, prompt);
 		mainMenu = new Scene(borderPane);
 		
