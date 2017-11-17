@@ -138,15 +138,4 @@ public class Puzzles {
 		commandMenu.setLoadGameCommand(displayCommand, command);
 	}
 	
-	public void puzzleP01() {
-		CommandMenu commandMenu = new CommandMenu(map, icon, viewIcon, viewMap, displayStory, displayCommand);
-		commandMenu.setNavigateMap(map, viewMap);
-		commandMenu.setNavigateIcon(icon, viewIcon, 515, 250); 
-		commandMenu.setLoadGameStory(displayStory, "The jail house is only for criminals...");
-		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Hint\n" + "2. Description\n" + "3. Back");
-		
-		System.out.println("Loading Puzzle P01 - Location Puzzles Class"); // Testing purpose
-	}
-	
-	
 }

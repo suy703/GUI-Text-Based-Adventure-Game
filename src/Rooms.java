@@ -11,6 +11,7 @@ public class Rooms {
 	String name = "";
 	String exits = "";
 	String items = "";
+	String roomDescription;
 	
 	Image map, icon;
 	ImageView viewIcon, viewMap;
@@ -76,6 +77,12 @@ public class Rooms {
 		this.items = items;
 	}
 	
+	public String getRoomDescription() {
+		return roomDescription;
+	}
+	public void setRoomDescription(String roomDescription) {
+		this.roomDescription = roomDescription;
+	}
 	//Display Room
 	public void display(String story, String command) {
 		CommandMenu commandMenu = new CommandMenu(map, icon, viewIcon, viewMap, displayStory, displayCommand);

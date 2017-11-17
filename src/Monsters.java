@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Monsters{
 	
 	String monsterID;
@@ -9,7 +11,7 @@ public class Monsters{
 	int monsterHealth;
 	int monsterAttackPower;
 
-	
+	Random random = new Random();
 
 	public Monsters() {
 		
@@ -116,6 +118,31 @@ public class Monsters{
 		this.itemDropped = itemDropped;
 	}
 	public int getMonsterProbability() {
+		if(monsterID.equalsIgnoreCase("M1")) {
+			monsterProbability = random.nextInt(50) + 25; // Pack of Coyotes
+		} else if (monsterID.equalsIgnoreCase("M2")) {
+			monsterProbability = random.nextInt(50) + 25; // Bear
+		} else if (monsterID.equalsIgnoreCase("M3")) {
+			monsterProbability = random.nextInt(50) + 25; // Mountain Man
+		} else if (monsterID.equalsIgnoreCase("M4")) {
+			monsterProbability = random.nextInt(50) + 25; // Bandit
+		}else if(monsterID.equalsIgnoreCase("M5")) {
+			monsterProbability = random.nextInt(1) + 1; // Woman of the Night
+		} else if (monsterID.equalsIgnoreCase("M6")) {
+			monsterProbability = random.nextInt(50) + 25; // Henchman
+		} else if(monsterID.equalsIgnoreCase("M7")) {
+			monsterProbability = random.nextInt(50) + 25; // Deputy Sheriff #1
+		} else if (monsterID.equalsIgnoreCase("M8")) {
+			monsterProbability = random.nextInt(50) + 25; // Saloon Girl
+		} else if (monsterID.equalsIgnoreCase("M9")) {
+			monsterProbability = random.nextInt(50) + 25; // Deputy Sheriff #2
+		} else if (monsterID.equalsIgnoreCase("M10")) {
+			monsterProbability = random.nextInt(50) + 25; // Gun Slinger
+		} else if (monsterID.equalsIgnoreCase("M11")) {
+			monsterProbability = random.nextInt(50) + 25; // Deputy Sheriff #3
+		} else if (monsterID.equalsIgnoreCase("M12")) {
+			monsterProbability = random.nextInt(1) + 1; // Sheriff
+		}
 		return monsterProbability;
 	}
 	public void setMonsterProbability(int monsterProbability) {
@@ -183,9 +210,4 @@ public class Monsters{
 	public void setMonsterAttackPower(int monsterAttackPower) {
 		this.monsterAttackPower = monsterAttackPower;
 	}
-	
-	
-	
-	
-
 }

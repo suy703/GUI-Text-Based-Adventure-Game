@@ -16,6 +16,7 @@ public class GameControl {
 	Boolean inventoryView = false;
 	boolean storeView = false;
 	boolean itemView = false;
+	boolean monsterAlive = true;
 	int itemIndex;
 
 	int maxHealth = 280;
@@ -31,6 +32,7 @@ public class GameControl {
 	Weapon pistol = new Weapon("i7", "Pistol", "A shiney, metalic, little gun. It might be small but it could definitely do some damage!\n", 5, 5);
 	Items[] drugstore1 = {healthPotion,attackPotion, pistol};
 	Store store1 = new Store(drugstore1);
+	Puzzles puzzle = new Puzzles("");
 	
 	Player player;
 	//CENTER PANE--------------------------------------------------------------------------------------
@@ -511,7 +513,10 @@ public class GameControl {
 					Jail.setRoomExits("D09");
 					commandMenu.prompt(prompt, "CANNOT OPEN DOOR");
 					
+					System.out.println("Unlock Puzzle to access Jail Room : Location Game Control"); // Testing Purpose
+					System.out.println("Jail is locked : " + Jail.getRoomLocks()); // Testing Purpose
 				}
+								
 				else if(Jail.getRoomExits().contains("D09") && unlockDoor && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) {
 					
 					room.Saloon_1D();
@@ -526,53 +531,75 @@ public class GameControl {
 				}
 			}
 		    
-// -----------------------------------------------------------------------------------------------------------------------------		    
+// -----------------------------------------------------------------------------------------------------------------------------	
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+		   
+		    /* This still needs work, fighting the henchman works, still some bug
+		     * Pending completion
+		     */
+		    
 		    //SALOON > Search Room
-			else if(Saloon.getRoomID().equals("1D") && (command.equals("3") || command.equalsIgnoreCase("search room"))) {
+			else if(Saloon.getRoomID().contains("1D") && (command.equals("3") || command.equalsIgnoreCase("search room"))) {
 				
 				//ENCOUNTER HENCHMAN THEN FIGHT BOSS
 				//Call Monster class
 				
 				monster.setMonsterID("M6"); // M6 = HenchMan
-				room.display("Saloon Store > Search Room\n\nHenchman\n\n" + monster.getMonsterDescription() , "Action\n" + "0. Back\n" + "1. Fight Henchman\n" + "2. Inventory\n" + "3. Save Game\n");
+				room.display("Saloon Store > Search Room > Monster Encounter\n\nHenchman\n\n" + monster.getMonsterDescription() , "Action\n" + "0. Back\n" + "1. Fight Henchman\n" + "2. Inventory\n" + "3. Save Game\n");
 				Saloon.setRoomLocks(false);
+
+				puzzle.setPuzzleID("P01"); // set puzzle ID to P01
+				puzzle.setPuzzleLock(true);
 				
 				System.out.println("Searching around Saloon : Location Game Control"); // Testing purpose
 				System.out.println("Hench Man encountered! : Location Game Control"); // Testing purpose
-				
 			} 
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@		    
-		    
-		   /* // Fight Henchman *Error, Keeps calling Jail room when pressed #1*
-			else if(Saloon.getRoomLocks() && testPuzzle && command.equalsIgnoreCase("1") || command.equalsIgnoreCase("fight henchman")) {
-				
-				room.Saloon_1D();
+
+		    // Encountering Henchman
+			else if(Saloon.getRoomID().contains("1D") && puzzle.getPuzzleID().contains("P01") && puzzle.getPuzzleLock() && command.equalsIgnoreCase("1") || command.equals("fight henchman")) {
+
 				TownHub.setRoomLocks(false);
 				DrugStore.setRoomLocks(false);
 				Inn.setRoomLocks(false);
 				Saloon.setRoomLocks(true);
 				Jail.setRoomLocks(false);
+				Jail.setRoomID("1E");
+				room.Jail_1E();
 				
-		    	// Encountering Deputy Sheriff after HenchMan
-		    	monster.setMonsterID("M12"); // M6 = HenchMan
-				room.display("Saloon Store > Search Room\n\nDeputy Sheriff\n\n" + monster.getMonsterDescription() , "Action\n" + "0. Back\n" + "1. Fight Deputy\n" + "2. Inventory\n" + "3. Save Game\n");
-		    } 
+				puzzle.setPuzzleID("P01"); // set puzzle ID to P01
+				puzzle.setPuzzleLock(true);
+				
+				room.display("Jail > Deputy Sheriff\n\n"
+						+ "The Deputy Sheriff who regularly comes to the Saloon saw you start a fight with the "
+						+ "HenchMan and arrested you. Therefore you are sentenced for six months for aggrevated assult"
+						+ "at the Bombay County Jail. The mission is critical and you do not have time to serve six months. "
+						+ "Your priority is to kill the leader of the gang Long Riders. The Deputy Sheriff is old and fat but "
+						+ "he is the big boss of this jail house. ", "0. Back\n" + "1. Fight Deuputy Sheriff");
+				
+				monster.setMonsterID("M12");
+				
+				System.out.println("Fighting HenchMan : Location Game Control"); // Testing purpose	
+			}
 		    
-		    // Fight Deputy Sheriff
-			else if(Saloon.getRoomLocks() && command.equalsIgnoreCase("1") || command.equalsIgnoreCase("fight deputy sheriff")) {
+		    // Encountering Sheriff
+		    
+			/*else if(puzzle.getPuzzleID().contains("P01") && monster.getMonsterID().contains("M12") && puzzle.getPuzzleLock() && command.equals("1") || command.equalsIgnoreCase("fight deputy sheriff")) {
+				
 				TownHub.setRoomLocks(false);
 				DrugStore.setRoomLocks(false);
 				Inn.setRoomLocks(false);
-				Saloon.setRoomLocks(true);
+				Saloon.setRoomLocks(false);
+				
+				puzzle.setPuzzleID("P01"); // set puzzle ID to P01
+				puzzle.setPuzzleLock(true);
+				
 				Jail.setRoomLocks(true);
+				Jail.setRoomID("1E");
 				
-				unlockDoor = true; // Jail unlocked after fighting Sheriff
-				
-				room.display("Battle Arena > Deputy Sheriff Duel\n\nYou are now a free man and earned respect to visit the Jail house anytime.", "0. Leave Battle Arena");
-				System.out.println("Fighting Sheriff");
-			}*/
+				System.out.println("Fighting Deputy Sheriff : Location Game Control"); // Testing purpose	
+			} */
 		    
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@		  
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@		    
 		    
 //-------------------------------------------------------------------------------------------------------------------------------    
 		  //SALOON > Search Room > Back
@@ -592,8 +619,7 @@ public class GameControl {
 				
 				System.out.println("Loading back to Saloon : Location Game Control"); // Testing purpose
 			}
-		    
-		    		    
+		    		   
 		    //JAIL-------------------------------------------------------------------------------------------------------------------------------
 			else if((Saloon.getRoomLocks() && (command.equals("2") || command.equalsIgnoreCase("jail") || command.equalsIgnoreCase("south")))) {
 				//JAIL > Locked Door/Unlocked Door
@@ -601,10 +627,12 @@ public class GameControl {
 					
 					room.display("Saloon > Locked Door\n\nA very well guarded door that leads into the Deputy Sheriff’s office. There must be "
 							+ "some way to get in there...", "Action\n" + "0. Leave Door\n" + "1. Unlock Door");
-					System.out.println("Requesting to enter Jail room : Location Game Interface"); // Testing purpose
-
 					Saloon.setRoomLocks(false);
 					Saloon.setRoomExits("D08");
+					
+					System.out.println("Console Message #1 : Requesting to enter Jail room : Location Game Interface"); // Testing purpose
+					System.out.println("Jail is locked : " + Jail.getRoomLocks()); // Testing Purpose @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+					
 					//SOLVE & UNLOCK PUZZLE
 					//If FALSE, cannot access jail and throws error message
 					//unlockDoor = true; //Testing Purpose
@@ -612,6 +640,7 @@ public class GameControl {
 						unlockDoor = true;
 						testPuzzle = false;
 					}
+					
 				}
 				//Jail UNLOCKED
 				else if((Saloon.getRoomLocks() && unlockDoor && (command.equals("2") || command.equalsIgnoreCase("jail") || command.equalsIgnoreCase("south")))) {
@@ -619,9 +648,9 @@ public class GameControl {
 							+ "some way to get in there...", "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 					Saloon.setRoomLocks(false);
 					Saloon.setRoomExits("D08");
-					Jail.setRoomExits("");
-					
-					System.out.println("Requesting to enter Jail room : Location Game Interface"); // Testing purpose
+					Jail.setRoomExits("");	
+										
+					System.out.println("Console Message #2 : Requesting to enter Jail room : Location Game Interface"); // Testing purpose
 				}
 			}
 
@@ -633,9 +662,10 @@ public class GameControl {
 					room.display("Saloon > Locked Door\n\nA very well guarded door that leads into the Deputy Sheriff’s office. There must be "
 							+ "some way to get in there...", "Action\n" + "0. Leave Door\n" + "1. Unlock Door");
 					Saloon.setRoomExits("D08");
-					commandMenu.prompt(prompt, "CANNOT OPEN DOOR");
+					commandMenu.prompt(prompt, "CANNOT OPEN DOOR");		
 					
 					System.out.println("Attempting to enter locked Jail : Location Game Interface"); // Testing purpose
+
 				}
 				else if(Saloon.getRoomExits().contains("D08") && unlockDoor && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y")) ||
 						(Jail.getRoomExits().contains("D09") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n")))) {
@@ -652,9 +682,10 @@ public class GameControl {
 					System.out.println("Inside Jail : Location Game Control");
 					//testPuzzle = true; //Testing Purpose
 					//unlockDoor = false; //Testing Purpose
+					
 				}
 			}
-		    
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@		    
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------		    
 			//Inventory
 			else if(!storeView && (TownHub.getRoomLocks() && (command.equals("4") || command.equalsIgnoreCase("inventory")) ||
