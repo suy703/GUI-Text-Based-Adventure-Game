@@ -93,6 +93,7 @@ public class GameControl {
 	//EVENTHANDLER COMAMND
 	public void gameControl(TextField inputCommand, Text prompt, Image icon, Image map, ImageView viewIcon, ImageView viewMap, TextArea displayStory, 
 			TextArea displayCommand, Rectangle maxHealthBar, Rectangle healthBar, Image healthIcon, ImageView viewHealthIcon) {
+		//ReadFile read = new ReadFile();
 		CommandMenu commandMenu = new CommandMenu(map, icon, viewIcon, viewMap, displayStory, displayCommand);
 		Rooms room = new Rooms(map, icon, viewIcon, viewMap, displayStory, displayCommand);
 		
