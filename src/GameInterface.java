@@ -45,14 +45,14 @@ public class GameInterface {
 	public void mainMenu(Stage stage, Scene scene) {
 		GameControl control = new GameControl();
 		BorderPane borderPane = new BorderPane();
-		borderPane.setPrefSize(600,600);
+		borderPane.setPrefSize(1200,800);
 		VBox topPane = new VBox();
 		Pane centerPane = new Pane();
 		//StackPane rightPane = new StackPane();
-		HBox bottomPane = new HBox();
+		Pane bottomPane = new HBox();
 		bottomPane.setStyle("-fx-background-color: #000000;");
 		bottomPane.setPadding(new Insets(10, 10, 10, 10));
-		bottomPane.setSpacing(10);
+		//bottomPane.setSpacing(10);
 		borderPane.setTop(topPane);
 		borderPane.setCenter(centerPane);
 		borderPane.setBottom(bottomPane);
@@ -65,15 +65,16 @@ public class GameInterface {
 		//DISPLAY STORY & COMMAND MENU
 		control.controlDisplay(displayStory, displayCommand);
 		//BOTTOM PANE-------------------------------------------------------------------------------------
+		Text commandText = new Text();
 		Text prompt = new Text(); //Error message
 		//EVENTHANDLER COMAMND
         TextField inputCommand = new TextField();
-        control.gameControl(inputCommand, prompt, icon, map, viewIcon, viewMap, displayStory, displayCommand, maxHealthBar, healthBar, 
+        control.gameControl(commandText, inputCommand, prompt, icon, map, viewIcon, viewMap, displayStory, displayCommand, maxHealthBar, healthBar, 
         		healthIcon, viewHealthIcon);
 			
 		borderPane.setBackground(background);
 		centerPane.getChildren().addAll(maxHealthBar, healthBar, viewHealthIcon, displayStory, displayCommand, viewMap, viewIcon);
-		bottomPane.getChildren().addAll(inputCommand, prompt);
+		bottomPane.getChildren().addAll(commandText, inputCommand, prompt);
 		mainMenu = new Scene(borderPane);
 		
 		System.out.println("Game Interface Initialized"); // Testing purpose

@@ -50,8 +50,8 @@ public class CommandMenu implements CommandMenuInterface {
 		this.displayStory = displayStory;
 		displayStory.setEditable(false);
 		displayStory.setWrapText(true);
-		displayStory.setLayoutX(10);
-		displayStory.setLayoutY(240);
+		displayStory.setLayoutX(152);
+		displayStory.setLayoutY(220);
 		displayStory.setPrefHeight(315);
 		displayStory.setPrefWidth(280);
 	}
@@ -65,8 +65,8 @@ public class CommandMenu implements CommandMenuInterface {
 	public void setDisplayCommand(TextArea displayCommand) {
 		this.displayCommand = displayCommand;
 		displayCommand.setEditable(false);
-		displayCommand.setLayoutX(310);
-		displayCommand.setLayoutY(425);
+		displayCommand.setLayoutX(152);
+		displayCommand.setLayoutY(543);
 		displayCommand.setPrefHeight(130);
 		displayCommand.setPrefWidth(280);
 	}
@@ -144,11 +144,11 @@ public class CommandMenu implements CommandMenuInterface {
 		
         return this.viewMap;
 	}
-	public void setNavigateMap(Image map, ImageView viewMap) {
+	public void setNavigateMap(Image map, ImageView viewMap, int x, int y) {
 		this.map = map;
         viewMap.setImage(map);
-        viewMap.setLayoutX(310);
-        viewMap.setLayoutY(215);
+        viewMap.setLayoutX(x); //310
+        viewMap.setLayoutY(y); //310
 	}
 	
 	public ImageView getNavigateIcon() {
@@ -164,7 +164,7 @@ public class CommandMenu implements CommandMenuInterface {
 	//PROMPT MESSAGE-------------------------------------------------------------------------------------
 	public void prompt(Text prompt, String message) {
 		
-		prompt.setText(message);
+		prompt.setText("                       " + message);
 		prompt.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
 		prompt.setFill(Color.RED);
 	}

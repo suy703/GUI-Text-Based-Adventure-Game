@@ -5,9 +5,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class GameControl {
+	
+	GameDatabase read = new GameDatabase("database/Doors.ini");
+	String[] doorFile = read.readFile();
+	
 	Boolean lockMainMenu = true; //This will change to false when the game is started
 	Boolean lockLoadGame = true; //This will change to false when the game is started
 	Boolean unlockSaveGame = false; //This will change to true when the game is started
@@ -39,23 +45,23 @@ public class GameControl {
 	//DISPLAY HEALTH BAR
 	public void displayHealthBar(Rectangle maxHealthBar, Rectangle healthBar, Image healthIcon, ImageView viewHealthIcon) {
 		//Setting the properties of the rectangle 
-		maxHealthBar.setX(10); 
-		maxHealthBar.setY(215); 
+		maxHealthBar.setX(595); 
+		maxHealthBar.setY(35); //215
 		maxHealthBar.setWidth(maxHealth); 
 		maxHealthBar.setHeight(20);
 		maxHealthBar.setStroke(Color.WHITE);
 		maxHealthBar.setFill(Color.CRIMSON);
 	  
-		healthBar.setX(10);
-		healthBar.setY(215);
+		healthBar.setX(595);
+		healthBar.setY(35); //215
 		healthBar.setWidth(maxHealth);
 		healthBar.setHeight(20);
 		healthBar.setStroke(Color.WHITE);
 		healthBar.setFill(Color.GREEN);
 		
 		viewHealthIcon.setImage(healthIcon);
-		viewHealthIcon.setLayoutX(10);
-		viewHealthIcon.setLayoutY(200);
+		viewHealthIcon.setLayoutX(595);
+		viewHealthIcon.setLayoutY(20); //200
 	}
 	//ADJUST HEALTH BAR
 	public int healthMeter(Rectangle healthBar, int totalHealth, int adjustHealth, Text prompt) {
@@ -91,7 +97,7 @@ public class GameControl {
 	}
 	//BOTTOM PANE-------------------------------------------------------------------------------------
 	//EVENTHANDLER COMAMND
-	public void gameControl(TextField inputCommand, Text prompt, Image icon, Image map, ImageView viewIcon, ImageView viewMap, TextArea displayStory, 
+	public void gameControl(Text commandText, TextField inputCommand, Text prompt, Image icon, Image map, ImageView viewIcon, ImageView viewMap, TextArea displayStory, 
 			TextArea displayCommand, Rectangle maxHealthBar, Rectangle healthBar, Image healthIcon, ImageView viewHealthIcon) {
 		//ReadFile read = new ReadFile();
 		CommandMenu commandMenu = new CommandMenu(map, icon, viewIcon, viewMap, displayStory, displayCommand);
@@ -105,8 +111,13 @@ public class GameControl {
 		
 		Monsters monster = new Monsters();
 		
+		commandText.setText("Command: ");
+		commandText.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+		commandText.setFill(Color.WHITE);
+		
 		inputCommand.setPromptText("Enter your command.");
-        inputCommand.setPrefWidth(280);
+		
+        inputCommand.setPrefWidth(432);
 		inputCommand.setOnKeyPressed(e -> {
 		String command = "";
 		if(e.getCode() == KeyCode.ENTER) {
@@ -162,20 +173,17 @@ public class GameControl {
 		    		(Saloon.getRoomLocks() && (command.equals("1") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("west")))) {
 				//TOWN HUB > Door
 				if(DrugStore.getRoomLocks() && (command.equals("1") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("east"))) {
-					room.display("Drug Store > Door\n\nA wooden door to the Drug Store that people are going in and out of periodically. There doesn’t seem to be anything standing in your way "
-							+ "if you wanted to go through.\n\nDo you want to enter the Town Hub?", "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
+					room.display(doorFile[0] + "\n\n" + doorFile[1] + "\n\n" + doorFile[2], "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 					DrugStore.setRoomLocks(false);
 					DrugStore.setRoomExits("D01");
 				}
 				else if(Inn.getRoomLocks() && (command.equals("2") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("east"))) {
-					room.display("Inn > Door\n\nThe door looks well worn and like it’s in need of repairs.\n\n" 
-							+ "Do you want to enter the Town Hub?", "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
+					room.display(doorFile[3] + "\n\n" + doorFile[4] + "\n\n" + doorFile[5], "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 					Inn.setRoomLocks(false);
 					Inn.setRoomExits("D04");
 				}
 				else if(Saloon.getRoomLocks() && (command.equals("1") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("west"))) {
-					room.display("Saloon > Door\n\nA pair of saloon doors that are swinging slightly in the wind. You can vaguely make out the "
-							+ "shapes of people inside over the doors.\n\nDo you want to enter the Saloon?", "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
+					room.display(doorFile[6] + "\n\n" + doorFile[7] + "\n\n" + doorFile[8], "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 					Saloon.setRoomLocks(false);
 					Saloon.setRoomExits("D07");
 				}
@@ -208,13 +216,12 @@ public class GameControl {
 					(Inn.getRoomLocks() && (command.equals("1") || command.equalsIgnoreCase("drug store") || command.equalsIgnoreCase("north")))) {
 				//DRUG STORE > Door
 				if(TownHub.getRoomLocks() && (command.equals("1") || command.equalsIgnoreCase("drug store") || command.equalsIgnoreCase("north west"))) {
-					room.display("Town Hub > Door\n\nA wooden door to the Drug Store that people are going in and out of periodically. There doesn’t seem to be anything standing in your way "
-							+ "if you wanted to go through.\n\nDo you want to enter the Drug Store?", "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
+					room.display(doorFile[9] + "\n\n" + doorFile[10] + "\n\n" + doorFile[11], "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 					TownHub.setRoomLocks(false);
 					TownHub.setRoomExits("D00");
 				}
 				else if(Inn.getRoomLocks() && (command.equals("1") || command.equalsIgnoreCase("drug store") || command.equalsIgnoreCase("north"))) {
-					room.display("Inn > Door\n\nA narrow passageway leading to a small, dimly lit room.\n\nDo you want to enter the Drug Store?", "Action\n" 
+					room.display(doorFile[12] + "\n\n" + doorFile[13] + "\n\n" + doorFile[14], "Action\n" 
 							+ "0. No (N)\n" + "1. Yes (Y)");
 					Inn.setRoomLocks(false);
 					Inn.setRoomExits("D03");
@@ -395,14 +402,13 @@ public class GameControl {
 					(TownHub.getRoomLocks() && (command.equals("2") || command.equalsIgnoreCase("inn") || command.equalsIgnoreCase("south west")))) {
 				//INN > Door
 				if(DrugStore.getRoomLocks() && (command.equals("2") || command.equalsIgnoreCase("inn") || command.equalsIgnoreCase("south"))) {
-					room.display("Drug Store > Door\n\nA narrow passageway leading to a small, dimly lit room.\n\nDo you want to enter the Inn?", "Action\n" 
+					room.display(doorFile[15] + "\n\n" + doorFile[16] + "\n\n" + doorFile[17], "Action\n" 
 							+ "0. No (N)\n" + "1. Yes (Y)");
 					DrugStore.setRoomLocks(false);
 					DrugStore.setRoomExits("D02");
 				}
 				else if(TownHub.getRoomLocks() && (command.equals("2") || command.equalsIgnoreCase("inn") || command.equalsIgnoreCase("south west"))) {
-					room.display("Town Hub > Door\n\nA sign above the door reads “Inn”. The door looks well worn and like it’s in need of repairs.\n\n" 
-							+ "Do you want to enter the Inn?", "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
+					room.display(doorFile[18] + "\n\n" + doorFile[19] + "\n\n" + doorFile[20], "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 					TownHub.setRoomLocks(false);
 					TownHub.setRoomExits("D05");
 				}
@@ -455,8 +461,7 @@ public class GameControl {
 					(Jail.getRoomLocks() && (command.equals("1") || command.equalsIgnoreCase("saloon") || command.equalsIgnoreCase("north")))) {
 				//SALOON > Door
 				if(TownHub.getRoomLocks() && (command.equals("3") || command.equalsIgnoreCase("saloon") || command.equalsIgnoreCase("east"))) {
-					room.display("Town Hub > Door\n\nA pair of saloon doors that are swinging slightly in the wind. You can vaguely make out the "
-							+ "shapes of people inside over the doors.\n\nDo you want to enter the Saloon?", "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
+					room.display(doorFile[21] + "\n\n" + doorFile[22] + "\n\n" + doorFile[23], "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 					TownHub.setRoomLocks(false);
 					TownHub.setRoomExits("D06");
 					
@@ -467,8 +472,7 @@ public class GameControl {
 					
 					if(Jail.getRoomLocks() && testPuzzle && (command.equals("1") || command.equalsIgnoreCase("saloon") || command.equalsIgnoreCase("north"))) {
 						
-						room.display("Jail > Locked Door\n\nA very well guarded door that leads into the Deputy Sheriff’s office. There must be "
-								+ "some way to get in there...", "Action\n" + "0. Leave Door\n" + "1. Unlock Door");
+						room.display(doorFile[24] + "\n\n" + doorFile[25] + "\n\n" + doorFile[26], "Action\n" + "0. Leave Door\n" + "1. Unlock Door");
 						Jail.setRoomLocks(false);
 						Jail.setRoomExits("D09");
 						//AFTER FIGHT W/ BOSS IN JAIL
@@ -480,8 +484,7 @@ public class GameControl {
 					}
 					else if(Jail.getRoomLocks() && unlockDoor && (command.equals("1") || command.equalsIgnoreCase("saloon") || command.equalsIgnoreCase("north"))) {
 						
-						room.display("Jail > Unlocked Door\n\nA very well guarded door that leads into the Deputy Sheriff’s office. There must be "
-								+ "some way to get in there...", "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
+						room.display(doorFile[27] + "\n\n" + doorFile[28] + "\n\n" + doorFile[29], "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 						Jail.setRoomLocks(false);
 						Jail.setRoomExits("D09");
 						
@@ -509,8 +512,7 @@ public class GameControl {
 				}
 				else if(Jail.getRoomExits().contains("D09") && testPuzzle && (command.equals("1") || command.equalsIgnoreCase("unlock door"))) {
 					
-					room.display("Jail > Locked Door\n\nA very well guarded door that leads into the Deputy Sheriff’s office. There must be "
-							+ "some way to get in there...", "Action\n" + "0. Leave Door\n" + "1. Unlock Door");
+					room.display(doorFile[24] + "\n\n" + doorFile[25] + "\n\n" + doorFile[26], "Action\n" + "0. Leave Door\n" + "1. Unlock Door");
 					Jail.setRoomExits("D09");
 					commandMenu.prompt(prompt, "CANNOT OPEN DOOR");
 					
@@ -626,8 +628,7 @@ public class GameControl {
 				//JAIL > Locked Door/Unlocked Door
 				if((Saloon.getRoomLocks() && testPuzzle && (command.equals("2") || command.equalsIgnoreCase("jail") || command.equalsIgnoreCase("south")))) {
 					
-					room.display("Saloon > Locked Door\n\nA very well guarded door that leads into the Deputy Sheriff’s office. There must be "
-							+ "some way to get in there...", "Action\n" + "0. Leave Door\n" + "1. Unlock Door");
+					room.display(doorFile[30] + "\n\n" + doorFile[31] + "\n\n" + doorFile[32], "Action\n" + "0. Leave Door\n" + "1. Unlock Door");
 					Saloon.setRoomLocks(false);
 					Saloon.setRoomExits("D08");
 					
@@ -645,8 +646,7 @@ public class GameControl {
 				}
 				//Jail UNLOCKED
 				else if((Saloon.getRoomLocks() && unlockDoor && (command.equals("2") || command.equalsIgnoreCase("jail") || command.equalsIgnoreCase("south")))) {
-					room.display("Saloon > Unlocked Door\n\nA very well guarded door that leads into the Deputy Sheriff’s office. There must be "
-							+ "some way to get in there...", "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
+					room.display(doorFile[33] + "\n\n" + doorFile[34] + "\n\n" + doorFile[35], "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 					Saloon.setRoomLocks(false);
 					Saloon.setRoomExits("D08");
 					Jail.setRoomExits("");	
@@ -660,8 +660,7 @@ public class GameControl {
 				
 				if(Saloon.getRoomExits().contains("D08") && testPuzzle && (command.equals("1") || command.equalsIgnoreCase("unlock door"))) {
 					
-					room.display("Saloon > Locked Door\n\nA very well guarded door that leads into the Deputy Sheriff’s office. There must be "
-							+ "some way to get in there...", "Action\n" + "0. Leave Door\n" + "1. Unlock Door");
+					room.display(doorFile[30] + "\n\n" + doorFile[31] + "\n\n" + doorFile[32], "Action\n" + "0. Leave Door\n" + "1. Unlock Door");
 					Saloon.setRoomExits("D08");
 					commandMenu.prompt(prompt, "CANNOT OPEN DOOR");		
 					

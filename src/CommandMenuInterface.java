@@ -26,7 +26,7 @@ public interface CommandMenuInterface {
 	//NAVIGATE MAP
 	public ImageView getNavigateMap();
 	public ImageView getNavigateIcon();
-	public void setNavigateMap(Image map, ImageView viewMap);
+	public void setNavigateMap(Image map, ImageView viewMap, int x, int y);
 	public void setNavigateIcon(Image icon, ImageView viewIcon, int x, int y);
 	//BOTTOM PANE---------------------------------------------------------------------------------------
 	//PROMPT MESSAGE
