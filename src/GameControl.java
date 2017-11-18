@@ -573,13 +573,15 @@ public class GameControl {
 				puzzle.setPuzzleLock(true);
 				
 				room.display("Jail > Deputy Sheriff\n\n"
-						+ "The Deputy Sheriff who regularly comes to the Saloon saw you start a fight with the "
+						+ "You took some damage from that fight. The Deputy Sheriff who regularly comes to the Saloon saw you start a fight with the "
 						+ "HenchMan and arrested you. Therefore you are sentenced for six months for aggrevated assult"
 						+ "at the Bombay County Jail. The mission is critical and you do not have time to serve six months. "
 						+ "Your priority is to kill the leader of the gang Long Riders. The Deputy Sheriff is old and fat but "
 						+ "he is the big boss of this jail house. ", "0. Back\n" + "1. Fight Deuputy Sheriff");
 				
 				monster.setMonsterID("M12");
+				
+				healthMeter(healthBar, 100, -10 , prompt);
 				
 				System.out.println("Fighting HenchMan : Location Game Control"); // Testing purpose	
 			}
