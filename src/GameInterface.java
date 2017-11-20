@@ -38,6 +38,8 @@ public class GameInterface {
 	
 	Image healthIcon = new Image("file:images/healthIcon.png");
 	ImageView viewHealthIcon = new ImageView();
+	Image monsterIcon = new Image("file:images/monsterHealthIcon.png");
+	ImageView viewMonsterIcon = new ImageView();
 	int maxHealth = 280;
 	int damage = 0;
 	int health = 280;
@@ -60,7 +62,9 @@ public class GameInterface {
 		//CENTER PANE--------------------------------------------------------------------------------------
 		//PLAYER HEALTH
 		Rectangle maxHealthBar = new Rectangle();  
-		Rectangle healthBar = new Rectangle();  
+		Rectangle healthBar = new Rectangle();
+		Rectangle monsterMaxHealthBar = new Rectangle();
+		Rectangle monsterHealthBar = new Rectangle();
 		
 		//DISPLAY STORY & COMMAND MENU
 		control.controlDisplay(displayStory, displayCommand);
@@ -70,10 +74,10 @@ public class GameInterface {
 		//EVENTHANDLER COMAMND
         TextField inputCommand = new TextField();
         control.gameControl(commandText, inputCommand, prompt, icon, map, viewIcon, viewMap, displayStory, displayCommand, maxHealthBar, healthBar, 
-        		healthIcon, viewHealthIcon);
+        		healthIcon, viewHealthIcon, monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon);
 			
 		borderPane.setBackground(background);
-		centerPane.getChildren().addAll(maxHealthBar, healthBar, viewHealthIcon, displayStory, displayCommand, viewMap, viewIcon);
+		centerPane.getChildren().addAll(maxHealthBar, healthBar, viewHealthIcon, monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon, displayStory, displayCommand, viewMap, viewIcon);
 		bottomPane.getChildren().addAll(commandText, inputCommand, prompt);
 		mainMenu = new Scene(borderPane);
 		

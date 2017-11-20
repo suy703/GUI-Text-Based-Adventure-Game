@@ -10,9 +10,9 @@ public class GameDatabase {
 		openFile(iniFile);
 	}
 	//OPEN FILE
-	public void openFile(String iniFile) {
+	public void openFile(String txtFile) {
 		try{
-			file = new Scanner(new File(iniFile));
+			file = new Scanner(new File(txtFile));
 		}
 		catch(Exception e) {
 			System.out.println("Could not find file.");

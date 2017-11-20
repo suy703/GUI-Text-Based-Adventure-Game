@@ -4,7 +4,7 @@ import javafx.scene.control.TextArea;
 
 public class Rooms {
 	
-	GameDatabase read = new GameDatabase("database/Rooms.ini");
+	GameDatabase read = new GameDatabase("database/Rooms.txt");
 	String[] readFile = read.readFile();
 	
 	String levels = "";

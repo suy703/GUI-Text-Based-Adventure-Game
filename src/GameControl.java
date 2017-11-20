@@ -11,7 +11,7 @@ import javafx.scene.text.Text;
 
 public class GameControl {
 	
-	GameDatabase read = new GameDatabase("database/Doors.ini");
+	GameDatabase read = new GameDatabase("database/Doors.txt");
 	String[] doorFile = read.readFile();
 	
 	Boolean lockMainMenu = true; //This will change to false when the game is started
@@ -28,6 +28,10 @@ public class GameControl {
 	int maxHealth = 280;
 	int damage = 0;
 	int totalHealth = 280;
+	
+	int monsterMaxHealth = 280;
+	int monsterTotalHealth = 280;
+
 	
 	Boolean testPuzzle = true;
 	Boolean unlockDoor = false;
@@ -86,6 +90,44 @@ public class GameControl {
 		}
 		return totalHealth;
 	}
+	//DISPLAY MONSTER HEALTH BAR
+	public void displayMonsterHealthBar(Rectangle monsterMaxHealthBar, Rectangle monsterHealthBar, Image monsterIcon, ImageView viewMonsterIcon) {
+		//Setting the properties of the rectangle 
+		monsterMaxHealthBar.setX(595); 
+		monsterMaxHealthBar.setY(75);
+		monsterMaxHealthBar.setWidth(monsterMaxHealth); 
+		monsterMaxHealthBar.setHeight(20);
+		monsterMaxHealthBar.setStroke(Color.WHITE);
+		monsterMaxHealthBar.setFill(Color.CRIMSON);
+		
+		monsterHealthBar.setX(595); 
+		monsterHealthBar.setY(75);
+		monsterHealthBar.setWidth(monsterMaxHealth); 
+		monsterHealthBar.setHeight(20);
+		monsterHealthBar.setStroke(Color.WHITE);
+		monsterHealthBar.setFill(Color.PURPLE);
+		
+		viewMonsterIcon.setImage(monsterIcon);
+		viewMonsterIcon.setLayoutX(595);
+		viewMonsterIcon.setLayoutY(60);
+	}
+	//ADJUST MONSTER HEALTH BAR
+	public int monsterHealthMeter(Rectangle monsterHealthBar, int monsterTotalHealth, int adjustHealth, Text prompt) {
+		CommandMenu commandMenu = new CommandMenu();
+		//adjustHealth = damage(negative value)
+		if(adjustHealth < 0) {
+			monsterTotalHealth = monsterTotalHealth + adjustHealth;
+			monsterHealthBar.setWidth(monsterTotalHealth);
+			monsterHealthBar.getWidth();
+		}
+		if(totalHealth == maxHealth) {
+			commandMenu.prompt(prompt, "HEALTH IS FULL");
+		}
+		else if(totalHealth == 0) {
+			commandMenu.prompt(prompt, "GAME OVER");
+		}
+		return totalHealth;
+	}
 	
 	//DISPLAY STORY & COMMAND MENU
 	public void controlDisplay(TextArea displayStory, TextArea displayCommand) {
@@ -98,7 +140,8 @@ public class GameControl {
 	//BOTTOM PANE-------------------------------------------------------------------------------------
 	//EVENTHANDLER COMAMND
 	public void gameControl(Text commandText, TextField inputCommand, Text prompt, Image icon, Image map, ImageView viewIcon, ImageView viewMap, TextArea displayStory, 
-			TextArea displayCommand, Rectangle maxHealthBar, Rectangle healthBar, Image healthIcon, ImageView viewHealthIcon) {
+			TextArea displayCommand, Rectangle maxHealthBar, Rectangle healthBar, Image healthIcon, ImageView viewHealthIcon, Rectangle monsterMaxHealthBar, 
+			Rectangle monsterHealthBar, Image monsterIcon, ImageView viewMonsterIcon) {
 		//ReadFile read = new ReadFile();
 		CommandMenu commandMenu = new CommandMenu(map, icon, viewIcon, viewMap, displayStory, displayCommand);
 		Rooms room = new Rooms(map, icon, viewIcon, viewMap, displayStory, displayCommand);
@@ -150,6 +193,7 @@ public class GameControl {
 				TownHub.setRoomExits("D00");
 				
 				displayHealthBar(maxHealthBar, healthBar, healthIcon, viewHealthIcon);
+				displayMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon);
 		    }
 		    //MAIN MENU > Load Game
 		    else if(lockMainMenu && (command.equals("2") || command.equalsIgnoreCase("load game"))) {
