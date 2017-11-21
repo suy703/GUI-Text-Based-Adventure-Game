@@ -193,7 +193,6 @@ public class GameControl {
 				TownHub.setRoomExits("D00");
 				
 				displayHealthBar(maxHealthBar, healthBar, healthIcon, viewHealthIcon);
-				displayMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon);
 		    }
 		    //MAIN MENU > Load Game
 		    else if(lockMainMenu && (command.equals("2") || command.equalsIgnoreCase("load game"))) {
@@ -516,7 +515,7 @@ public class GameControl {
 					
 					if(Jail.getRoomLocks() && testPuzzle && (command.equals("1") || command.equalsIgnoreCase("saloon") || command.equalsIgnoreCase("north"))) {
 						
-						room.display(doorFile[24] + "\n\n" + doorFile[25] + "\n\n" + doorFile[26], "Action\n" + "0. Leave Door\n" + "1. Unlock Door");
+						room.display(doorFile[24] + "\n\n" + doorFile[25], "Action\n" + "0. Leave Door\n" + "1. Unlock Door");
 						Jail.setRoomLocks(false);
 						Jail.setRoomExits("D09");
 						//AFTER FIGHT W/ BOSS IN JAIL
@@ -528,7 +527,7 @@ public class GameControl {
 					}
 					else if(Jail.getRoomLocks() && unlockDoor && (command.equals("1") || command.equalsIgnoreCase("saloon") || command.equalsIgnoreCase("north"))) {
 						
-						room.display(doorFile[27] + "\n\n" + doorFile[28] + "\n\n" + doorFile[29], "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
+						room.display(doorFile[26] + "\n\n" + doorFile[27], "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 						Jail.setRoomLocks(false);
 						Jail.setRoomExits("D09");
 						
@@ -556,7 +555,7 @@ public class GameControl {
 				}
 				else if(Jail.getRoomExits().contains("D09") && testPuzzle && (command.equals("1") || command.equalsIgnoreCase("unlock door"))) {
 					
-					room.display(doorFile[24] + "\n\n" + doorFile[25] + "\n\n" + doorFile[26], "Action\n" + "0. Leave Door\n" + "1. Unlock Door");
+					room.display(doorFile[24] + "\n\n" + doorFile[25], "Action\n" + "0. Leave Door\n" + "1. Unlock Door");
 					Jail.setRoomExits("D09");
 					commandMenu.prompt(prompt, "CANNOT OPEN DOOR");
 					
@@ -674,7 +673,8 @@ public class GameControl {
 				//JAIL > Locked Door/Unlocked Door
 				if((Saloon.getRoomLocks() && testPuzzle && (command.equals("2") || command.equalsIgnoreCase("jail") || command.equalsIgnoreCase("south")))) {
 					
-					room.display(doorFile[30] + "\n\n" + doorFile[31] + "\n\n" + doorFile[32], "Action\n" + "0. Leave Door\n" + "1. Unlock Door");
+					// + "\n\n" + doorFile[32]
+					room.display(doorFile[28] + "\n\n" + doorFile[29], "Action\n" + "0. Leave Door\n" + "1. Unlock Door");
 					Saloon.setRoomLocks(false);
 					Saloon.setRoomExits("D08");
 					
@@ -692,7 +692,7 @@ public class GameControl {
 				}
 				//Jail UNLOCKED
 				else if((Saloon.getRoomLocks() && unlockDoor && (command.equals("2") || command.equalsIgnoreCase("jail") || command.equalsIgnoreCase("south")))) {
-					room.display(doorFile[33] + "\n\n" + doorFile[34] + "\n\n" + doorFile[35], "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
+					room.display(doorFile[30] + "\n\n" + doorFile[31], "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 					Saloon.setRoomLocks(false);
 					Saloon.setRoomExits("D08");
 					Jail.setRoomExits("");	
@@ -706,7 +706,7 @@ public class GameControl {
 				
 				if(Saloon.getRoomExits().contains("D08") && testPuzzle && (command.equals("1") || command.equalsIgnoreCase("unlock door"))) {
 					
-					room.display(doorFile[30] + "\n\n" + doorFile[31] + "\n\n" + doorFile[32], "Action\n" + "0. Leave Door\n" + "1. Unlock Door");
+					room.display(doorFile[28] + "\n\n" + doorFile[29], "Action\n" + "0. Leave Door\n" + "1. Unlock Door");
 					Saloon.setRoomExits("D08");
 					commandMenu.prompt(prompt, "CANNOT OPEN DOOR");		
 					
