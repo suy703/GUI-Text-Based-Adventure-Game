@@ -100,7 +100,7 @@ public class Rooms {
 		commandMenu.setNavigateIcon(icon, viewIcon, 860, 380);
 		commandMenu.setLoadGameStory(displayStory, readFile[0] + "\n\n" + readFile[1]);
 		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Drug Store (North West)\n" + "2. Inn (South West)\n" + "3. Saloon (East)\n" 
-				+ "4. Inventory\n" + "5. Save Game");
+				+ "4. Access Town (North)\n" + "5. Inventory\n" + "6. Save Game");
 		
 		System.out.println("Loading Town Hub: Location Rooms Class"); // Testing purpose
 
@@ -149,5 +149,20 @@ public class Rooms {
 		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Saloon (North)\n" + "2. Inventory\n" + "3. Save Game");
 		
 		System.out.println("Loading Jail : Location Rooms Class"); // Testing purpose
+	}
+	//Main Desert Hub
+	public void MainDesertHub_2A() {
+		CommandMenu commandMenu = new CommandMenu(map, icon, viewIcon, viewMap, displayStory, displayCommand);
+		Image map = new Image("file:images/TownAccess.png"); 
+		commandMenu.setNavigateMap(map, viewMap, 645, 300);
+		commandMenu.setNavigateIcon(icon, viewIcon, 885, 340); 
+		commandMenu.setLoadGameStory(displayStory, "Main Desert Hub\n\nA road is leading to the middle of the desert. The landscape is barren, although "
+				+ "there are a few small cacti near the path. There is a fork in the road and a sign with arrows that points both directions. Below the "
+				+ "East arrow there is a text that reads “Fort Birman”, and below the West arrow, there is a text that reads “Nebelung Point”. To the "
+				+ "South is Bombay Hill.");
+		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Access Path 1 (East)\n" + "2. Access Path 2 (West)\n" + "3. Bombay Hill (South)\n" 
+				+ "4. Inventory\n" + "5. Save");
+		
+		System.out.println("Loading Main Desert Hub : Location Rooms Class"); // Testing purpose
 	}
 }

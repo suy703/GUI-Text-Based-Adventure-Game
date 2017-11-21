@@ -151,6 +151,7 @@ public class GameControl {
 		Rooms Inn = new Rooms("Bombay Hill", false, "", "Inn", "", "I3");
 		Rooms Saloon = new Rooms("Bombay Hill", false, "", "Saloon", "", "");
 		Rooms Jail = new Rooms("Bombay Hill", false, "1E", "Jail", "", "");
+		Rooms MainDesertHub = new Rooms("Town Access", false, "", "Main Desert Hub", "D05, D06, D14", "");
 		
 		Monsters monster = new Monsters();
 		
@@ -213,7 +214,8 @@ public class GameControl {
 		    //TOWN HUB---------------------------------------------------------------------------------------------------------------------------
 			else if((DrugStore.getRoomLocks() && !storeView &&(command.equals("1") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("east"))) ||
 		    		(Inn.getRoomLocks() && (command.equals("2") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("east"))) ||
-		    		(Saloon.getRoomLocks() && (command.equals("1") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("west")))) {
+		    		(Saloon.getRoomLocks() && (command.equals("1") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("west"))) ||
+		    		(MainDesertHub.getRoomLocks() && (command.equals("3") ||  command.equalsIgnoreCase("bombay hill") || command.equalsIgnoreCase("south")))) {
 				//TOWN HUB > Door
 				if(DrugStore.getRoomLocks() && (command.equals("1") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("east"))) {
 					room.display(doorFile[0] + "\n\n" + doorFile[1] + "\n\n" + doorFile[2], "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
@@ -230,13 +232,20 @@ public class GameControl {
 					Saloon.setRoomLocks(false);
 					Saloon.setRoomExits("D07");
 				}
+				else if(MainDesertHub.getRoomLocks() && (command.equals("3") ||  command.equalsIgnoreCase("bombay hill") || command.equalsIgnoreCase("south"))) {
+					room.display("Main Desert Hub\n\nA path that leads out of the wilderness and into town\n\nDo you want to enter Town Hub?. ", "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
+					MainDesertHub.setRoomLocks(false);
+					MainDesertHub.setRoomExits("D11");
+				}
 			}
 			else if(TownHub.getRoomExits().contains("D00") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n")) ||
 					(DrugStore.getRoomExits().contains("D01") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
 					(TownHub.getRoomExits().contains("D05") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
 					(Inn.getRoomExits().contains("D04") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
 					(TownHub.getRoomExits().contains("D06") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
-					(Saloon.getRoomExits().contains("D07") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y")))) {
+					(Saloon.getRoomExits().contains("D07") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
+					(MainDesertHub.getRoomExits().equals("D10") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
+					(MainDesertHub.getRoomExits().equals("D11") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y")))) {
 				
 				room.TownHub_1A();
 				TownHub.setRoomLocks(true);
@@ -690,7 +699,7 @@ public class GameControl {
 					}
 					
 				}
-				//Jail UNLOCKED
+				//JAIL > Unlocked Door
 				else if((Saloon.getRoomLocks() && unlockDoor && (command.equals("2") || command.equalsIgnoreCase("jail") || command.equalsIgnoreCase("south")))) {
 					room.display(doorFile[30] + "\n\n" + doorFile[31], "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 					Saloon.setRoomLocks(false);
@@ -701,7 +710,7 @@ public class GameControl {
 				}
 			}
 
-		    // Jail LOCKED
+		    //JAIL > Locked Door
 			else if((Saloon.getRoomExits().contains("D08") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y") || command.equalsIgnoreCase("unlock door")))) {
 				
 				if(Saloon.getRoomExits().contains("D08") && testPuzzle && (command.equals("1") || command.equalsIgnoreCase("unlock door"))) {
@@ -734,7 +743,7 @@ public class GameControl {
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@		    
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------		    
 			//Inventory
-			else if(!storeView && (TownHub.getRoomLocks() && (command.equals("4") || command.equalsIgnoreCase("inventory")) ||
+			else if(!storeView && (TownHub.getRoomLocks() && (command.equals("5") || command.equalsIgnoreCase("inventory")) ||
 								 DrugStore.getRoomLocks() && (command.equals("4") || command.equalsIgnoreCase("inventory")) ||
 								 	   Inn.getRoomLocks() && (command.equals("4") || command.equalsIgnoreCase("inventory")) ||
 					                Saloon.getRoomLocks() && (command.equals("4") || command.equalsIgnoreCase("inventory"))) ||
@@ -963,9 +972,36 @@ public class GameControl {
 			}
 			*/
 		}
+		
+		if(MainDesertHub.getRoomLevel().equals("Town Access")) {
+			if(TownHub.getRoomLocks() && (command.equals("4") ||  command.equalsIgnoreCase("town access") || command.equalsIgnoreCase("north"))) {
+				if(TownHub.getRoomLocks() && (command.equals("4") ||  command.equalsIgnoreCase("access town") || command.equalsIgnoreCase("north"))) {
+					room.display("Town Hub\n\nA path that leads out of town and into the wilderness.\n\nDo you want to enter Town Access?. ", "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
+					TownHub.setRoomLocks(false);
+					MainDesertHub.setRoomExits("D10");
+				}
+			}
+			else if(MainDesertHub.getRoomExits().equals("D10") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y")) ||
+					(MainDesertHub.getRoomExits().equals("D11") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n")))) {
+				room.MainDesertHub_2A();
+				TownHub.setRoomLocks(false);
+				DrugStore.setRoomLocks(false);
+				Inn.setRoomLocks(false);
+				Saloon.setRoomLocks(false);
+				Jail.setRoomLocks(false);
+				MainDesertHub.setRoomLocks(true);
+				
+				DrugStore.setRoomExits("");
+				Inn.setRoomExits("");
+				Saloon.setRoomExits("");
+				
+				DrugStore.setRoomID("");
+				Saloon.setRoomID("");
+				Inn.setRoomID("");
+			}
+		}
 		//Exit Game
 		if(command.equalsIgnoreCase("exit")) {
-			
 			System.exit(0);
 		}
 	});
