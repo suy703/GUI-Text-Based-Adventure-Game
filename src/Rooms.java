@@ -161,8 +161,22 @@ public class Rooms {
 				+ "East arrow there is a text that reads “Fort Birman”, and below the West arrow, there is a text that reads “Nebelung Point”. To the "
 				+ "South is Bombay Hill.");
 		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Access Path 1 (East)\n" + "2. Access Path 2 (West)\n" + "3. Bombay Hill (South)\n" 
-				+ "4. Inventory\n" + "5. Save");
+				+ "4. Search Area\n" + "5. Inventory\n" + "6. Save");
 		
 		System.out.println("Loading Main Desert Hub : Location Rooms Class"); // Testing purpose
+	}
+	//Access Path 1
+	public void AccessPath1_2B() {
+		CommandMenu commandMenu = new CommandMenu(map, icon, viewIcon, viewMap, displayStory, displayCommand);
+		Image map = new Image("file:images/TownAccess.png"); 
+		commandMenu.setNavigateMap(map, viewMap, 645, 300);
+		commandMenu.setNavigateIcon(icon, viewIcon, 995, 340); 
+		commandMenu.setLoadGameStory(displayStory, "Access Path 1\n\nA winding path through a canyon. The canyon walls loom upwards towards the "
+				+ "sky, and you can see a sliver of blue. If you squint you can see shadows moving along the canyon rim, but you can’t quite make "
+				+ "out what they might be. To the West is the road to Fort Birman, and to the East is the crossroads. ");
+		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Main Desert Hub (West)\n" + "2. Fort Birman (East)\n" + "3. Search Area\n" 
+				+ "4. Inventory\n" + "5. Save");
+		
+		System.out.println("Loading Access Path 1 : Location Rooms Class"); // Testing purpose
 	}
 }

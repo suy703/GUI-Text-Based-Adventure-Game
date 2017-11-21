@@ -1,3 +1,5 @@
+import java.util.Random;
+
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -111,6 +113,11 @@ public class GameControl {
 		viewMonsterIcon.setLayoutX(595);
 		viewMonsterIcon.setLayoutY(60);
 	}
+	public void removeMonsterHealthBar(Rectangle monsterMaxHealthBar, Rectangle monsterHealthBar, ImageView viewMonsterIcon) {
+		monsterMaxHealthBar.setY(-75);
+		monsterHealthBar.setY(-75);
+		viewMonsterIcon.setLayoutY(-60);
+	}
 	//ADJUST MONSTER HEALTH BAR
 	public int monsterHealthMeter(Rectangle monsterHealthBar, int monsterTotalHealth, int adjustHealth, Text prompt) {
 		CommandMenu commandMenu = new CommandMenu();
@@ -120,13 +127,10 @@ public class GameControl {
 			monsterHealthBar.setWidth(monsterTotalHealth);
 			monsterHealthBar.getWidth();
 		}
-		if(totalHealth == maxHealth) {
-			commandMenu.prompt(prompt, "HEALTH IS FULL");
+		if(monsterTotalHealth <= 0) {
+			commandMenu.prompt(prompt, "MONSTER DEFEATED");
 		}
-		else if(totalHealth == 0) {
-			commandMenu.prompt(prompt, "GAME OVER");
-		}
-		return totalHealth;
+		return monsterTotalHealth;
 	}
 	
 	//DISPLAY STORY & COMMAND MENU
@@ -151,7 +155,8 @@ public class GameControl {
 		Rooms Inn = new Rooms("Bombay Hill", false, "", "Inn", "", "I3");
 		Rooms Saloon = new Rooms("Bombay Hill", false, "", "Saloon", "", "");
 		Rooms Jail = new Rooms("Bombay Hill", false, "1E", "Jail", "", "");
-		Rooms MainDesertHub = new Rooms("Town Access", false, "", "Main Desert Hub", "D05, D06, D14", "");
+		Rooms MainDesertHub = new Rooms("Town Access", false, "", "Main Desert Hub", "", "");
+		Rooms AccessPath1 = new Rooms("Town Access", false, "", "Access Path 1", "", "");
 		
 		Monsters monster = new Monsters();
 		
@@ -191,6 +196,7 @@ public class GameControl {
 				Inn.setRoomLocks(false);
 				Saloon.setRoomLocks(false);
 				Jail.setRoomLocks(false);
+				MainDesertHub.setRoomLocks(false);
 				TownHub.setRoomExits("D00");
 				
 				displayHealthBar(maxHealthBar, healthBar, healthIcon, viewHealthIcon);
@@ -253,6 +259,7 @@ public class GameControl {
 				Inn.setRoomLocks(false);
 				Saloon.setRoomLocks(false);
 				Jail.setRoomLocks(false);
+				MainDesertHub.setRoomLocks(false);
 				
 				DrugStore.setRoomExits("");
 				Inn.setRoomExits("");
@@ -659,7 +666,7 @@ public class GameControl {
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@		    
 		    
 //-------------------------------------------------------------------------------------------------------------------------------    
-		  //SALOON > Search Room > Back
+		    //SALOON > Search Room > Back
 			else if(Saloon.getRoomID().equals("1D") && (command.equals("0") || command.equalsIgnoreCase("back"))) {
 				
 				room.Saloon_1D();
@@ -893,6 +900,7 @@ public class GameControl {
 					Inn.setRoomLocks(false);
 					Saloon.setRoomLocks(false);
 					Jail.setRoomLocks(false);
+					MainDesertHub.setRoomLocks(false);
 					
 					DrugStore.setRoomExits("");
 					Inn.setRoomExits("");
@@ -974,15 +982,19 @@ public class GameControl {
 		}
 		
 		if(MainDesertHub.getRoomLevel().equals("Town Access")) {
+			//MAIN DESERT HUB-----------------------------------------------------------------------------------------------------------------------
+			//MAIN DESERT HUB > Path Way
 			if(TownHub.getRoomLocks() && (command.equals("4") ||  command.equalsIgnoreCase("town access") || command.equalsIgnoreCase("north"))) {
 				if(TownHub.getRoomLocks() && (command.equals("4") ||  command.equalsIgnoreCase("access town") || command.equalsIgnoreCase("north"))) {
-					room.display("Town Hub\n\nA path that leads out of town and into the wilderness.\n\nDo you want to enter Town Access?. ", "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
+					room.display("Town Hub > Path Way\n\nA path that leads out of town and into the wilderness.\n\nDo you want to enter Town Access?. ", "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 					TownHub.setRoomLocks(false);
 					MainDesertHub.setRoomExits("D10");
 				}
 			}
 			else if(MainDesertHub.getRoomExits().equals("D10") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y")) ||
-					(MainDesertHub.getRoomExits().equals("D11") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n")))) {
+					(MainDesertHub.getRoomExits().equals("D11") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
+					(MainDesertHub.getRoomExits().equals("D12") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
+					(MainDesertHub.getRoomID().contains("2A") && (command.equals("0") || command.equalsIgnoreCase("runaway") || command.equalsIgnoreCase("back")))) {
 				room.MainDesertHub_2A();
 				TownHub.setRoomLocks(false);
 				DrugStore.setRoomLocks(false);
@@ -994,10 +1006,53 @@ public class GameControl {
 				DrugStore.setRoomExits("");
 				Inn.setRoomExits("");
 				Saloon.setRoomExits("");
+				MainDesertHub.setRoomExits("");
 				
 				DrugStore.setRoomID("");
 				Saloon.setRoomID("");
 				Inn.setRoomID("");
+				MainDesertHub.setRoomID("2A"); //Open up Search Area command
+				removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
+				this.monsterTotalHealth = this.monsterMaxHealth; //Restore monster health
+			}
+			//MAIN DESERT HUB > Search Area
+			else if(MainDesertHub.getRoomID().contains("2A") && (command.equals("4") || command.equalsIgnoreCase("search area"))) {
+				//ENCOUNTER MONSTER
+				MainDesertHub.setRoomLocks(false);
+				displayMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon);
+				room.display("Main Desert Hub > Search Area\n\nPack of Coyotes-------------------------------------\nA pack of rabid looking "
+						+ "coyotes. Their eyes are sunken in, and their fur matted; they look as if they haven’t eaten for weeks.", "Action\n" + "0. Runaway\n" +"1. Attack");
+			}
+			//ATTACK MONSTER
+			else if(MainDesertHub.getRoomID().contains("2A") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
+				Random damageProb = new Random();
+				int damageMonster = -(damageProb.nextInt(50 + 1) + 25); // Damage monster probability between -50 to -25
+				System.out.println(damageMonster); //Display Amount of damage done to monster
+				if(this.monsterTotalHealth > 0) {//When monster health is greater than 0 = true
+					this.monsterTotalHealth = monsterHealthMeter(monsterHealthBar, this.monsterTotalHealth, damageMonster, prompt); //Player does damage to monster's health bar
+					this.totalHealth = healthMeter(healthBar, this.totalHealth, -4, prompt); //Monster does damage to player's health bar
+					room.display("Main Desert Hub > Search Area\n\nPack of Coyotes-------------------------------------\nA pack of rabid looking "
+							+ "coyotes. Their eyes are sunken in, and their fur matted; they look as if they haven’t eaten for weeks.\n\n\"Grrrrarrrr\"", "Action\n" + "0. Runaway\n" +"1. Attack");
+				}
+				else {
+					room.display("Main Desert Hub > Search Area\n\n", "Action\n" + "0. Back\n");
+				}
+			}
+			
+			//ACCESS PATH 1-----------------------------------------------------------------------------------------------------------------------
+			else if(MainDesertHub.getRoomLocks() && (command.equals("1") ||  command.equalsIgnoreCase("access path 1") || command.equalsIgnoreCase("east"))) {
+				if(MainDesertHub.getRoomLocks() && (command.equals("1") ||  command.equalsIgnoreCase("access path 1") || command.equalsIgnoreCase("east"))) {
+					room.display("Main Desert Hub > Path Way\n\nThe path continues East to Fort Birman.\n\nDo you want to enter the Access Path 1?", "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
+					MainDesertHub.setRoomLocks(false);
+					MainDesertHub.setRoomExits("D12");
+				}
+			}
+			else if(MainDesertHub.getRoomExits().equals("D12") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) {
+				room.AccessPath1_2B();
+				MainDesertHub.setRoomLocks(false);
+				AccessPath1.setRoomLocks(true);
+				
+				MainDesertHub.setRoomExits("");
 			}
 		}
 		//Exit Game
