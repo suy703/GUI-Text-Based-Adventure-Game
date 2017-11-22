@@ -22,7 +22,6 @@ public class GameInterface {
 	
 	Scene mainMenu;
 	
-	
 	Image icon = new Image("file:images/icon.png");
 	Image map = new Image("file:images/BombayHill.png"); 
 	ImageView viewIcon = new ImageView();
@@ -40,9 +39,6 @@ public class GameInterface {
 	ImageView viewHealthIcon = new ImageView();
 	Image monsterIcon = new Image("file:images/monsterHealthIcon.png");
 	ImageView viewMonsterIcon = new ImageView();
-	int maxHealth = 280;
-	int damage = 0;
-	int health = 280;
 	
 	public void mainMenu(Stage stage, Scene scene) {
 		GameControl control = new GameControl();
@@ -50,24 +46,18 @@ public class GameInterface {
 		borderPane.setPrefSize(1200,800);
 		VBox topPane = new VBox();
 		Pane centerPane = new Pane();
-		//StackPane rightPane = new StackPane();
 		Pane bottomPane = new HBox();
 		bottomPane.setStyle("-fx-background-color: #000000;");
 		bottomPane.setPadding(new Insets(10, 10, 10, 10));
-		//bottomPane.setSpacing(10);
 		borderPane.setTop(topPane);
 		borderPane.setCenter(centerPane);
 		borderPane.setBottom(bottomPane);
-		
 		//CENTER PANE--------------------------------------------------------------------------------------
 		//PLAYER HEALTH
 		Rectangle maxHealthBar = new Rectangle();  
 		Rectangle healthBar = new Rectangle();
 		Rectangle monsterMaxHealthBar = new Rectangle();
 		Rectangle monsterHealthBar = new Rectangle();
-		
-		//DISPLAY STORY & COMMAND MENU
-		control.controlDisplay(displayStory, displayCommand);
 		//BOTTOM PANE-------------------------------------------------------------------------------------
 		Text commandText = new Text();
 		Text prompt = new Text(); //Error message

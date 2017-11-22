@@ -179,4 +179,19 @@ public class Rooms {
 		
 		System.out.println("Loading Access Path 1 : Location Rooms Class"); // Testing purpose
 	}
+	//Access Path 2
+	public void AccessPath2_2C() {
+		CommandMenu commandMenu = new CommandMenu(map, icon, viewIcon, viewMap, displayStory, displayCommand);
+		Image map = new Image("file:images/TownAccess.png"); 
+		commandMenu.setNavigateMap(map, viewMap, 645, 300);
+		commandMenu.setNavigateIcon(icon, viewIcon, 775, 340); 
+		commandMenu.setLoadGameStory(displayStory, "Access Path 2\n\nThe path travels West, up a hill and into the mountains. You start to come "
+				+ "across a few pine trees scattered about, and you even pass by a stream. The water looks pure and cold so you stop to take a "
+				+ "drink and enjoy the scenery. A bird flies overhead and you hear a rustling in a tree that might be a squirrel. If you continue "
+				+ "West on this path, you will come to Nebelung Point, and if you go back East now, you will be at the crossroads again.");
+		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Main Desert Hub (East)\n" + "2. Nebelung Point (West)\n" + "3. Search Area\n" 
+				+ "4. Inventory\n" + "5. Save");
+		
+		System.out.println("Loading Access Path 1 : Location Rooms Class"); // Testing purpose
+	}
 }

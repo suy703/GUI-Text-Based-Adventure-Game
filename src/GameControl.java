@@ -34,7 +34,6 @@ public class GameControl {
 	int monsterMaxHealth = 280;
 	int monsterTotalHealth = 280;
 
-	
 	Boolean testPuzzle = true;
 	Boolean unlockDoor = false;
 	Boolean inBattle = true;
@@ -47,7 +46,6 @@ public class GameControl {
 	Puzzles puzzle = new Puzzles("");
 	
 	Player player;
-	//CENTER PANE--------------------------------------------------------------------------------------
 	//DISPLAY HEALTH BAR
 	public void displayHealthBar(Rectangle maxHealthBar, Rectangle healthBar, Image healthIcon, ImageView viewHealthIcon) {
 		//Setting the properties of the rectangle 
@@ -113,6 +111,7 @@ public class GameControl {
 		viewMonsterIcon.setLayoutX(595);
 		viewMonsterIcon.setLayoutY(60);
 	}
+	//REMOVE MONSTER HEALTH BAR
 	public void removeMonsterHealthBar(Rectangle monsterMaxHealthBar, Rectangle monsterHealthBar, ImageView viewMonsterIcon) {
 		monsterMaxHealthBar.setY(-75);
 		monsterHealthBar.setY(-75);
@@ -133,16 +132,6 @@ public class GameControl {
 		return monsterTotalHealth;
 	}
 	
-	//DISPLAY STORY & COMMAND MENU
-	public void controlDisplay(TextArea displayStory, TextArea displayCommand) {
-		CommandMenu commandMenu = new CommandMenu();
-		commandMenu.setDisplayStory(displayStory);
-		displayStory = commandMenu.getDisplayStory();
-		commandMenu.setDisplayCommand(displayCommand);
-		displayCommand = commandMenu.getDisplayCommand();
-	}
-	//BOTTOM PANE-------------------------------------------------------------------------------------
-	//EVENTHANDLER COMAMND
 	public void gameControl(Text commandText, TextField inputCommand, Text prompt, Image icon, Image map, ImageView viewIcon, ImageView viewMap, TextArea displayStory, 
 			TextArea displayCommand, Rectangle maxHealthBar, Rectangle healthBar, Image healthIcon, ImageView viewHealthIcon, Rectangle monsterMaxHealthBar, 
 			Rectangle monsterHealthBar, Image monsterIcon, ImageView viewMonsterIcon) {
@@ -157,15 +146,21 @@ public class GameControl {
 		Rooms Jail = new Rooms("Bombay Hill", false, "1E", "Jail", "", "");
 		Rooms MainDesertHub = new Rooms("Town Access", false, "", "Main Desert Hub", "", "");
 		Rooms AccessPath1 = new Rooms("Town Access", false, "", "Access Path 1", "", "");
+		Rooms AccessPath2 = new Rooms("Town Access", false, "", "Access Path 2", "", "");
 		
 		Monsters monster = new Monsters();
-		
+		//CENTER PANE------------------------------------------------------------------------------------------------------------------------
+		//DISPLAY STORY & COMMAND MENU
+		commandMenu.setDisplayStory(displayStory);
+		displayStory = commandMenu.getDisplayStory();
+		commandMenu.setDisplayCommand(displayCommand);
+		displayCommand = commandMenu.getDisplayCommand();
+		//BOTTOM PANE-----------------------------------------------------------------------------------------------------------------------
+		//EVENTHANDLER COMAMND
 		commandText.setText("Command: ");
 		commandText.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
 		commandText.setFill(Color.WHITE);
-		
 		inputCommand.setPromptText("Enter your command.");
-		
         inputCommand.setPrefWidth(432);
 		inputCommand.setOnKeyPressed(e -> {
 		String command = "";
@@ -514,7 +509,6 @@ public class GameControl {
 				Inn.setRoomID("1C");
 				DrugStore.setRoomID("");
 			}
-		    
             //SALOON----------------------------------------------------------------------------------------------------------------------------------------------------------
 			else if((TownHub.getRoomLocks() && (command.equals("3") || command.equalsIgnoreCase("saloon") || command.equalsIgnoreCase("east"))) ||
 					(Jail.getRoomLocks() && (command.equals("1") || command.equalsIgnoreCase("saloon") || command.equalsIgnoreCase("north")))) {
@@ -986,7 +980,8 @@ public class GameControl {
 			//MAIN DESERT HUB-----------------------------------------------------------------------------------------------------------------------
 			//MAIN DESERT HUB > Path Way
 			if((TownHub.getRoomLocks() && (command.equals("4") ||  command.equalsIgnoreCase("town access") || command.equalsIgnoreCase("north"))) ||
-					(AccessPath1.getRoomLocks() && (command.equals("1") ||  command.equalsIgnoreCase("town access") || command.equalsIgnoreCase("west")))) {
+					(AccessPath1.getRoomLocks() && (command.equals("1") ||  command.equalsIgnoreCase("town access") || command.equalsIgnoreCase("west"))) ||
+					(AccessPath2.getRoomLocks() && (command.equals("1") ||  command.equalsIgnoreCase("town access") || command.equalsIgnoreCase("east")))) {
 				if(TownHub.getRoomLocks() && (command.equals("4") ||  command.equalsIgnoreCase("access town") || command.equalsIgnoreCase("north"))) {
 					room.display("Town Hub > Path Way\n\nA path that leads out of town and into the wilderness.\n\nDo you want to enter Town Access?. ", "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 					TownHub.setRoomLocks(false);
@@ -997,29 +992,30 @@ public class GameControl {
 					AccessPath1.setRoomLocks(false);
 					AccessPath1.setRoomExits("D13");
 				}
+				else if(AccessPath2.getRoomLocks() && (command.equals("1") ||  command.equalsIgnoreCase("town access") || command.equalsIgnoreCase("east"))) {
+					room.display("Access Path 2 > Path Way\n\nA path leading West through a mountain pass.\n\nDo you want to enter the Main Desert Hub?", "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
+					AccessPath2.setRoomLocks(false);
+					AccessPath2.setRoomExits("D15");
+				}
 			}
 			else if(MainDesertHub.getRoomExits().equals("D10") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y")) ||
 					(MainDesertHub.getRoomExits().equals("D11") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
 					(MainDesertHub.getRoomExits().equals("D12") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
 					(MainDesertHub.getRoomID().contains("2A") && (command.equals("0") || command.equalsIgnoreCase("runaway") || command.equalsIgnoreCase("back"))) ||
-					(AccessPath1.getRoomExits().equals("D13") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y")))) {
+					(AccessPath1.getRoomExits().equals("D13") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) || 
+					(MainDesertHub.getRoomExits().equals("D14") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
+					(AccessPath2.getRoomExits().equals("D15") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y")))) {
 				room.MainDesertHub_2A();
 				TownHub.setRoomLocks(false);
-				DrugStore.setRoomLocks(false);
-				Inn.setRoomLocks(false);
-				Saloon.setRoomLocks(false);
-				Jail.setRoomLocks(false);
 				MainDesertHub.setRoomLocks(true);
 				AccessPath1.setRoomLocks(false);
+				AccessPath2.setRoomLocks(false);
 				
-				DrugStore.setRoomExits("");
-				Inn.setRoomExits("");
-				Saloon.setRoomExits("");
 				MainDesertHub.setRoomExits("");
+				AccessPath2.setRoomExits("");
 				
-				DrugStore.setRoomID("");
-				Saloon.setRoomID("");
-				Inn.setRoomID("");
+				AccessPath1.setRoomExits("");
+				AccessPath2.setRoomExits("");
 				MainDesertHub.setRoomID("2A"); //Open up Search Area command
 				removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
 				this.monsterTotalHealth = this.monsterMaxHealth; //Restore monster health
@@ -1051,11 +1047,17 @@ public class GameControl {
 			
 			//ACCESS PATH 1-----------------------------------------------------------------------------------------------------------------------
 			//ACCESS PATH 1 > Path Way
-			else if(MainDesertHub.getRoomLocks() && (command.equals("1") ||  command.equalsIgnoreCase("access path 1") || command.equalsIgnoreCase("east"))) {
-				if(MainDesertHub.getRoomLocks() && (command.equals("1") ||  command.equalsIgnoreCase("access path 1") || command.equalsIgnoreCase("east"))) {
+			else if((MainDesertHub.getRoomLocks() && (command.equals("1") || command.equalsIgnoreCase("access path 1") || command.equalsIgnoreCase("east"))) ||
+					(AccessPath1.getRoomLocks() && (command.equals("2") || command.equalsIgnoreCase("fort birman") || command.equalsIgnoreCase("east")))) {
+				if(MainDesertHub.getRoomLocks() && (command.equals("1") || command.equalsIgnoreCase("access path 1") || command.equalsIgnoreCase("east"))) {
 					room.display("Main Desert Hub > Path Way\n\nThe path continues East to Fort Birman.\n\nDo you want to enter the Access Path 1?", "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 					MainDesertHub.setRoomLocks(false);
 					MainDesertHub.setRoomExits("D12");
+				}
+				//ACCESS PATH 1 > FORT BIRMAN (BROWN LOCK)
+				else if(AccessPath1.getRoomLocks() && (command.equals("2") || command.equalsIgnoreCase("fort birman") || command.equalsIgnoreCase("east"))) {
+					room.display("Access Path 1 > Path Way\n\nA loan shark is blocking the way to the next town, he seems to be looking for something. "
+							+ "Probably shouldn’t bother him until you know what he wants.", "Action\n" + "0. Leave Door\n" + "1. ?????");
 				}
 			}
 			else if((MainDesertHub.getRoomExits().equals("D12") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
@@ -1063,9 +1065,37 @@ public class GameControl {
 				room.AccessPath1_2B();
 				MainDesertHub.setRoomLocks(false);
 				AccessPath1.setRoomLocks(true);
+				AccessPath2.setRoomLocks(false);
 				
 				MainDesertHub.setRoomExits("");
 				AccessPath1.setRoomExits("");
+				AccessPath2.setRoomExits("");
+			}
+			//ACCESS PATH 2-----------------------------------------------------------------------------------------------------------------------
+			//ACCESS PATH 2 > Path Way
+			else if(MainDesertHub.getRoomLocks() && (command.equals("2") || command.equalsIgnoreCase("access path 2") || command.equalsIgnoreCase("west")) ||
+					(AccessPath2.getRoomLocks() && (command.equals("2") || command.equalsIgnoreCase("nebelung point") || command.equalsIgnoreCase("west")))) {
+				if(MainDesertHub.getRoomLocks() && (command.equals("2") || command.equalsIgnoreCase("access path 2") || command.equalsIgnoreCase("west"))) {
+					room.display("Main Desert Hub > Path Way\n\nA path leading West through a mountain pass.\n\nDo you want to enter the Access Path 2?", "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
+					MainDesertHub.setRoomLocks(false);
+					MainDesertHub.setRoomExits("D14");
+				}
+				//ACCESS PATH2 > NEBELUNG POINT (BROWN LOCK)
+				else if(AccessPath2.getRoomLocks() && (command.equals("2") || command.equalsIgnoreCase("nebelung point") || command.equalsIgnoreCase("west"))) {
+					room.display("Access Path 2 > Path Way\n\nA giant rock is blocking the path of the next time. If you had a giant stick of "
+							+ "dynamite, you could probably clear the way.", "Action\n" + "0. Leave Door\n" + "1. Use dynamite (0)");
+				}
+			}
+			else if((MainDesertHub.getRoomExits().equals("D14") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
+					(AccessPath2.getRoomExits().equals("D15") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n")))) {
+				room.AccessPath2_2C();
+				MainDesertHub.setRoomLocks(false);
+				AccessPath1.setRoomLocks(false);
+				AccessPath2.setRoomLocks(true);
+				
+				MainDesertHub.setRoomExits("");
+				AccessPath1.setRoomExits("");
+				AccessPath2.setRoomExits("");
 			}
 		}
 		//Exit Game
