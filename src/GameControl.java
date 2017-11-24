@@ -642,6 +642,7 @@ public class GameControl {
 							+ "Your priority is to kill the leader of the gang Long Riders. The Deputy Sheriff is old and fat but "
 							+ "he is the big boss of this jail house. ", "0. Back\n" + "1. Fight Deputy Sheriff");
 					
+					unlockDoor = true;
 					System.out.println("Sent to Jail : Location Game Control"); // Testing purpose
 				}
 			}
@@ -664,7 +665,7 @@ public class GameControl {
 				if(this.monsterTotalHealth > 0) {//When monster health is greater than 0 = true
 					this.monsterTotalHealth = monsterHealthMeter(monsterHealthBar, this.monsterTotalHealth, deputyDamage, prompt); //Player does damage to monster's health bar
 					this.totalHealth = healthMeter(healthBar, this.totalHealth, -4, prompt); //Monster does damage to player's health bar
-					room.display("Saloon > Henchman Battle\n\nThe Deputy Sheriff is a tough guy. He is known as the boss "
+					room.display("Saloon > Deputy Sheriff\n\nThe Deputy Sheriff is a tough guy. He is known as the boss "
 							+ "at this town hub. He runs the jail, but this will not stop you from taking him out!", "Action\n" + "0. Runaway\n" +"1. Attack");
 					
 					System.out.println("Attacking Deputy Sheriff : Location Game Control"); // Testing purpose
@@ -675,26 +676,42 @@ public class GameControl {
 					room.display("Jail > Deputy Sheriff\n\n"
 							+ "A key is dropped from Deputy Sheriff! Quickly grab it and unlock the jail! You do not have much time"
 							+ " other deputies are making their way to the cell from the sound of gun fire! ", "0. Back\n" + "1. Pick up key");
+					
 					System.out.println("Key is dropped : Location Game Control"); // Testing purpose
 				}
 			}
 		    
+		    // picking up key
 			else if(puzzle.getPuzzleID().contains("P05") && command.equalsIgnoreCase("1") || command.equalsIgnoreCase("pick up  key")) {
 				puzzle.setPuzzleID("P06");
 				room.display("Jail > Deputy Sheriff\n\n"
 						+ "Now that you have the key, the jail may now be unlocked and you have earned respect as the new boss around the town hub! Go ahead and unlock"
 						+ " the jail and head back out to the Saloon.", "0. Back\n" + "1. Unlock Jail");
+				
 				System.out.println("Jail is unlocked : Location Game Control"); // Testing purpose
 			}
+		    
+		    //jail unlocked returning to saloon
 			else if(puzzle.getPuzzleID().contentEquals("P06") && command.equalsIgnoreCase("1") || command.equalsIgnoreCase("unlock jail")) {
+				room.Saloon_1D();
+				TownHub.setRoomLocks(false);
+				DrugStore.setRoomLocks(false);
+				Inn.setRoomLocks(false);
+				Saloon.setRoomLocks(true);
+				Jail.setRoomLocks(false);
+				Saloon.setRoomExits("D08");
+				
+				TownHub.setRoomExits("");
+				
+				Saloon.setRoomID("1D");
+				
+				puzzle.setPuzzleID("P07");
 				room.Saloon_1D();
 				room.display("Saloon\n\nYou unlocked the jail and now is a free man. You are back out at the Saloon covered dirt and sweat after the"
 						+ "fight with the Deputy Sheriff. However, your mission is critical and you must keep moving. The leader of the "
 						+ " Long Riders must be taken out before more cows are killed. It's time to make your way out of this old Town Hub and move on.", "Action\n" + "1. Town Hub");
 				System.out.println("Returning to Saloon : Location Game Control"); // Testing purpose
 			}
-		    
-		    // Need to return to townhub, still working on it
 	    
 //-------------------------------------------------------------------------------------------------------------------------------    
 		    //SALOON > Search Room > Back
