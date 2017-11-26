@@ -50,14 +50,14 @@ public class Items {
 		String invDisplay = name +"------------------\n0. Back";
 		if(canEquip) {
 			if(equals(p.equippedWeap))
-				invDisplay += "\n1. Unequip";
+				invDisplay += "\nUnequip";
 			else
-				invDisplay += "\n1. Equip";
-			invDisplay += "\n2. Drop";
+				invDisplay += "\nEquip";
+			invDisplay += "\nDrop";
 		}else if(canUse) {
-			invDisplay += "\n1. Use\n2. Drop";
+			invDisplay += "\nUse\nDrop";
 		}else {
-			invDisplay += "\n1. Drop";
+			invDisplay += "\nDrop";
 		}
 		return invDisplay;
 	}

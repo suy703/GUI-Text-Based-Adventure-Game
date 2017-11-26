@@ -1,4 +1,3 @@
-
 public class Store {
 	Items[] storeInventory;
 	
@@ -35,3 +34,4 @@ public class Store {
 	
 
 }
+

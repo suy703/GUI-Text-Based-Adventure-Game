@@ -1,5 +1,8 @@
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
+import java.util.ArrayList;
+
 import javafx.scene.control.TextArea;
 
 public class Rooms {
@@ -12,7 +15,7 @@ public class Rooms {
 	String ID = "";
 	String name = "";
 	String exits = "";
-	String items = "";
+	ArrayList<Items> items = new ArrayList<Items>();
 	String roomDescription;
 	
 	Image map, icon;
@@ -22,7 +25,15 @@ public class Rooms {
 	/*
 	 * CONSTRUCTOR
 	 */
-	public Rooms(String level, Boolean locks, String ID, String name, String exits, String items) {
+	public Rooms(String level, Boolean locks, String ID, String name, String exits) {
+		
+		this.levels = level;
+		this.locks = locks;
+		this.ID = ID;
+		this.name = name;
+		this.exits = exits;
+	}
+	public Rooms(String level, Boolean locks, String ID, String name, String exits, ArrayList<Items> items) {
 		
 		this.levels = level;
 		this.locks = locks;
@@ -73,10 +84,10 @@ public class Rooms {
 	public void setRoomExits(String exits) {
 		this.exits = exits;
 	}
-	public String getRoomItems() {
+	public ArrayList<Items> getRoomItems() {
 		return this.items;
 	}
-	public void setRoomItems(String items) {
+	public void setRoomItems(ArrayList<Items> items) {
 		this.items = items;
 	}
 	
@@ -85,6 +96,17 @@ public class Rooms {
 	}
 	public void setRoomDescription(String roomDescription) {
 		this.roomDescription = roomDescription;
+	}
+	public String displayItems() {
+		String display = "You find: \n";
+		if(items.size()>0) {
+			for(int i = 0; i < items.size(); i++) {
+				display += items.get(i).name + "\n(" + items.get(i).description;
+			}
+		}else {
+			display = "You didn't find anything";
+		}
+		return display;
 	}
 	//Display Room
 	public void display(String story, String command) {

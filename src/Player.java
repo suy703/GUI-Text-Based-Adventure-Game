@@ -28,7 +28,7 @@ public class Player extends Character{
 	 * Constructor. Define's the player's attributes.
 	 */
 	public Player() {
-		super("Texas Heck", 20, 1, 50);
+		super("Texas Heck", 20, 1, 30);
 		inventory = new ArrayList<Items>();
 		equippedWeap = new Weapon("00", "-empty-", "Your bare hands", 0, 1);
 		totalAtk = baseAtk + equippedWeap.attackPower;
@@ -177,6 +177,12 @@ public class Player extends Character{
 			cm.prompt(prompt, "ATTACK POWER INCREASED");
 			inventory.remove(i);
 			}
+		else if(i.canUse && i.type.equals("G")){
+			gold += i.strength;
+			cm.prompt(prompt,i.strength+ " GOLD ADDED");
+			inventory.remove(i);
+			
+		}
 		else {
 			System.out.println("You can't use that item");
 		}
@@ -186,8 +192,9 @@ public class Player extends Character{
 	 * Removes an item from the players inventory.
 	 * @param i The item being removed from the player's inventory.
 	 */
-	public void dropItem(Items i) {
+	public void dropItem(Items i,CommandMenu cm, Text prompt) {
 		inventory.remove(i);
+		cm.prompt(prompt, i.name.toUpperCase() + " DROPPED");
 		
 	}
 	

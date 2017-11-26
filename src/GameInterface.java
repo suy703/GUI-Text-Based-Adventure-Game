@@ -65,7 +65,7 @@ public class GameInterface {
         TextField inputCommand = new TextField();
         control.gameControl(commandText, inputCommand, prompt, icon, map, viewIcon, viewMap, displayStory, displayCommand, maxHealthBar, healthBar, 
         		healthIcon, viewHealthIcon, monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon);
-			
+		
 		borderPane.setBackground(background);
 		centerPane.getChildren().addAll(maxHealthBar, healthBar, viewHealthIcon, monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon, displayStory, displayCommand, viewMap, viewIcon);
 		bottomPane.getChildren().addAll(commandText, inputCommand, prompt);

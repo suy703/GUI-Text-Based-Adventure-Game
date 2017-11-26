@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import javafx.scene.control.TextArea;
@@ -40,9 +42,25 @@ public class GameControl {
 	
 	Potion healthPotion = new Potion("i1", "Health Potion", "A bottle shaped like a human heart with a red liquid inside.\n", 2, "H", 3);
 	Potion attackPotion = new Potion("i2", "Attack Potion", "A perfectly round bottle with a cork in the top. The liquid has a strange yellow color to it but it smells like a delicious tropical fruit when you uncork it.\n", 3, "A", 2);
-	Weapon pistol = new Weapon("i7", "Pistol", "A shiney, metalic, little gun. It might be small but it could definitely do some damage!\n", 5, 5);
+	Potion bagOfGold = new Potion("i3", "Bag of Coins", "A small bag of shiney gold coins with a creepy looking face in the center.", 5, "G", 5);
+	
+	Weapon dagger = new Weapon("i4", "Dagger", "A small, silver knife with a carved wooden handle.",3,1);
+	Weapon animalClaw = new Weapon("i5", "Animal Claw", "A small but sharp claw from an animal. Not much better than using your fists.",1,2);
+	Weapon boneClub = new Weapon("i6","Bone Club", "A club made from a bone of unknown origin.", 2,3);
+	Weapon pistol = new Weapon("i7", "Pistol", "A shiney, metalic, little gun. It might be small but it could definitely do some damage!", 5, 5);
+	Weapon revolver = new Weapon("i8", "Revolver", "A shiney, metalic, little gun. It might be small but it could definitely do some damage!",6,7);
+	Weapon goldenRevolver = new Weapon("i9", "Golden Revolver", "A heavy, gold revolver. There is an inscription on the side that reads “To the Sheriff, may your enemies always turn to gold”.", 10,10);
+	
 	Items[] drugstore1 = {healthPotion,attackPotion, pistol};
 	Store store1 = new Store(drugstore1);
+	
+	ArrayList<Items> inn1CItems = new ArrayList<Items>(Arrays.asList(bagOfGold));
+	ArrayList<Items> saloon3EItems = new ArrayList<Items>(Arrays.asList(bagOfGold,pistol));
+	ArrayList<Items> inn4CItems = new ArrayList<Items>(Arrays.asList(attackPotion,bagOfGold));
+	
+	Items[] drugstore2 = {healthPotion,attackPotion,revolver,goldenRevolver};
+	Store store2 = new Store(drugstore2);
+	
 	Puzzles puzzle = new Puzzles("");
 	
 	Player player;
@@ -139,14 +157,14 @@ public class GameControl {
 		CommandMenu commandMenu = new CommandMenu(map, icon, viewIcon, viewMap, displayStory, displayCommand);
 		Rooms room = new Rooms(map, icon, viewIcon, viewMap, displayStory, displayCommand);
 		
-		Rooms TownHub = new Rooms("Bombay Hill", false, "1A", "Town Hub", "", "");
-		Rooms DrugStore = new Rooms("Bombay Hill", false, "", "Drug Store", "", "I1, I2, I4");
-		Rooms Inn = new Rooms("Bombay Hill", false, "", "Inn", "", "I3");
-		Rooms Saloon = new Rooms("Bombay Hill", false, "", "Saloon", "", "");
-		Rooms Jail = new Rooms("Bombay Hill", false, "1E", "Jail", "", "");
-		Rooms MainDesertHub = new Rooms("Town Access", false, "", "Main Desert Hub", "", "");
-		Rooms AccessPath1 = new Rooms("Town Access", false, "", "Access Path 1", "", "");
-		Rooms AccessPath2 = new Rooms("Town Access", false, "", "Access Path 2", "", "");
+		Rooms TownHub = new Rooms("Bombay Hill", false, "1A", "Town Hub", "");
+		Rooms DrugStore = new Rooms("Bombay Hill", false, "", "Drug Store", "");
+		Rooms Inn = new Rooms("Bombay Hill", false, "", "Inn", "", inn1CItems);
+		Rooms Saloon = new Rooms("Bombay Hill", false, "", "Saloon", "");
+		Rooms Jail = new Rooms("Bombay Hill", false, "1E", "Jail", "");
+		Rooms MainDesertHub = new Rooms("Town Access", false, "", "Main Desert Hub", "");
+		Rooms AccessPath1 = new Rooms("Town Access", false, "", "Access Path 1", "");
+		Rooms AccessPath2 = new Rooms("Town Access", false, "", "Access Path 2", "");
 		
 		Monsters monster = new Monsters();
 		//CENTER PANE------------------------------------------------------------------------------------------------------------------------
@@ -179,9 +197,7 @@ public class GameControl {
 		    		newGame = false;
 					player = new Player();
 					System.out.println("Player Created");
-					Items testWeap = new Weapon("0001", "test item", "ignore description" ,10, 10);//Testing Inventory
-					player.inventory.add(testWeap); //Testing Inventory
-					player.equipWeapon(player.inventory.get(0));
+					player.inventory.add(dagger); //Testing Inventory
 				}
 		    	lockMainMenu = false;
 				unlockSaveGame = true;
@@ -216,33 +232,33 @@ public class GameControl {
 				lockLoadGame = true;
 			}
 		    //TOWN HUB---------------------------------------------------------------------------------------------------------------------------
-			else if((DrugStore.getRoomLocks() && !storeView &&(command.equals("1") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("east"))) ||
+			else if(!inventoryView && !itemView && (DrugStore.getRoomLocks() && !storeView &&(command.equals("1") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("east"))) ||
 		    		(Inn.getRoomLocks() && (command.equals("2") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("east"))) ||
 		    		(Saloon.getRoomLocks() && (command.equals("1") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("west"))) ||
 		    		(MainDesertHub.getRoomLocks() && (command.equals("3") ||  command.equalsIgnoreCase("bombay hill") || command.equalsIgnoreCase("south")))) {
 				//TOWN HUB > Door
-				if(DrugStore.getRoomLocks() && (command.equals("1") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("east"))) {
+				if(!inventoryView && !itemView && DrugStore.getRoomLocks() && (command.equals("1") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("east"))) {
 					room.display(doorFile[0] + "\n\n" + doorFile[1] + "\n\n" + doorFile[2], "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 					DrugStore.setRoomLocks(false);
 					DrugStore.setRoomExits("D01");
 				}
-				else if(Inn.getRoomLocks() && (command.equals("2") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("east"))) {
+				else if(!inventoryView && !itemView && Inn.getRoomLocks() && (command.equals("2") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("east"))) {
 					room.display(doorFile[3] + "\n\n" + doorFile[4] + "\n\n" + doorFile[5], "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 					Inn.setRoomLocks(false);
 					Inn.setRoomExits("D04");
 				}
-				else if(Saloon.getRoomLocks() && (command.equals("1") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("west"))) {
+				else if(!inventoryView && !itemView && Saloon.getRoomLocks() && (command.equals("1") ||  command.equalsIgnoreCase("town hub") || command.equalsIgnoreCase("west"))) {
 					room.display(doorFile[6] + "\n\n" + doorFile[7] + "\n\n" + doorFile[8], "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 					Saloon.setRoomLocks(false);
 					Saloon.setRoomExits("D07");
 				}
-				else if(MainDesertHub.getRoomLocks() && (command.equals("3") ||  command.equalsIgnoreCase("bombay hill") || command.equalsIgnoreCase("south"))) {
+				else if(!inventoryView && !itemView && MainDesertHub.getRoomLocks() && (command.equals("3") ||  command.equalsIgnoreCase("bombay hill") || command.equalsIgnoreCase("south"))) {
 					room.display("Main Desert Hub\n\nA path that leads out of the wilderness and into town\n\nDo you want to enter Town Hub?. ", "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 					MainDesertHub.setRoomLocks(false);
 					MainDesertHub.setRoomExits("D11");
 				}
 			}
-			else if(TownHub.getRoomExits().contains("D00") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n")) ||
+			else if(!inventoryView && !itemView && TownHub.getRoomExits().contains("D00") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n")) ||
 					(DrugStore.getRoomExits().contains("D01") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
 					(TownHub.getRoomExits().contains("D05") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
 					(Inn.getRoomExits().contains("D04") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
@@ -269,22 +285,22 @@ public class GameControl {
 				
 			}
 		    //DRUG STORE-------------------------------------------------------------------------------------------------------------------------
-			else if((TownHub.getRoomLocks() && (command.equals("1") || command.equalsIgnoreCase("drug store") || command.equalsIgnoreCase("north west"))) ||
+			else if(!inventoryView && !itemView && (TownHub.getRoomLocks() && (command.equals("1") || command.equalsIgnoreCase("drug store") || command.equalsIgnoreCase("north west"))) ||
 					(Inn.getRoomLocks() && (command.equals("1") || command.equalsIgnoreCase("drug store") || command.equalsIgnoreCase("north")))) {
 				//DRUG STORE > Door
-				if(TownHub.getRoomLocks() && (command.equals("1") || command.equalsIgnoreCase("drug store") || command.equalsIgnoreCase("north west"))) {
+				if(!inventoryView && !itemView && TownHub.getRoomLocks() && (command.equals("1") || command.equalsIgnoreCase("drug store") || command.equalsIgnoreCase("north west"))) {
 					room.display(doorFile[9] + "\n\n" + doorFile[10] + "\n\n" + doorFile[11], "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 					TownHub.setRoomLocks(false);
 					TownHub.setRoomExits("D00");
 				}
-				else if(Inn.getRoomLocks() && (command.equals("1") || command.equalsIgnoreCase("drug store") || command.equalsIgnoreCase("north"))) {
+				else if(!inventoryView && !itemView && Inn.getRoomLocks() && (command.equals("1") || command.equalsIgnoreCase("drug store") || command.equalsIgnoreCase("north"))) {
 					room.display(doorFile[12] + "\n\n" + doorFile[13] + "\n\n" + doorFile[14], "Action\n" 
 							+ "0. No (N)\n" + "1. Yes (Y)");
 					Inn.setRoomLocks(false);
 					Inn.setRoomExits("D03");
 				}
 			}
-			else if((TownHub.getRoomExits().contains("D00") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
+			else if(!inventoryView && !itemView && (TownHub.getRoomExits().contains("D00") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
 					(DrugStore.getRoomExits().contains("D01") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
 					(DrugStore.getRoomExits().contains("D02") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
 					(Inn.getRoomExits().contains("D03") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y")))) {
@@ -439,6 +455,10 @@ public class GameControl {
 		    //DRUG STORE > Shop > Back
 			else if(DrugStore.getRoomID().equals("1B") && (command.equals("0") || command.equalsIgnoreCase("back"))) {
 				
+				inventoryView = false;
+				itemView = false;
+				storeView = false;
+				
 				room.DrugStore_1B();
 				TownHub.setRoomLocks(false);
 				DrugStore.setRoomLocks(true);
@@ -455,7 +475,7 @@ public class GameControl {
 				Inn.setRoomID("");
 			}
 		    //INN--------------------------------------------------------------------------------------------------------------------------------
-			else if((DrugStore.getRoomLocks() && (command.equals("2") &&!storeView || command.equalsIgnoreCase("inn") || command.equalsIgnoreCase("south"))) || 
+			else if(!inventoryView && !itemView && (DrugStore.getRoomLocks() && (command.equals("2") &&!storeView || command.equalsIgnoreCase("inn") || command.equalsIgnoreCase("south"))) || 
 					(TownHub.getRoomLocks() && (command.equals("2") || command.equalsIgnoreCase("inn") || command.equalsIgnoreCase("south west")))) {
 				//INN > Door
 				if(DrugStore.getRoomLocks() && (command.equals("2") || command.equalsIgnoreCase("inn") || command.equalsIgnoreCase("south"))) {
@@ -464,13 +484,13 @@ public class GameControl {
 					DrugStore.setRoomLocks(false);
 					DrugStore.setRoomExits("D02");
 				}
-				else if(TownHub.getRoomLocks() && (command.equals("2") || command.equalsIgnoreCase("inn") || command.equalsIgnoreCase("south west"))) {
+				else if(!inventoryView && !itemView && TownHub.getRoomLocks() && (command.equals("2") || command.equalsIgnoreCase("inn") || command.equalsIgnoreCase("south west"))) {
 					room.display(doorFile[18] + "\n\n" + doorFile[19] + "\n\n" + doorFile[20], "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 					TownHub.setRoomLocks(false);
 					TownHub.setRoomExits("D05");
 				}
 			}
-			else if((DrugStore.getRoomExits().contains("D02") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
+			else if(!inventoryView && !itemView && (DrugStore.getRoomExits().contains("D02") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
 					(Inn.getRoomExits().contains("D03") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
 					(TownHub.getRoomExits().contains("D05") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
 					(Inn.getRoomExits().contains("D04") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n")))) {
@@ -488,16 +508,17 @@ public class GameControl {
 				Inn.setRoomID("1C");
 				DrugStore.setRoomID("");
 			}
-		    //INN > Search Room
-			else if(Inn.getRoomID().equals("1C") && (command.equals("3") || command.equalsIgnoreCase("search room"))) {
-				
-				Items gold = new Items("i3", "Gold (1)", "A shiney gold coin with a creepy looking face in the center.", 1);
-				room.display("Drug Store > Search Room\n\n" + gold.getName() + "---------------------------------------------\n" + gold.getDescription(), "Action\n" 
-						+ "0. Back\n" + "1. Pickup Item\n" + "2. Inventory\n" + "3. Save Game\n");
-				Inn.setRoomLocks(false);
+		  //INN > Search Room
+			else if(!itemView&& !inventoryView&& Inn.getRoomID().equals("1C") && (command.equals("3") || command.equalsIgnoreCase("search room"))) {
+				room.display("Drug Store > Search Room\n\n" +Inn.displayItems(), "Action\n" 
+							+ "0. Back\n" + "1. Pickup Item\n" + "2. Inventory\n" + "3. Save Game\n");
+						Inn.setRoomLocks(false);
 			}
 		    //INN > Search Room > Back
 			else if(Inn.getRoomID().equals("1C") && (command.equals("0") || command.equalsIgnoreCase("back"))) {
+				inventoryView = false;
+				itemView = false;
+				storeView = false;
 				
 				room.Inn_1C();
 				TownHub.setRoomLocks(false);
@@ -512,8 +533,47 @@ public class GameControl {
 				Inn.setRoomID("1C");
 				DrugStore.setRoomID("");
 			}
+			else if(!inventoryView && !itemView && Inn.getRoomID().equals("1C") && (command.equals("1") || command.equalsIgnoreCase("pick up item"))) {
+				if(Inn.items.size()>0) {
+					player.inventory.add(Inn.items.get(0));
+					commandMenu.prompt(prompt, Inn.items.get(0).name.toUpperCase()+ " ADDED TO INVETORY");
+					Inn.items.remove(0);
+					
+					inventoryView = false;
+					itemView = false;
+					storeView = false;
+					
+					room.Inn_1C();
+					TownHub.setRoomLocks(false);
+					DrugStore.setRoomLocks(false);
+					Inn.setRoomLocks(true);
+					Saloon.setRoomLocks(false);
+					Jail.setRoomLocks(false);
+					
+					TownHub.setRoomExits("");
+					DrugStore.setRoomExits("");
+					
+					Inn.setRoomID("1C");
+					DrugStore.setRoomID("");
+					
+				}else {
+					room.Inn_1C();
+					TownHub.setRoomLocks(false);
+					DrugStore.setRoomLocks(false);
+					Inn.setRoomLocks(true);
+					Saloon.setRoomLocks(false);
+					Jail.setRoomLocks(false);
+					
+					TownHub.setRoomExits("");
+					DrugStore.setRoomExits("");
+					
+					Inn.setRoomID("1C");
+					DrugStore.setRoomID("");
+					commandMenu.prompt(prompt, "NOTHING TO PICK UP");
+				}
+			}
             //SALOON----------------------------------------------------------------------------------------------------------------------------------------------------------
-			else if((TownHub.getRoomLocks() && (command.equals("3") || command.equalsIgnoreCase("saloon") || command.equalsIgnoreCase("east"))) ||
+			else if(!inventoryView && !itemView && (TownHub.getRoomLocks() && (command.equals("3") || command.equalsIgnoreCase("saloon") || command.equalsIgnoreCase("east"))) ||
 					(Jail.getRoomLocks() && (command.equals("1") || command.equalsIgnoreCase("saloon") || command.equalsIgnoreCase("north")))) {
 				//SALOON > Door
 				if(TownHub.getRoomLocks() && (command.equals("3") || command.equalsIgnoreCase("saloon") || command.equalsIgnoreCase("east"))) {
@@ -524,9 +584,9 @@ public class GameControl {
 					System.out.println("Requesting to enter Saloon : Location Game control"); // Testing purpose
 				}
 				//SALOON > Locked Door/Unlocked Door
-				else if(Jail.getRoomLocks() && (command.equals("1") || command.equalsIgnoreCase("saloon") || command.equalsIgnoreCase("north"))) {
+				else if(!inventoryView && !itemView && Jail.getRoomLocks() && (command.equals("1") || command.equalsIgnoreCase("saloon") || command.equalsIgnoreCase("north"))) {
 					
-					if(Jail.getRoomLocks() && testPuzzle && (command.equals("1") || command.equalsIgnoreCase("saloon") || command.equalsIgnoreCase("north"))) {
+					if(!inventoryView && !itemView && Jail.getRoomLocks() && testPuzzle && (command.equals("1") || command.equalsIgnoreCase("saloon") || command.equalsIgnoreCase("north"))) {
 						
 						room.display(doorFile[24] + "\n\n" + doorFile[25], "Action\n" + "0. Leave Door\n" + "1. Unlock Door");
 						Jail.setRoomLocks(false);
@@ -538,7 +598,7 @@ public class GameControl {
 							testPuzzle = false;
 						}
 					}
-					else if(Jail.getRoomLocks() && unlockDoor && (command.equals("1") || command.equalsIgnoreCase("saloon") || command.equalsIgnoreCase("north"))) {
+					else if(!inventoryView && !itemView && Jail.getRoomLocks() && unlockDoor && (command.equals("1") || command.equalsIgnoreCase("saloon") || command.equalsIgnoreCase("north"))) {
 						
 						room.display(doorFile[26] + "\n\n" + doorFile[27], "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 						Jail.setRoomLocks(false);
@@ -547,12 +607,12 @@ public class GameControl {
 					}
 				}
 			}
-			else if((TownHub.getRoomExits().contains("D06") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) || 
+			else if(!inventoryView && !itemView && (TownHub.getRoomExits().contains("D06") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) || 
 					(Saloon.getRoomExits().contains("D07") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
 					(Saloon.getRoomExits().contains("D08") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
 					(Jail.getRoomExits().contains("D09") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y")))) {
 				
-				if((TownHub.getRoomExits().contains("D06") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) || 
+				if(!inventoryView && !itemView && (TownHub.getRoomExits().contains("D06") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) || 
 					(Saloon.getRoomExits().contains("D07") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
 					(Saloon.getRoomExits().contains("D08") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n")))) {
 					room.Saloon_1D();
@@ -566,7 +626,7 @@ public class GameControl {
 					
 					Saloon.setRoomID("1D");
 				}
-				else if(Jail.getRoomExits().contains("D09") && testPuzzle && (command.equals("1") || command.equalsIgnoreCase("unlock door"))) {
+				else if(!inventoryView && !itemView && Jail.getRoomExits().contains("D09") && testPuzzle && (command.equals("1") || command.equalsIgnoreCase("unlock door"))) {
 					
 					room.display(doorFile[24] + "\n\n" + doorFile[25], "Action\n" + "0. Leave Door\n" + "1. Unlock Door");
 					Jail.setRoomExits("D09");
@@ -576,7 +636,7 @@ public class GameControl {
 					System.out.println("Jail is locked : " + Jail.getRoomLocks()); // Testing Purpose
 				}
 								
-				else if(Jail.getRoomExits().contains("D09") && unlockDoor && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) {
+				else if(!inventoryView && !itemView && Jail.getRoomExits().contains("D09") && unlockDoor && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) {
 					
 					room.Saloon_1D();
 					TownHub.setRoomLocks(false);
@@ -716,6 +776,9 @@ public class GameControl {
 //-------------------------------------------------------------------------------------------------------------------------------    
 		    //SALOON > Search Room > Back
 			else if(Saloon.getRoomID().equals("1D") && (command.equals("0") || command.equalsIgnoreCase("back"))) {
+				inventoryView = false;
+				itemView = false;
+				storeView = false;
 				
 				room.Saloon_1D();
 				TownHub.setRoomLocks(false);
@@ -733,9 +796,9 @@ public class GameControl {
 			}
 		    		   
 		    //JAIL-------------------------------------------------------------------------------------------------------------------------------
-			else if((Saloon.getRoomLocks() && (command.equals("2") || command.equalsIgnoreCase("jail") || command.equalsIgnoreCase("south")))) {
+			else if(!inventoryView && !itemView && (Saloon.getRoomLocks() && (command.equals("2") || command.equalsIgnoreCase("jail") || command.equalsIgnoreCase("south")))) {
 				//JAIL > Locked Door/Unlocked Door
-				if((Saloon.getRoomLocks() && testPuzzle && (command.equals("2") || command.equalsIgnoreCase("jail") || command.equalsIgnoreCase("south")))) {
+				if(!inventoryView && !itemView && (Saloon.getRoomLocks() && testPuzzle && (command.equals("2") || command.equalsIgnoreCase("jail") || command.equalsIgnoreCase("south")))) {
 					
 					// + "\n\n" + doorFile[32]
 					room.display(doorFile[28] + "\n\n" + doorFile[29], "Action\n" + "0. Leave Door\n" + "1. Unlock Door");
@@ -755,7 +818,7 @@ public class GameControl {
 					
 				}
 				//JAIL > Unlocked Door
-				else if((Saloon.getRoomLocks() && unlockDoor && (command.equals("2") || command.equalsIgnoreCase("jail") || command.equalsIgnoreCase("south")))) {
+				else if(!inventoryView && !itemView && (Saloon.getRoomLocks() && unlockDoor && (command.equals("2") || command.equalsIgnoreCase("jail") || command.equalsIgnoreCase("south")))) {
 					room.display(doorFile[30] + "\n\n" + doorFile[31], "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 					Saloon.setRoomLocks(false);
 					Saloon.setRoomExits("D08");
@@ -766,9 +829,9 @@ public class GameControl {
 			}
 
 		    //JAIL > Locked Door
-			else if((Saloon.getRoomExits().contains("D08") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y") || command.equalsIgnoreCase("unlock door")))) {
+			else if(!inventoryView && !itemView && (Saloon.getRoomExits().contains("D08") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y") || command.equalsIgnoreCase("unlock door")))) {
 				
-				if(Saloon.getRoomExits().contains("D08") && testPuzzle && (command.equals("1") || command.equalsIgnoreCase("unlock door"))) {
+				if(!inventoryView && !itemView && Saloon.getRoomExits().contains("D08") && testPuzzle && (command.equals("1") || command.equalsIgnoreCase("unlock door"))) {
 					
 					room.display(doorFile[28] + "\n\n" + doorFile[29], "Action\n" + "0. Leave Door\n" + "1. Unlock Door");
 					Saloon.setRoomExits("D08");
@@ -777,7 +840,7 @@ public class GameControl {
 					System.out.println("Attempting to enter locked Jail : Location Game Interface"); // Testing purpose
 
 				}
-				else if(Saloon.getRoomExits().contains("D08") && unlockDoor && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y")) ||
+				else if(!inventoryView && !itemView && Saloon.getRoomExits().contains("D08") && unlockDoor && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y")) ||
 						(Jail.getRoomExits().contains("D09") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n")))) {
 					
 					room.Jail_1E();
@@ -935,11 +998,505 @@ public class GameControl {
 				}
 				
 			}
-			
+			else if(itemView  && (command.equals("0"))||command.equalsIgnoreCase("back")) {
+				if(TownHub.getRoomLocks()==true) {
+					storeView = false;
+					inventoryView = false;
+					itemView = false;
+
+					room.TownHub_1A();
+					TownHub.setRoomLocks(true);
+					DrugStore.setRoomLocks(false);
+					Inn.setRoomLocks(false);
+					Saloon.setRoomLocks(false);
+					Jail.setRoomLocks(false);
+					MainDesertHub.setRoomLocks(false);
+					
+					DrugStore.setRoomExits("");
+					Inn.setRoomExits("");
+					Saloon.setRoomExits("");
+					
+					DrugStore.setRoomID("");
+					Saloon.setRoomID("");
+					Inn.setRoomID("");
+					System.out.println("TownHub");
+				}
+				else if(DrugStore.getRoomLocks()==true) {
+					storeView = false;
+					inventoryView = false;
+					itemView = false;
+
+					
+					room.DrugStore_1B();
+					TownHub.setRoomLocks(false);
+					DrugStore.setRoomLocks(true);
+					Inn.setRoomLocks(false);
+					Saloon.setRoomLocks(false);
+					Jail.setRoomLocks(false);
+					
+					TownHub.setRoomExits("");
+					Inn.setRoomExits("");
+					
+					DrugStore.setRoomID("1B");
+					Inn.setRoomID("");
+					System.out.println("DrugStore");
+				}
+				else if(Inn.getRoomLocks()==true) {
+					storeView = false;
+					inventoryView = false;
+					itemView = false;
+
+					room.Inn_1C();
+					TownHub.setRoomLocks(false);
+					DrugStore.setRoomLocks(false);
+					Inn.setRoomLocks(true);
+					Saloon.setRoomLocks(false);
+					Jail.setRoomLocks(false);
+					
+					TownHub.setRoomExits("");
+					DrugStore.setRoomExits("");
+					
+					Inn.setRoomID("1C");
+					DrugStore.setRoomID("");
+					System.out.println("Inn");
+				}
+				else if(Saloon.getRoomLocks()==true) {
+					storeView = false;
+					inventoryView = false;
+					itemView = false;
+
+					room.Saloon_1D();
+					TownHub.setRoomLocks(false);
+					DrugStore.setRoomLocks(false);
+					Inn.setRoomLocks(false);
+					Saloon.setRoomLocks(true);
+					Jail.setRoomLocks(false);
+					
+					TownHub.setRoomExits("");
+					
+					Saloon.setRoomID("1D");
+					System.out.println("Saloon");
+				}
+				else if(Jail.getRoomLocks()==true) {
+					storeView = false;
+					inventoryView = false;
+					itemView = false;
+					
+					room.Jail_1E();
+					TownHub.setRoomLocks(false);
+					DrugStore.setRoomLocks(false);
+					Inn.setRoomLocks(false);
+					Saloon.setRoomLocks(true);
+					Jail.setRoomLocks(true);
+					
+					Saloon.setRoomID("");
+					System.out.println("Jail");
+				}
+			}
+			else if(itemView && /*(command.equals("1")) || */command.equalsIgnoreCase("use")||command.equalsIgnoreCase("equip")||command.equalsIgnoreCase("unequip")){
+				System.out.println("Item View Handlers Works");
+				if(player.inventory.get(itemIndex).canUse && command.equalsIgnoreCase("use")) {
+					player.useItem((Potion)player.inventory.get(itemIndex), commandMenu, prompt);
+					System.out.println("Use Item Success");
+					if(TownHub.getRoomLocks()==true) {
+						storeView = false;
+						inventoryView = false;
+						itemView = false;
+						
+						room.TownHub_1A();
+						TownHub.setRoomLocks(true);
+						DrugStore.setRoomLocks(false);
+						Inn.setRoomLocks(false);
+						Saloon.setRoomLocks(false);
+						Jail.setRoomLocks(false);
+						MainDesertHub.setRoomLocks(false);
+						
+						DrugStore.setRoomExits("");
+						Inn.setRoomExits("");
+						Saloon.setRoomExits("");
+						
+						DrugStore.setRoomID("");
+						Saloon.setRoomID("");
+						Inn.setRoomID("");
+						System.out.println("TownHub");
+					}
+					else if(DrugStore.getRoomLocks()==true) {
+						storeView = false;
+						inventoryView = false;
+						itemView = false;
+						
+						room.DrugStore_1B();
+						TownHub.setRoomLocks(false);
+						DrugStore.setRoomLocks(true);
+						Inn.setRoomLocks(false);
+						Saloon.setRoomLocks(false);
+						Jail.setRoomLocks(false);
+						
+						TownHub.setRoomExits("");
+						Inn.setRoomExits("");
+						
+						DrugStore.setRoomID("1B");
+						Inn.setRoomID("");
+						System.out.println("DrugStore");
+					}
+					else if(Inn.getRoomLocks()==true) {
+						storeView = false;
+						inventoryView = false;
+						itemView = false;
+						
+						room.Inn_1C();
+						TownHub.setRoomLocks(false);
+						DrugStore.setRoomLocks(false);
+						Inn.setRoomLocks(true);
+						Saloon.setRoomLocks(false);
+						Jail.setRoomLocks(false);
+						
+						TownHub.setRoomExits("");
+						DrugStore.setRoomExits("");
+						
+						Inn.setRoomID("1C");
+						DrugStore.setRoomID("");
+						System.out.println("Inn");
+					}
+					else if(Saloon.getRoomLocks()==true) {
+						storeView = false;
+						inventoryView = false;
+						itemView = false;
+						
+						room.Saloon_1D();
+						TownHub.setRoomLocks(false);
+						DrugStore.setRoomLocks(false);
+						Inn.setRoomLocks(false);
+						Saloon.setRoomLocks(true);
+						Jail.setRoomLocks(false);
+						
+						TownHub.setRoomExits("");
+						
+						Saloon.setRoomID("1D");
+						System.out.println("inv " + inventoryView);
+						System.out.println("st " + storeView);
+						System.out.println("Saloon");
+					}
+					else if(Jail.getRoomLocks()==true) {
+						storeView = false;
+						inventoryView = false;
+						itemView = false;
+						
+						room.Jail_1E();
+						TownHub.setRoomLocks(false);
+						DrugStore.setRoomLocks(false);
+						Inn.setRoomLocks(false);
+						Saloon.setRoomLocks(true);
+						Jail.setRoomLocks(true);
+						
+						Saloon.setRoomID("");
+						System.out.println("Jail");
+					}
+				}else if(player.inventory.get(itemIndex).canEquip && player.inventory.get(itemIndex).equals(player.equippedWeap)) {
+					player.unequipWeapon();
+					commandMenu.prompt(prompt, player.inventory.get(itemIndex).name.toUpperCase() + " UNEQUIPPED");
+					System.out.println("UnEq Success");
+					if(TownHub.getRoomLocks()==true) {
+						storeView = false;
+						inventoryView = false;
+						itemView = false;
+						
+						room.TownHub_1A();
+						TownHub.setRoomLocks(true);
+						DrugStore.setRoomLocks(false);
+						Inn.setRoomLocks(false);
+						Saloon.setRoomLocks(false);
+						Jail.setRoomLocks(false);
+						MainDesertHub.setRoomLocks(false);
+						
+						DrugStore.setRoomExits("");
+						Inn.setRoomExits("");
+						Saloon.setRoomExits("");
+						
+						DrugStore.setRoomID("");
+						Saloon.setRoomID("");
+						Inn.setRoomID("");
+						System.out.println("TownHub");
+					}
+					else if(DrugStore.getRoomLocks()==true) {
+						storeView = false;
+						inventoryView = false;
+						itemView = false;
+						
+						room.DrugStore_1B();
+						TownHub.setRoomLocks(false);
+						DrugStore.setRoomLocks(true);
+						Inn.setRoomLocks(false);
+						Saloon.setRoomLocks(false);
+						Jail.setRoomLocks(false);
+						
+						TownHub.setRoomExits("");
+						Inn.setRoomExits("");
+						
+						DrugStore.setRoomID("1B");
+						Inn.setRoomID("");
+						System.out.println("DrugStore");
+					}
+					else if(Inn.getRoomLocks()==true) {
+						storeView = false;
+						inventoryView = false;
+						itemView = false;
+						
+						room.Inn_1C();
+						TownHub.setRoomLocks(false);
+						DrugStore.setRoomLocks(false);
+						Inn.setRoomLocks(true);
+						Saloon.setRoomLocks(false);
+						Jail.setRoomLocks(false);
+						
+						TownHub.setRoomExits("");
+						DrugStore.setRoomExits("");
+						
+						Inn.setRoomID("1C");
+						DrugStore.setRoomID("");
+						System.out.println("Inn");
+					}
+					else if(Saloon.getRoomLocks()==true) {
+						storeView = false;
+						inventoryView = false;
+						itemView = false;
+						
+						room.Saloon_1D();
+						TownHub.setRoomLocks(false);
+						DrugStore.setRoomLocks(false);
+						Inn.setRoomLocks(false);
+						Saloon.setRoomLocks(true);
+						Jail.setRoomLocks(false);
+						
+						TownHub.setRoomExits("");
+						
+						Saloon.setRoomID("1D");
+						System.out.println("inv " + inventoryView);
+						System.out.println("st " + storeView);
+						System.out.println("Saloon");
+					}
+					else if(Jail.getRoomLocks()==true) {
+						storeView = false;
+						inventoryView = false;
+						itemView = false;
+						
+						room.Jail_1E();
+						TownHub.setRoomLocks(false);
+						DrugStore.setRoomLocks(false);
+						Inn.setRoomLocks(false);
+						Saloon.setRoomLocks(true);
+						Jail.setRoomLocks(true);
+						
+						Saloon.setRoomID("");
+						System.out.println("Jail");
+					}
+				}else if(player.inventory.get(itemIndex).canEquip && !player.inventory.get(itemIndex).equals(player.equippedWeap)) {
+					player.equipWeapon(player.inventory.get(itemIndex));
+					commandMenu.prompt(prompt, player.inventory.get(itemIndex).name.toUpperCase() + " EQUIPPED");
+					System.out.println("Equip Success");
+					if(TownHub.getRoomLocks()==true) {
+						storeView = false;
+						inventoryView = false;
+						itemView = false;
+						
+						room.TownHub_1A();
+						TownHub.setRoomLocks(true);
+						DrugStore.setRoomLocks(false);
+						Inn.setRoomLocks(false);
+						Saloon.setRoomLocks(false);
+						Jail.setRoomLocks(false);
+						MainDesertHub.setRoomLocks(false);
+						
+						DrugStore.setRoomExits("");
+						Inn.setRoomExits("");
+						Saloon.setRoomExits("");
+						
+						DrugStore.setRoomID("");
+						Saloon.setRoomID("");
+						Inn.setRoomID("");
+						System.out.println("TownHub");
+					}
+					else if(DrugStore.getRoomLocks()==true) {
+						storeView = false;
+						inventoryView = false;
+						itemView = false;
+						
+						room.DrugStore_1B();
+						TownHub.setRoomLocks(false);
+						DrugStore.setRoomLocks(true);
+						Inn.setRoomLocks(false);
+						Saloon.setRoomLocks(false);
+						Jail.setRoomLocks(false);
+						
+						TownHub.setRoomExits("");
+						Inn.setRoomExits("");
+						
+						DrugStore.setRoomID("1B");
+						Inn.setRoomID("");
+						System.out.println("DrugStore");
+					}
+					else if(Inn.getRoomLocks()==true) {
+						storeView = false;
+						inventoryView = false;
+						itemView = false;
+						
+						room.Inn_1C();
+						TownHub.setRoomLocks(false);
+						DrugStore.setRoomLocks(false);
+						Inn.setRoomLocks(true);
+						Saloon.setRoomLocks(false);
+						Jail.setRoomLocks(false);
+						
+						TownHub.setRoomExits("");
+						DrugStore.setRoomExits("");
+						
+						Inn.setRoomID("1C");
+						DrugStore.setRoomID("");
+						System.out.println("Inn");
+					}
+					else if(Saloon.getRoomLocks()==true) {
+						storeView = false;
+						inventoryView = false;
+						itemView = false;
+						
+						room.Saloon_1D();
+						TownHub.setRoomLocks(false);
+						DrugStore.setRoomLocks(false);
+						Inn.setRoomLocks(false);
+						Saloon.setRoomLocks(true);
+						Jail.setRoomLocks(false);
+						
+						TownHub.setRoomExits("");
+						
+						Saloon.setRoomID("1D");
+						System.out.println("inv " + inventoryView);
+						System.out.println("st " + storeView);
+						System.out.println("Saloon");
+					}
+					else if(Jail.getRoomLocks()==true) {
+						storeView = false;
+						inventoryView = false;
+						itemView = false;
+						
+						room.Jail_1E();
+						TownHub.setRoomLocks(false);
+						DrugStore.setRoomLocks(false);
+						Inn.setRoomLocks(false);
+						Saloon.setRoomLocks(true);
+						Jail.setRoomLocks(true);
+						
+						Saloon.setRoomID("");
+						System.out.println("Jail");
+					}
+				}else {
+					System.out.println("PROBLEM");
+				}
+			}
+			else if(itemView && command.equalsIgnoreCase("drop")) {
+				player.dropItem(player.inventory.get(itemIndex), commandMenu, prompt);
+				if(TownHub.getRoomLocks()==true) {
+					storeView = false;
+					inventoryView = false;
+					itemView = false;
+					
+					room.TownHub_1A();
+					TownHub.setRoomLocks(true);
+					DrugStore.setRoomLocks(false);
+					Inn.setRoomLocks(false);
+					Saloon.setRoomLocks(false);
+					Jail.setRoomLocks(false);
+					MainDesertHub.setRoomLocks(false);
+					
+					DrugStore.setRoomExits("");
+					Inn.setRoomExits("");
+					Saloon.setRoomExits("");
+					
+					DrugStore.setRoomID("");
+					Saloon.setRoomID("");
+					Inn.setRoomID("");
+					System.out.println("TownHub");
+				}
+				else if(DrugStore.getRoomLocks()==true) {
+					storeView = false;
+					inventoryView = false;
+					itemView = false;
+					
+					room.DrugStore_1B();
+					TownHub.setRoomLocks(false);
+					DrugStore.setRoomLocks(true);
+					Inn.setRoomLocks(false);
+					Saloon.setRoomLocks(false);
+					Jail.setRoomLocks(false);
+					
+					TownHub.setRoomExits("");
+					Inn.setRoomExits("");
+					
+					DrugStore.setRoomID("1B");
+					Inn.setRoomID("");
+					System.out.println("DrugStore");
+				}
+				else if(Inn.getRoomLocks()==true) {
+					storeView = false;
+					inventoryView = false;
+					itemView = false;
+					
+					room.Inn_1C();
+					TownHub.setRoomLocks(false);
+					DrugStore.setRoomLocks(false);
+					Inn.setRoomLocks(true);
+					Saloon.setRoomLocks(false);
+					Jail.setRoomLocks(false);
+					
+					TownHub.setRoomExits("");
+					DrugStore.setRoomExits("");
+					
+					Inn.setRoomID("1C");
+					DrugStore.setRoomID("");
+					System.out.println("Inn");
+				}
+				else if(Saloon.getRoomLocks()==true) {
+					storeView = false;
+					inventoryView = false;
+					itemView = false;
+					
+					room.Saloon_1D();
+					TownHub.setRoomLocks(false);
+					DrugStore.setRoomLocks(false);
+					Inn.setRoomLocks(false);
+					Saloon.setRoomLocks(true);
+					Jail.setRoomLocks(false);
+					
+					TownHub.setRoomExits("");
+					
+					Saloon.setRoomID("1D");
+					System.out.println("inv " + inventoryView);
+					System.out.println("st " + storeView);
+					System.out.println("Saloon");
+				}
+				else if(Jail.getRoomLocks()==true) {
+					storeView = false;
+					inventoryView = false;
+					itemView = false;
+					
+					room.Jail_1E();
+					TownHub.setRoomLocks(false);
+					DrugStore.setRoomLocks(false);
+					Inn.setRoomLocks(false);
+					Saloon.setRoomLocks(true);
+					Jail.setRoomLocks(true);
+					
+					Saloon.setRoomID("");
+					System.out.println("Jail");
+				}
+				
+			}
+		    
 		    //Back
 			else if(backToGame && (command.equalsIgnoreCase("0") || command.equalsIgnoreCase("back"))) {
+				storeView = false;
 				inventoryView = false;
 				itemView = false;
+				
 				if(TownHub.getRoomLocks()==true) {
 					
 					room.TownHub_1A();
@@ -1019,7 +1576,7 @@ public class GameControl {
 				}
 			}
 		    //Save Game
-			if(unlockSaveGame && ((TownHub.getRoomLocks() && (command.equalsIgnoreCase("6") || command.equalsIgnoreCase("save game"))) ||
+			if(!storeView && !inventoryView && !itemView && unlockSaveGame && ((TownHub.getRoomLocks() && (command.equalsIgnoreCase("6") || command.equalsIgnoreCase("save game"))) ||
 					(DrugStore.getRoomLocks() && (command.equalsIgnoreCase("5") || command.equalsIgnoreCase("save game"))) ||
 					(Inn.getRoomLocks() && (command.equalsIgnoreCase("5") || command.equalsIgnoreCase("save game"))) ||
 					(Saloon.getRoomLocks() && (command.equalsIgnoreCase("5") || command.equalsIgnoreCase("save game"))) ||
