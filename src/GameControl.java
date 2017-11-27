@@ -29,11 +29,8 @@ public class GameControl {
 	boolean monsterAlive = true;
 	
 	int itemIndex;
-
-	int maxHealth = 280;
 	int damage = 0;
 	int totalHealth = 280;
-	
 	int monsterMaxHealth = 280;
 	int monsterTotalHealth = 280;
 
@@ -65,91 +62,6 @@ public class GameControl {
 	Puzzles puzzle = new Puzzles("");
 	
 	Player player;
-	//DISPLAY HEALTH BAR
-	public void displayHealthBar(Rectangle maxHealthBar, Rectangle healthBar, Image healthIcon, ImageView viewHealthIcon) {
-		//Setting the properties of the rectangle 
-		maxHealthBar.setX(595); 
-		maxHealthBar.setY(35); //215
-		maxHealthBar.setWidth(maxHealth); 
-		maxHealthBar.setHeight(20);
-		maxHealthBar.setStroke(Color.WHITE);
-		maxHealthBar.setFill(Color.CRIMSON);
-	  
-		healthBar.setX(595);
-		healthBar.setY(35); //215
-		healthBar.setWidth(maxHealth);
-		healthBar.setHeight(20);
-		healthBar.setStroke(Color.WHITE);
-		healthBar.setFill(Color.GREEN);
-		
-		viewHealthIcon.setImage(healthIcon);
-		viewHealthIcon.setLayoutX(595);
-		viewHealthIcon.setLayoutY(20); //200
-	}
-	//ADJUST HEALTH BAR
-	public int healthMeter(Rectangle healthBar, int totalHealth, int adjustHealth, Text prompt) {
-		CommandMenu commandMenu = new CommandMenu();
-		//adjustHealth = damage(negative value)
-		if(adjustHealth < 0) {
-			totalHealth = totalHealth + adjustHealth;
-			healthBar.setWidth(totalHealth);
-			healthBar.getWidth();
-		}
-		//adjustHealth = heal(positive value)
-		else if (adjustHealth > 0 && totalHealth != maxHealth) {
-			totalHealth = totalHealth + adjustHealth;
-			healthBar.setWidth(totalHealth);
-			healthBar.getWidth();
-		}
-		if(totalHealth == maxHealth) {
-			commandMenu.prompt(prompt, "HEALTH IS FULL");
-		}
-		else if(totalHealth == 0) {
-			commandMenu.prompt(prompt, "GAME OVER");
-		}
-		return totalHealth;
-	}
-	//DISPLAY MONSTER HEALTH BAR
-	public void displayMonsterHealthBar(Rectangle monsterMaxHealthBar, Rectangle monsterHealthBar, Image monsterIcon, ImageView viewMonsterIcon) {
-		//Setting the properties of the rectangle 
-		monsterMaxHealthBar.setX(595); 
-		monsterMaxHealthBar.setY(75);
-		monsterMaxHealthBar.setWidth(monsterMaxHealth); 
-		monsterMaxHealthBar.setHeight(20);
-		monsterMaxHealthBar.setStroke(Color.WHITE);
-		monsterMaxHealthBar.setFill(Color.CRIMSON);
-		
-		monsterHealthBar.setX(595); 
-		monsterHealthBar.setY(75);
-		monsterHealthBar.setWidth(monsterMaxHealth); 
-		monsterHealthBar.setHeight(20);
-		monsterHealthBar.setStroke(Color.WHITE);
-		monsterHealthBar.setFill(Color.PURPLE);
-		
-		viewMonsterIcon.setImage(monsterIcon);
-		viewMonsterIcon.setLayoutX(595);
-		viewMonsterIcon.setLayoutY(60);
-	}
-	//REMOVE MONSTER HEALTH BAR
-	public void removeMonsterHealthBar(Rectangle monsterMaxHealthBar, Rectangle monsterHealthBar, ImageView viewMonsterIcon) {
-		monsterMaxHealthBar.setY(-75);
-		monsterHealthBar.setY(-75);
-		viewMonsterIcon.setLayoutY(-60);
-	}
-	//ADJUST MONSTER HEALTH BAR
-	public int monsterHealthMeter(Rectangle monsterHealthBar, int monsterTotalHealth, int adjustHealth, Text prompt) {
-		CommandMenu commandMenu = new CommandMenu();
-		//adjustHealth = damage(negative value)
-		if(adjustHealth < 0) {
-			monsterTotalHealth = monsterTotalHealth + adjustHealth;
-			monsterHealthBar.setWidth(monsterTotalHealth);
-			monsterHealthBar.getWidth();
-		}
-		if(monsterTotalHealth <= 0) {
-			commandMenu.prompt(prompt, "MONSTER DEFEATED");
-		}
-		return monsterTotalHealth;
-	}
 	
 	public void gameControl(Text commandText, TextField inputCommand, Text prompt, Image icon, Image map, ImageView viewIcon, ImageView viewMap, TextArea displayStory, 
 			TextArea displayCommand, Rectangle maxHealthBar, Rectangle healthBar, Image healthIcon, ImageView viewHealthIcon, Rectangle monsterMaxHealthBar, 
@@ -211,7 +123,7 @@ public class GameControl {
 				MainDesertHub.setRoomLocks(false);
 				TownHub.setRoomExits("D00");
 				
-				displayHealthBar(maxHealthBar, healthBar, healthIcon, viewHealthIcon);
+				player.displayHealthBar(maxHealthBar, healthBar, healthIcon, viewHealthIcon);
 				
 				puzzle.setPuzzleID(" ");
 				System.out.println("Loading Town Hub : Location Game Control"); // Testing purpose
@@ -675,7 +587,7 @@ public class GameControl {
 
 		    // Fighting Henchman
 			else if(puzzle.getPuzzleID().contains("P01") && command.equalsIgnoreCase("1") || command.equals("fight henchman")) {
-				displayMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon);
+				monster.displayMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon);
 				room.display("Saloon > Henchman\n\nThe Henchman is attacking you back! Quickly take time out!", "Action\n" + "0. Back\n" + "1. Attack");
 				puzzle.setPuzzleID("P02");				
 				System.out.println("Fighting HenchMan : Location Game Control"); // Testing purpose	
@@ -689,8 +601,8 @@ public class GameControl {
 				System.out.println(damageMonster); //Display Amount of damage done to monster
 				
 				if(this.monsterTotalHealth > 0) {//When monster health is greater than 0 = true
-					this.monsterTotalHealth = monsterHealthMeter(monsterHealthBar, this.monsterTotalHealth, damageMonster, prompt); //Player does damage to monster's health bar
-					this.totalHealth = healthMeter(healthBar, this.totalHealth, -4, prompt); //Monster does damage to player's health bar
+					this.monsterTotalHealth = monster.monsterHealthMeter(monsterHealthBar, this.monsterTotalHealth, damageMonster, prompt); //Player does damage to monster's health bar
+					this.totalHealth = player.healthMeter(healthBar, this.totalHealth, -4, prompt); //Monster does damage to player's health bar
 					room.display("Saloon > Henchman Battle\n\nYou must take him out fast!", "Action\n" + "0. Runaway\n" +"1. Attack");
 					
 					System.out.println("Attacking Henchman : Location Game Control"); // Testing purpose
@@ -714,7 +626,7 @@ public class GameControl {
             // Fighting Deputy Sheriff		    
 			else if(puzzle.getPuzzleID().contains("P03") && (command.equals("1") || command.equalsIgnoreCase("fight Deputy Sheriff"))) {
 				
-				displayMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon);
+				monster.displayMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon);
 				room.display("Jail > Deputy Sheriff\n\n “Heh. You think you can best me? I’m the fastest draw in town.”", "Action\n" + "0. Back\n" + "1. Attack");
 				
 				puzzle.setPuzzleID("P04");
@@ -727,8 +639,8 @@ public class GameControl {
 				System.out.println(deputyDamage); //Display Amount of damage done to monster
 				
 				if(this.monsterTotalHealth > 0) {//When monster health is greater than 0 = true
-					this.monsterTotalHealth = monsterHealthMeter(monsterHealthBar, this.monsterTotalHealth, deputyDamage, prompt); //Player does damage to monster's health bar
-					this.totalHealth = healthMeter(healthBar, this.totalHealth, -4, prompt); //Monster does damage to player's health bar
+					this.monsterTotalHealth = monster.monsterHealthMeter(monsterHealthBar, this.monsterTotalHealth, deputyDamage, prompt); //Player does damage to monster's health bar
+					this.totalHealth = player.healthMeter(healthBar, this.totalHealth, -4, prompt); //Monster does damage to player's health bar
 					room.display("Saloon > Deputy Sheriff\n\nThe Deputy Sheriff is a tough guy. He is known as the boss "
 							+ "at this town hub. He runs the jail, but this will not stop you from taking him out!", "Action\n" + "0. Runaway\n" +"1. Attack");
 					
@@ -1102,7 +1014,7 @@ public class GameControl {
 				System.out.println("Item View Handlers Works");
 				if(player.inventory.get(itemIndex).canUse && command.equalsIgnoreCase("use")) {
 					if(player.inventory.get(itemIndex).name.equals("Health Potion")){
-						healthMeter(healthBar, this.totalHealth, healthPotion.strength, prompt);
+						player.healthMeter(healthBar, this.totalHealth, healthPotion.strength, prompt);
 						player.inventory.remove(itemIndex);
 					}else {
 						player.useItem((Potion)player.inventory.get(itemIndex), commandMenu, prompt);
@@ -1219,7 +1131,7 @@ public class GameControl {
 						AccessPath1.setRoomExits("");
 						AccessPath2.setRoomExits("");
 						MainDesertHub.setRoomID("2A"); //Open up Search Area command
-						removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
+						monster.removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
 						this.monsterTotalHealth = this.monsterMaxHealth; //Restore monster health
 					}
 					else if(AccessPath1.getRoomLocks()==true) {
@@ -1367,7 +1279,7 @@ public class GameControl {
 						AccessPath1.setRoomExits("");
 						AccessPath2.setRoomExits("");
 						MainDesertHub.setRoomID("2A"); //Open up Search Area command
-						removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
+						monster.removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
 						this.monsterTotalHealth = this.monsterMaxHealth; //Restore monster health
 					}
 					else if(AccessPath1.getRoomLocks()==true) {
@@ -1516,7 +1428,7 @@ public class GameControl {
 						AccessPath1.setRoomExits("");
 						AccessPath2.setRoomExits("");
 						MainDesertHub.setRoomID("2A"); //Open up Search Area command
-						removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
+						monster.removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
 						this.monsterTotalHealth = this.monsterMaxHealth; //Restore monster health
 					}
 					else if(AccessPath1.getRoomLocks()==true) {
@@ -1667,7 +1579,7 @@ public class GameControl {
 					AccessPath1.setRoomExits("");
 					AccessPath2.setRoomExits("");
 					MainDesertHub.setRoomID("2A"); //Open up Search Area command
-					removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
+					monster.removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
 					this.monsterTotalHealth = this.monsterMaxHealth; //Restore monster health
 				}
 				else if(AccessPath1.getRoomLocks()==true) {
@@ -1841,7 +1753,7 @@ public class GameControl {
 				AccessPath1.setRoomExits("");
 				AccessPath2.setRoomExits("");
 				MainDesertHub.setRoomID("2A"); //Open up Search Area command
-				removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
+				monster.removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
 				this.monsterTotalHealth = this.monsterMaxHealth; //Restore monster health
 			}
 			//MAIN DESERT HUB > Search Area
@@ -1849,7 +1761,7 @@ public class GameControl {
 				//ENCOUNTER MONSTER
 				MainDesertHub.setRoomLocks(false);
 				MainDesertHub.setRoomID("2A1"); //Open up attack monster
-				displayMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon);
+				monster.displayMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon);
 				room.display("Main Desert Hub > Search Area\n\nPack of Coyotes-------------------------------------\nA pack of rabid looking "
 						+ "coyotes. Their eyes are sunken in, and their fur matted; they look as if they haven’t eaten for weeks.", "Action\n" + "0. Runaway\n" +"1. Attack");
 				
@@ -1862,8 +1774,8 @@ public class GameControl {
 				System.out.println(damageMonster); //Display Amount of damage done to monster
 				
 				if(this.monsterTotalHealth > 0) {//When monster health is greater than 0 = true
-					this.monsterTotalHealth = monsterHealthMeter(monsterHealthBar, this.monsterTotalHealth, damageMonster, prompt); //Player does damage to monster's health bar
-					this.totalHealth = healthMeter(healthBar, this.totalHealth, -4, prompt); //Monster does damage to player's health bar
+					this.monsterTotalHealth = monster.monsterHealthMeter(monsterHealthBar, this.monsterTotalHealth, damageMonster, prompt); //Player does damage to monster's health bar
+					this.totalHealth = player.healthMeter(healthBar, this.totalHealth, -4, prompt); //Monster does damage to player's health bar
 					room.display("Main Desert Hub > Search Area\n\nPack of Coyotes-------------------------------------\nA pack of rabid looking "
 							+ "coyotes. Their eyes are sunken in, and their fur matted; they look as if they haven’t eaten for weeks.\n\n\"Grrrrarrrr\"", "Action\n" + "0. Runaway\n" +"1. Attack");
 				}
@@ -1975,7 +1887,7 @@ public class GameControl {
 					AccessPath1.setRoomExits("");
 					AccessPath2.setRoomExits("");
 					MainDesertHub.setRoomID("2A"); //Open up Search Area command
-					removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
+					monster.removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
 					this.monsterTotalHealth = this.monsterMaxHealth; //Restore monster health
 				}
 				else if(AccessPath1.getRoomLocks()==true) {

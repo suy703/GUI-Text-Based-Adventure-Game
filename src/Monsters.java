@@ -1,5 +1,11 @@
 import java.util.Random;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+
 public class Monsters{
 	
 	String monsterID;
@@ -10,6 +16,7 @@ public class Monsters{
 	int monsterProbability;
 	int monsterHealth;
 	int monsterAttackPower;
+	int monsterMaxHealth = 280;
 
 	Random random = new Random();
 
@@ -210,4 +217,47 @@ public class Monsters{
 	public void setMonsterAttackPower(int monsterAttackPower) {
 		this.monsterAttackPower = monsterAttackPower;
 	}
+	
+	//DISPLAY MONSTER HEALTH BAR
+	public void displayMonsterHealthBar(Rectangle monsterMaxHealthBar, Rectangle monsterHealthBar, Image monsterIcon, ImageView viewMonsterIcon) {
+		//Setting the properties of the rectangle 
+		monsterMaxHealthBar.setX(595); 
+		monsterMaxHealthBar.setY(75);
+		monsterMaxHealthBar.setWidth(monsterMaxHealth); 
+		monsterMaxHealthBar.setHeight(20);
+		monsterMaxHealthBar.setStroke(Color.WHITE);
+		monsterMaxHealthBar.setFill(Color.CRIMSON);
+		
+		monsterHealthBar.setX(595); 
+		monsterHealthBar.setY(75);
+		monsterHealthBar.setWidth(monsterMaxHealth); 
+		monsterHealthBar.setHeight(20);
+		monsterHealthBar.setStroke(Color.WHITE);
+		monsterHealthBar.setFill(Color.PURPLE);
+		
+		viewMonsterIcon.setImage(monsterIcon);
+		viewMonsterIcon.setLayoutX(595);
+		viewMonsterIcon.setLayoutY(60);
+	}
+	//REMOVE MONSTER HEALTH BAR
+	public void removeMonsterHealthBar(Rectangle monsterMaxHealthBar, Rectangle monsterHealthBar, ImageView viewMonsterIcon) {
+		monsterMaxHealthBar.setY(-75);
+		monsterHealthBar.setY(-75);
+		viewMonsterIcon.setLayoutY(-60);
+	}
+	//ADJUST MONSTER HEALTH BAR
+	public int monsterHealthMeter(Rectangle monsterHealthBar, int monsterTotalHealth, int adjustHealth, Text prompt) {
+		CommandMenu commandMenu = new CommandMenu();
+		//adjustHealth = damage(negative value)
+		if(adjustHealth < 0) {
+			monsterTotalHealth = monsterTotalHealth + adjustHealth;
+			monsterHealthBar.setWidth(monsterTotalHealth);
+			monsterHealthBar.getWidth();
+		}
+		if(monsterTotalHealth <= 0) {
+			commandMenu.prompt(prompt, "MONSTER DEFEATED");
+		}
+		return monsterTotalHealth;
+	}
+	
 }

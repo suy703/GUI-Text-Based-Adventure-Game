@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 /**
  * This class is used to create Player objects the represent the user's in game character. 
@@ -23,6 +27,8 @@ public class Player extends Character{
 	 * Additional attack power granted by potions.
 	 */
 	int bonusAtk;
+	
+	int maxHealth = 280;
 	
 	/**
 	 * Constructor. Define's the player's attributes.
@@ -221,6 +227,52 @@ public class Player extends Character{
 		}
 		return display;
 		
+	}
+	
+	//DISPLAY HEALTH BAR
+	public void displayHealthBar(Rectangle maxHealthBar, Rectangle healthBar, Image healthIcon, ImageView viewHealthIcon) {
+		//Setting the properties of the rectangle 
+		maxHealthBar.setX(595); 
+		maxHealthBar.setY(35); //215
+		maxHealthBar.setWidth(maxHealth); 
+		maxHealthBar.setHeight(20);
+		maxHealthBar.setStroke(Color.WHITE);
+		maxHealthBar.setFill(Color.CRIMSON);
+	  
+		healthBar.setX(595);
+		healthBar.setY(35);
+		healthBar.setWidth(maxHealth);
+		healthBar.setHeight(20);
+		healthBar.setStroke(Color.WHITE);
+		healthBar.setFill(Color.GREEN);
+		
+		viewHealthIcon.setImage(healthIcon);
+		viewHealthIcon.setLayoutX(595);
+		viewHealthIcon.setLayoutY(20);
+	}
+	//ADJUST HEALTH BAR
+	public int healthMeter(Rectangle healthBar, int totalHealth, int adjustHealth, Text prompt) {
+		CommandMenu commandMenu = new CommandMenu();
+		//adjustHealth = damage(negative value)
+		if(adjustHealth < 0) {
+			totalHealth = totalHealth + adjustHealth;
+			healthBar.setWidth(totalHealth);
+			healthBar.getWidth();
+		}
+		//adjustHealth = heal(positive value)
+		else if (adjustHealth > 0 && totalHealth != maxHealth) {
+			totalHealth = totalHealth + adjustHealth;
+			healthBar.setWidth(totalHealth);
+			healthBar.getWidth();
+		}
+		if(totalHealth == maxHealth) {
+			commandMenu.prompt(prompt, "HEALTH IS FULL");
+			totalHealth = maxHealth;
+		}
+		else if(totalHealth == 0) {
+			commandMenu.prompt(prompt, "GAME OVER");
+		}
+		return totalHealth;
 	}
 
 }
