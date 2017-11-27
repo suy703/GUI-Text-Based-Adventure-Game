@@ -510,7 +510,7 @@ public class GameControl {
 			}
 		  //INN > Search Room
 			else if(!itemView&& !inventoryView&& Inn.getRoomID().equals("1C") && (command.equals("3") || command.equalsIgnoreCase("search room"))) {
-				room.display("Drug Store > Search Room\n\n" +Inn.displayItems(), "Action\n" 
+				room.display("Inn > Search Room\n\n" +Inn.displayItems(), "Action\n" 
 							+ "0. Back\n" + "1. Pickup Item\n" + "2. Inventory\n" + "3. Save Game\n");
 						Inn.setRoomLocks(false);
 			}
@@ -860,7 +860,7 @@ public class GameControl {
 			}
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@		    
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------		    
-			//Inventory
+			//INVENTORY
 			else if(!storeView && (TownHub.getRoomLocks() && (command.equals("5") || command.equalsIgnoreCase("inventory")) ||
 								 DrugStore.getRoomLocks() && (command.equals("4") || command.equalsIgnoreCase("inventory")) ||
 								 	   Inn.getRoomLocks() && (command.equals("4") || command.equalsIgnoreCase("inventory")) ||
@@ -1618,6 +1618,7 @@ public class GameControl {
 					(AccessPath2.getRoomExits().equals("D15") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y")))) {
 				room.MainDesertHub_2A();
 				TownHub.setRoomLocks(false);
+				DrugStore.setRoomLocks(false);
 				MainDesertHub.setRoomLocks(true);
 				AccessPath1.setRoomLocks(false);
 				AccessPath2.setRoomLocks(false);
@@ -1686,6 +1687,7 @@ public class GameControl {
 				MainDesertHub.setRoomExits("");
 				AccessPath1.setRoomExits("");
 				AccessPath2.setRoomExits("");
+				MainDesertHub.setRoomID("");
 			}
 			//ACCESS PATH 2-----------------------------------------------------------------------------------------------------------------------
 			//ACCESS PATH 2 > Path Way
@@ -1712,6 +1714,79 @@ public class GameControl {
 				MainDesertHub.setRoomExits("");
 				AccessPath1.setRoomExits("");
 				AccessPath2.setRoomExits("");
+				MainDesertHub.setRoomID("");
+			}
+			//INVENTORY-------------------------------------------------------------------------------------------------------------------------------------------------
+			else if(!storeView && (MainDesertHub.getRoomLocks() && (command.equals("5") || command.equalsIgnoreCase("inventory"))) ||
+								  (AccessPath1.getRoomLocks() && (command.equals("4") || command.equalsIgnoreCase("inventory"))) ||
+								  (AccessPath2.getRoomLocks() && (command.equals("4") || command.equalsIgnoreCase("inventory")))) {
+				
+				room.display(player.displayInventory(), "Action\n" + "Select Item (Enter Item Number)\n" + "0. Back");
+				inventoryView = true;
+				if(MainDesertHub.getRoomLocks()==true) {
+					
+					backToGame = MainDesertHub.getRoomLocks();
+					System.out.println("MainDesertHub");
+				}
+				else if(AccessPath1.getRoomLocks()==true) {
+					
+					backToGame = AccessPath1.getRoomLocks();
+					System.out.println("AccessPath1");
+				}
+				else if(AccessPath2.getRoomLocks()==true) {
+					
+					backToGame = AccessPath2.getRoomLocks();
+					System.out.println("AccessPath2");
+				}
+			}
+			//INVENTORY > Back
+			else if(backToGame && (command.equalsIgnoreCase("0") || command.equalsIgnoreCase("back"))) {
+				storeView = false;
+				inventoryView = false;
+				itemView = false;
+				
+				if(MainDesertHub.getRoomLocks()==true) {
+					
+					room.MainDesertHub_2A();
+					TownHub.setRoomLocks(false);
+					DrugStore.setRoomLocks(false);
+					MainDesertHub.setRoomLocks(true);
+					AccessPath1.setRoomLocks(false);
+					AccessPath2.setRoomLocks(false);
+					
+					MainDesertHub.setRoomExits("");
+					AccessPath2.setRoomExits("");
+					
+					AccessPath1.setRoomExits("");
+					AccessPath2.setRoomExits("");
+					MainDesertHub.setRoomID("2A"); //Open up Search Area command
+					removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
+					this.monsterTotalHealth = this.monsterMaxHealth; //Restore monster health
+				}
+				else if(AccessPath1.getRoomLocks()==true) {
+					
+					room.AccessPath1_2B();
+					MainDesertHub.setRoomLocks(false);
+					AccessPath1.setRoomLocks(true);
+					AccessPath2.setRoomLocks(false);
+					
+					MainDesertHub.setRoomExits("");
+					AccessPath1.setRoomExits("");
+					AccessPath2.setRoomExits("");
+					MainDesertHub.setRoomID("");
+				}
+				else if(AccessPath2.getRoomLocks()==true) {
+					
+					room.AccessPath2_2C();
+					MainDesertHub.setRoomLocks(false);
+					AccessPath1.setRoomLocks(false);
+					AccessPath2.setRoomLocks(true);
+					
+					MainDesertHub.setRoomExits("");
+					AccessPath1.setRoomExits("");
+					AccessPath2.setRoomExits("");
+					MainDesertHub.setRoomID("");
+				}
 			}
 		}
 		//Exit Game
