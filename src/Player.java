@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 import javafx.scene.text.Text;
 /**
- * This class is used to create Player objects the represent the user's int game character. 
+ * This class is used to create Player objects the represent the user's in game character. 
  * @author Alex
  *
  */
@@ -28,7 +28,7 @@ public class Player extends Character{
 	 * Constructor. Define's the player's attributes.
 	 */
 	public Player() {
-		super("Texas Heck", 20, 1, 30);
+		super("Texas Heck", 20, 1, 3);
 		inventory = new ArrayList<Items>();
 		equippedWeap = new Weapon("00", "-empty-", "Your bare hands", 0, 1);
 		totalAtk = baseAtk + equippedWeap.attackPower;
@@ -163,13 +163,16 @@ public class Player extends Character{
 	 */
 	public void useItem(Potion i,  CommandMenu cm, Text prompt) {
 		if(i.canUse && i.type.equals("H")) {
-			if(i.strength+ hp> maxHp) {
+			/*if(hp ==maxHp) {
+				cm.prompt(prompt, "ALREADY FULL HEALTH");
+			}
+			else if(i.strength+ hp> maxHp) {
 				hp = maxHp;
 				cm.prompt(prompt, "HP RESTORED");
 			}else {
 				cm.prompt(prompt, i.strength + " HP RESTORED");
 				hp += i.strength;
-			}
+			}*/
 			inventory.remove(i);
 		}else if(i.canUse && i.type.equals("A")){
 			bonusAtk = i.strength;
@@ -199,13 +202,16 @@ public class Player extends Character{
 	}
 	
 	/**
-	 * Attacks an enemy. Removes the player's decrements the enemies health by the value of the player's totalAtk. 
-	 * @param m  The monster being attacked.
+	 * Calculates the damage a player will do when attacking
+	 * @return The total amount of damage to be dealt
 	 */
-	public void attackMonster(Monsters m) {
-		m.monsterHealth -= (totalAtk + bonusAtk);
+	public int attackDamage() {
+		int dmg;
+		totalAtk = baseAtk + equippedWeap.attackPower + bonusAtk;
+		dmg = totalAtk;
 		bonusAtk = 0; //Potion Effect wears off after attack
 		totalAtk = baseAtk + equippedWeap.attackPower + bonusAtk; //The player's totalAtk is updated after the effect of the potion wears off.
+		return dmg;
 	}
 	
 	public String sellItemCommands() {

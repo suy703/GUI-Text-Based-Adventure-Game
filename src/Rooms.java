@@ -17,6 +17,7 @@ public class Rooms {
 	String exits = "";
 	ArrayList<Items> items = new ArrayList<Items>();
 	String roomDescription;
+	boolean isStore = false;
 	
 	Image map, icon;
 	ImageView viewIcon, viewMap;
@@ -97,6 +98,10 @@ public class Rooms {
 	public void setRoomDescription(String roomDescription) {
 		this.roomDescription = roomDescription;
 	}
+	/**
+	 * Displays items when you search room
+	 * @return String of items when you search room
+	 */
 	public String displayItems() {
 		String display = "You find: \n";
 		if(items.size()>0) {
@@ -123,7 +128,7 @@ public class Rooms {
 		commandMenu.setLoadGameStory(displayStory, readFile[0] + "\n\n" + readFile[1]);
 		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Drug Store (North West)\n" + "2. Inn (South West)\n" + "3. Saloon (East)\n" 
 				+ "4. Access Town (North)\n" + "5. Inventory\n" + "6. Save Game");
-		
+		isStore = false;
 		System.out.println("Loading Town Hub: Location Rooms Class"); // Testing purpose
 
 	}
@@ -135,6 +140,7 @@ public class Rooms {
 		commandMenu.setLoadGameStory(displayStory, readFile[2] + "\n\n" + readFile[3]);
 		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Town Hub (East)\n" + "2. Inn (South)\n" + "3. Shop\n" 
 				+ "4. Inventory\n" + "5. Save Game");
+		isStore = true;
 		
 		System.out.println("Loading Drug Store : Location Rooms Class"); // Testing purpose
 	}
@@ -158,7 +164,7 @@ public class Rooms {
 		commandMenu.setLoadGameStory(displayStory, readFile[6] + "\n\n" + readFile[7]);
 		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Town Hub (West)\n" + "2. Jail (South)\n"+ "3. Search Room\n" + "4. Inventory\n" 
 				+ "5. Save Game");
-		
+		isStore = false;
 		System.out.println("Loading Saloon Store : Location Rooms class"); // Testing purpose
 
 	}
@@ -169,7 +175,7 @@ public class Rooms {
 		commandMenu.setNavigateIcon(icon, viewIcon, 935, 434); 
 		commandMenu.setLoadGameStory(displayStory, readFile[8] + "\n\n" + readFile[9]);
 		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Saloon (North)\n" + "2. Inventory\n" + "3. Save Game");
-		
+		isStore = false;
 		System.out.println("Loading Jail : Location Rooms Class"); // Testing purpose
 	}
 	//Main Desert Hub
@@ -184,7 +190,7 @@ public class Rooms {
 				+ "South is Bombay Hill.");
 		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Access Path 1 (East)\n" + "2. Access Path 2 (West)\n" + "3. Bombay Hill (South)\n" 
 				+ "4. Search Area\n" + "5. Inventory\n" + "6. Save");
-		
+		isStore = false;
 		System.out.println("Loading Main Desert Hub : Location Rooms Class"); // Testing purpose
 	}
 	//Access Path 1
@@ -198,7 +204,7 @@ public class Rooms {
 				+ "out what they might be. To the West is the road to Fort Birman, and to the East is the crossroads. ");
 		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Main Desert Hub (West)\n" + "2. Fort Birman (East)\n" + "3. Search Area\n" 
 				+ "4. Inventory\n" + "5. Save");
-		
+		isStore = false;
 		System.out.println("Loading Access Path 1 : Location Rooms Class"); // Testing purpose
 	}
 	//Access Path 2
@@ -213,7 +219,7 @@ public class Rooms {
 				+ "West on this path, you will come to Nebelung Point, and if you go back East now, you will be at the crossroads again.");
 		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Main Desert Hub (East)\n" + "2. Nebelung Point (West)\n" + "3. Search Area\n" 
 				+ "4. Inventory\n" + "5. Save");
-		
+		isStore = false;
 		System.out.println("Loading Access Path 1 : Location Rooms Class"); // Testing purpose
 	}
 }
