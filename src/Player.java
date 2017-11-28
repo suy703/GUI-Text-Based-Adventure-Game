@@ -28,14 +28,14 @@ public class Player extends Character{
 	 */
 	int bonusAtk;
 	
-	int maxHealth = 280;
+	
 	/**
 	 * Constructor. Define's the player's attributes.
 	 */
 	public Player() {
-		super("Texas Heck", 20, 1, 3);
+		super("Texas Heck", 280, 25, 3);
 		inventory = new ArrayList<Items>();
-		equippedWeap = new Weapon("00", "-empty-", "Your bare hands", 0, 1);
+		equippedWeap = new Weapon("00", "-empty-", "Your bare hands", 0, 0);
 		totalAtk = baseAtk + equippedWeap.attackPower;
 		bonusAtk = 0;
 		
@@ -108,7 +108,7 @@ public class Player extends Character{
 	 *  next to the name. Each item appears on a seperate line.
 	 */
 	public String displayInventory() {
-		String invDisplay= "Your Inventory";
+		String invDisplay= "Current Attack Power: " + totalAtk + "\nCurrent Gold: " + gold + "\nYour Inventory:\n----------------";
 		for(int i = 0; i < inventory.size(); i++ ) {
 			if(isEquipped(inventory.get(i)))
 				invDisplay += "\n(" + (i+1) + ") " + inventory.get(i).name + " (EQUIPPED)";	
@@ -155,6 +155,8 @@ public class Player extends Character{
 	public void sellItem(Items i, CommandMenu cm, Text prompt, Store s) {
 			if(isEquipped(i)){
 				cm.prompt(prompt,"CAN'T SELL EQUIPPED ITEMS");
+			}else if(i.price==0){
+				 cm.prompt(prompt, "YOU CAN'T SELL THAT ITEM");
 			}else {
 				inventory.remove(i);
 				gold += i.price;
@@ -233,14 +235,14 @@ public class Player extends Character{
 		//Setting the properties of the rectangle 
 		maxHealthBar.setX(595); 
 		maxHealthBar.setY(35); //215
-		maxHealthBar.setWidth(maxHealth); 
+		maxHealthBar.setWidth(maxHp); 
 		maxHealthBar.setHeight(20);
 		maxHealthBar.setStroke(Color.WHITE);
 		maxHealthBar.setFill(Color.CRIMSON);
 	  
 		healthBar.setX(595);
 		healthBar.setY(35);
-		healthBar.setWidth(maxHealth);
+		healthBar.setWidth(maxHp);
 		healthBar.setHeight(20);
 		healthBar.setStroke(Color.WHITE);
 		healthBar.setFill(Color.GREEN);
@@ -259,14 +261,14 @@ public class Player extends Character{
 			healthBar.getWidth();
 		}
 		//adjustHealth = heal(positive value)
-		else if (adjustHealth > 0 && totalHealth != maxHealth) {
+		else if (adjustHealth > 0 && totalHealth != maxHp) {
 			totalHealth = totalHealth + adjustHealth;
 			healthBar.setWidth(totalHealth);
 			healthBar.getWidth();
 		}
-		if(totalHealth == maxHealth) {
+		if(totalHealth == maxHp) {
 			commandMenu.prompt(prompt, "HEALTH IS FULL");
-			totalHealth = maxHealth;
+			totalHealth = maxHp;
 		}
 		else if(totalHealth == 0) {
 			commandMenu.prompt(prompt, "GAME OVER");

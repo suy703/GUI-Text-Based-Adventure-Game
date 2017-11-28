@@ -38,16 +38,18 @@ public class GameControl {
 	Boolean unlockDoor = false;
 	Boolean inBattle = true;
 	
-	Potion healthPotion = new Potion("i1", "Health Potion", "A bottle shaped like a human heart with a red liquid inside.\n", 2, "H", 30);
-	Potion attackPotion = new Potion("i2", "Attack Potion", "A perfectly round bottle with a cork in the top. The liquid has a strange yellow color to it but it smells like a delicious tropical fruit when you uncork it.\n", 3, "A", 100);
-	Potion bagOfGold = new Potion("i3", "Bag of Coins", "A small bag of shiney gold coins with a creepy looking face in the center.", 2, "G", 2);
+	Potion healthPotion = new Potion("i1", "Health Potion", "A bottle shaped like a human heart with a red liquid inside.(Restores 100 HP)", 2, "H", 100);
+	Potion attackPotion = new Potion("i2", "Attack Potion", "A perfectly round bottle with a cork in the top. The liquid has a strange yellow color to it but it smells like a delicious tropical fruit when you uncork it. (+100 Attack Power on your next attack!)", 3, "A", 100);
+	Potion bagOfGold = new Potion("i3", "Bag of Coins", "A small bag of shiney gold coins with a creepy looking face in the center.(+2 gold)", 2, "G", 2);
 	
-	Weapon dagger = new Weapon("i4", "Dagger", "A small, silver knife with a carved wooden handle.",3,1);
-	Weapon animalClaw = new Weapon("i5", "Animal Claw", "A small but sharp claw from an animal. Not much better than using your fists.",1,2);
-	Weapon boneClub = new Weapon("i6","Bone Club", "A club made from a bone of unknown origin.", 2,3);
-	Weapon pistol = new Weapon("i7", "Pistol", "A shiney, metalic, little gun. It might be small but it could definitely do some damage!", 5, 5);
-	Weapon revolver = new Weapon("i8", "Revolver", "A shiney, metalic, little gun. It might be small but it could definitely do some damage!",6,7);
-	Weapon goldenRevolver = new Weapon("i9", "Golden Revolver", "A heavy, gold revolver. There is an inscription on the side that reads “To the Sheriff, may your enemies always turn to gold”.", 10,10);
+	Weapon dagger = new Weapon("i4", "Dagger", "A small, silver knife with a carved wooden handle.(+10 Attack Power)",3,10);
+	Weapon animalClaw = new Weapon("i5", "Animal Claw", "A small but sharp claw from an animal. Not much better than using your fists.(+11 Attack Power)",1,11);
+	Weapon boneClub = new Weapon("i6","Bone Club", "A club made from a bone of unknown origin.(+15 Attack Power)", 2,15);
+	Weapon pistol = new Weapon("i7", "Pistol", "A shiney, metalic, little gun. It might be small but it could definitely do some damage!(+25 Attack Power)", 5, 25);
+	Weapon revolver = new Weapon("i8", "Revolver", "A shiney, metalic, little gun. It might be small but it could definitely do some damage!(+30 Attack Power)",6,30);
+	Weapon goldenRevolver = new Weapon("i9", "Golden Revolver", "A heavy, gold revolver. There is an inscription on the side that reads “To the Sheriff, may your enemies always turn to gold”.(+40 Attack Power)", 10,40);
+	
+	Items dynamite = new Items("i11", "Stick of Dynamite", "A large stick of dynamite. You don’t know when you’ll need this, but you should keep it just in case. ",0);
 	
 	Items[] drugstore1 = {healthPotion,attackPotion, pistol};
 	Store store1 = new Store(drugstore1);
@@ -609,8 +611,8 @@ public class GameControl {
 		    // Attacking Henchman
 			else if(puzzle.getPuzzleID().equals("P02") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
 
-				Random damageProb = new Random();
-				int damageMonster = -(damageProb.nextInt(50 + 1) + player.attackDamage()); // Damage monster probability between -50 to -25
+				//Random damageProb = new Random();
+				int damageMonster = -(player.attackDamage()); // Damage monster probability between -50 to -25
 				System.out.println(damageMonster); //Display Amount of damage done to monster
 				
 				if(this.monsterTotalHealth > 0) {//When monster health is greater than 0 = true
@@ -647,8 +649,8 @@ public class GameControl {
 		   }
 		    // Attacking Deputy Sheriff
 			else if(puzzle.getPuzzleID().equals("P04") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
-				Random damageProb = new Random();
-				int deputyDamage = -(damageProb.nextInt(50 + 1) + player.attackDamage()); // Damage monster probability between -50 to -25
+				//Random damageProb = new Random();
+				int deputyDamage = -(player.attackDamage()); // Damage monster probability between -50 to -25
 				System.out.println(deputyDamage); //Display Amount of damage done to monster
 				
 				if(this.monsterTotalHealth > 0) {//When monster health is greater than 0 = true
@@ -663,20 +665,23 @@ public class GameControl {
 				else {
 					puzzle.setPuzzleID("P05");
 					room.display("Jail > Deputy Sheriff\n\n"
-							+ "A key is dropped from Deputy Sheriff! Quickly grab it (and his gold) and unlock the jail! You do not have much time"
-							+ " other deputies are making their way to the cell from the sound of gun fire! ", "0. Back\n" + "1. Pick up key");
+							+ "Search the Deputy Sheriff's body and try to find a way out of here! You do not have much time"
+							+ " other deputies are making their way to the cell from the sound of gun fire! ", "0. Back\n" + "1. Loot");
 					player.gold += 4;
+					player.inventory.add(dynamite);
+					
 					
 					System.out.println("Key is dropped : Location Game Control"); // Testing purpose
 				}
 			}
 		    
 		    // picking up key
-			else if(puzzle.getPuzzleID().equals("P05") && command.equalsIgnoreCase("1") || command.equalsIgnoreCase("pick up  key")) {
+			else if(puzzle.getPuzzleID().equals("P05") && command.equalsIgnoreCase("1") || command.equalsIgnoreCase("loot")) {
 				puzzle.setPuzzleID("P06");
 				room.display("Jail > Deputy Sheriff\n\n"
-						+ "Now that you have the key, the jail may now be unlocked and you have earned respect as the new boss around the town hub! Go ahead and unlock"
+						+ "The jail may now be unlocked and you have earned respect as the new boss around the town hub! Go ahead and unlock"
 						+ " the jail and head back out to the Saloon.", "0. Back\n" + "1. Unlock Jail");
+				commandMenu.prompt(prompt, "RECEIVED 4 GOLD, KEYS TO THE CELL AND A " + dynamite.name.toUpperCase());
 				
 				System.out.println("Jail is unlocked : Location Game Control"); // Testing purpose
 			}
@@ -1820,8 +1825,8 @@ public class GameControl {
 			}
 			//MAIN DESERT HUB > Search Area > Fight Coyotes
 			else if(MainDesertHub.getRoomID().equals("2A01") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
-				Random damageProb = new Random();
-				int damageMonster = -(damageProb.nextInt(50 + 1) + 25); // Damage monster probability between -50 to -25
+				//Random damageProb = new Random();
+				int damageMonster = -(player.attackDamage()); // Damage monster probability between -50 to -25
 				
 				if(this.monsterTotalHealth > 0) {//When monster health is greater than 0 = true
 					this.monsterTotalHealth = monster.monsterHealthMeter(monsterHealthBar, this.monsterTotalHealth, damageMonster, prompt); //Player does damage to monster's health bar
@@ -1841,8 +1846,9 @@ public class GameControl {
 			}
 			////MAIN DESERT HUB > Search Area > Fight Bear
 			else if(MainDesertHub.getRoomID().equals("2A11") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
-				Random damageProb = new Random();
-				int damageMonster = -(damageProb.nextInt(50 + 1) + 25); // Damage monster probability between -50 to -25
+				//Random damageProb = new Random();
+				//int damageMonster = -(damageProb.nextInt(50 + 1) + 25); // Damage monster probability between -50 to -25
+				int damageMonster = -(player.attackDamage());
 				System.out.println(damageMonster); //Display Amount of damage done to monster
 				
 				if(monsterTotalHealth > 0) {//When monster health is greater than 0 = true
@@ -1863,8 +1869,9 @@ public class GameControl {
 			}
 			////MAIN DESERT HUB > Search Area > Fight Mountain Man
 			else if(MainDesertHub.getRoomID().equals("2A21") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
-				Random damageProb = new Random();
-				int damageMonster = -(damageProb.nextInt(50 + 1) + 25); // Damage monster probability between -50 to -25
+				//Random damageProb = new Random();
+				//int damageMonster = -(damageProb.nextInt(50 + 1) + 25); // Damage monster probability between -50 to -25
+				int damageMonster = -(player.attackDamage());
 				System.out.println(damageMonster); //Display Amount of damage done to monster
 				
 				if(this.monsterTotalHealth > 0) {//When monster health is greater than 0 = true
@@ -1875,9 +1882,9 @@ public class GameControl {
 							+ "made of a bone of unknown origin in his hands.\n\n\"Git yer own land, this here is my territory!\"", "Action\n" + "0. Runaway\n" +"1. Attack");
 					
 					if(this.monsterTotalHealth <= 0){
-						commandMenu.prompt(prompt, "YOU LOOT 1 GOLD AND AN ANIMAL CLAW");
-						player.inventory.add(animalClaw);
-						player.gold++;
+						commandMenu.prompt(prompt, "YOU LOOT 2 GOLD AND A HEALTH POTION");
+						player.inventory.add(healthPotion);
+						player.gold+=2;
 						room.display("Main Desert Hub > Search Area\n\n", "Action\n" + "0. Back\n");
 					}
 				}
@@ -1885,8 +1892,9 @@ public class GameControl {
 			}
 			////MAIN DESERT HUB > Search Area > Fight Bandit
 			else if(MainDesertHub.getRoomID().equals("2A31") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
-				Random damageProb = new Random();
-				int damageMonster = -(damageProb.nextInt(50 + 1) + 25); // Damage monster probability between -50 to -25
+				//Random damageProb = new Random();
+				//int damageMonster = -(damageProb.nextInt(50 + 1) + 25); // Damage monster probability between -50 to -25
+				int damageMonster = -(player.attackDamage());
 				System.out.println(damageMonster); //Display Amount of damage done to monster
 				
 				if(this.monsterTotalHealth > 0) {//When monster health is greater than 0 = true
@@ -1897,9 +1905,9 @@ public class GameControl {
 							+ "made from good quality materials.\n\n\"I think I see some gold coins that are wanting to be liberated\"", "Action\n" + "0. Runaway\n" +"1. Attack");
 					
 					if(this.monsterTotalHealth <= 0){
-						commandMenu.prompt(prompt, "YOU LOOT 1 GOLD AND AN ANIMAL CLAW");
-						player.inventory.add(animalClaw);
-						player.gold++;
+						commandMenu.prompt(prompt, "YOU LOOT 3 GOLD AND AN ATTACK POTION");
+						player.inventory.add(attackPotion);
+						player.gold+=3;
 						room.display("Main Desert Hub > Search Area\n\n", "Action\n" + "0. Back\n");
 					}
 				}
@@ -1990,22 +1998,23 @@ public class GameControl {
 			
 			}
 			else if(AccessPath1.getRoomID().equals("2B11") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
-				Random damageProb = new Random();
-				int damageMonster = -(damageProb.nextInt(50 + 1) + 25); // Damage monster probability between -50 to -25
+				//Random damageProb = new Random();
+				//int damageMonster = -(damageProb.nextInt(50 + 1) + 25); // Damage monster probability between -50 to -25
+				int damageMonster = -(player.attackDamage());
 				System.out.println(damageMonster); //Display Amount of damage done to monster
 				
 				if(this.monsterTotalHealth > 0) {//When monster health is greater than 0 = true
 					this.monsterTotalHealth = monster.monsterHealthMeter(monsterHealthBar, this.monsterTotalHealth, damageMonster, prompt); //Player does damage to monster's health bar
 					this.totalHealth = player.healthMeter(healthBar, this.totalHealth, -6, prompt); //Monster does damage to player's health bar
-					room.display("Access Path 1 > Search Area > Fight Bandit\n\nBandit----------------------------------------------\nA man of average "
+					room.display("Main Desert Hub > Search Area > Fight Bandit\n\nBandit----------------------------------------------\nA man of average "
 							+ "stature, whose face is shrouded by a red bandana. His clothing is mismatched and ragged, but you can tell it is " 
 							+ "made from good quality materials.\n\n\"I think I see some gold coins that are wanting to be liberated\"", "Action\n" + "0. Runaway\n" +"1. Attack");
 					
 					if(this.monsterTotalHealth <= 0){
-						commandMenu.prompt(prompt, "YOU LOOT 1 GOLD AND AN ANIMAL CLAW");
-						player.inventory.add(animalClaw);
-						player.gold++;
-						room.display("Access Path 1 > Search Area\n\n", "Action\n" + "0. Back\n");
+						commandMenu.prompt(prompt, "YOU LOOT 3 GOLD AND AN ATTACK POTION");
+						player.inventory.add(attackPotion);
+						player.gold+=3;
+						room.display("Main Desert Hub > Search Area\n\n", "Action\n" + "0. Back\n");
 					}
 				}
 				System.out.println("Attacking Bandit : Location Game Control"); // Testing purpose
