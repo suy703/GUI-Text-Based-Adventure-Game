@@ -292,7 +292,7 @@ public class GameControl {
 					commandMenu.prompt(prompt, "INVALID COMMAND");
 				}
 			}
-		  //Sell Item 2
+		    //Sell Item 2
 			else if(DrugStore.getRoomID().equals("1B") && inventoryView &&storeView && (command.equals("2"))) {
 				if(player.inventory.size()>1) {
 					player.sellItem(player.inventory.get(1),commandMenu,prompt,store1);
@@ -302,7 +302,7 @@ public class GameControl {
 					commandMenu.prompt(prompt, "INVALID COMMAND");
 				}
 			}
-		  //Sell Item 3
+		    //Sell Item 3
 			else if(DrugStore.getRoomID().equals("1B") && inventoryView &&storeView && (command.equals("3"))) {
 				if(player.inventory.size()>2) {
 					player.sellItem(player.inventory.get(2),commandMenu,prompt,store1);
@@ -311,7 +311,7 @@ public class GameControl {
 					commandMenu.prompt(prompt, "INVALID COMMAND");
 				}	
 			}
-		  //Sell Item 4
+		    //Sell Item 4
 			else if(DrugStore.getRoomID().equals("1B") && inventoryView &&storeView && (command.equals("4"))) {
 				if(player.inventory.size()>3) {
 					player.sellItem(player.inventory.get(3),commandMenu,prompt,store1);
@@ -320,7 +320,7 @@ public class GameControl {
 					commandMenu.prompt(prompt, "INVALID COMMAND");
 				}
 			}
-		  //Sell Item 5
+		    //Sell Item 5
 			else if(DrugStore.getRoomID().equals("1B") && inventoryView &&storeView && (command.equals("5"))) {
 				if(player.inventory.size()>4) {
 					player.sellItem(player.inventory.get(4),commandMenu,prompt,store1);
@@ -329,7 +329,7 @@ public class GameControl {
 					commandMenu.prompt(prompt, "INVALID COMMAND");
 				}	
 			}
-		  //Sell Item 6
+		    //Sell Item 6
 			else if(DrugStore.getRoomID().equals("1B") && inventoryView &&storeView && (command.equals("6"))) {
 				if(player.inventory.size()>5) {
 					player.sellItem(player.inventory.get(5),commandMenu,prompt,store1);
@@ -338,7 +338,7 @@ public class GameControl {
 					commandMenu.prompt(prompt, "INVALID COMMAND");
 				}	
 			}
-		  //Sell Item 7
+		    //Sell Item 7
 			else if(DrugStore.getRoomID().equals("1B") && inventoryView &&storeView && (command.equals("7"))) {
 				if(player.inventory.size()>6) {
 					player.sellItem(player.inventory.get(6),commandMenu,prompt,store1);
@@ -347,7 +347,7 @@ public class GameControl {
 					commandMenu.prompt(prompt, "INVALID COMMAND");
 				}	
 			}
-		  //Sell Item 8
+		    //Sell Item 8
 			else if(DrugStore.getRoomID().equals("1B") && inventoryView &&storeView && (command.equals("8"))) {
 				if(player.inventory.size()>7) {
 					player.sellItem(player.inventory.get(7),commandMenu,prompt,store1);
@@ -356,7 +356,7 @@ public class GameControl {
 					commandMenu.prompt(prompt, "INVALID COMMAND");
 				}	
 			}
-		  //Sell Item 9
+		    //Sell Item 9
 			else if(DrugStore.getRoomID().equals("1B") && inventoryView &&storeView && (command.equals("9"))) {
 				if(player.inventory.size()>8) {
 					player.sellItem(player.inventory.get(8),commandMenu,prompt,store1);
@@ -365,7 +365,7 @@ public class GameControl {
 					commandMenu.prompt(prompt, "INVALID COMMAND");
 				}	
 			}
-		  //Sell Item 10
+		    //Sell Item 10
 			else if(DrugStore.getRoomID().equals("1B") && inventoryView &&storeView && (command.equals("10"))) {
 				if(player.inventory.size()>9) {
 					player.sellItem(player.inventory.get(2),commandMenu,prompt,store1);
@@ -439,7 +439,7 @@ public class GameControl {
 				Inn.setRoomID("1C");
 				DrugStore.setRoomID("");
 			}
-		  //INN > Search Room
+		    //INN > Search Room
 			else if(!itemView&& !inventoryView&& Inn.getRoomID().equals("1C") && (command.equals("3") || command.equalsIgnoreCase("search room"))) {
 				room.display("Inn > Search Room\n\n" +Inn.displayItems(), "Action\n" 
 							+ "0. Back\n" + "1. Pickup Item\n" + "2. Inventory\n" + "3. Save Game\n");
@@ -795,698 +795,269 @@ public class GameControl {
 			}
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@		    
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------		    
-			//INVENTORY
-			else if(!storeView && (TownHub.getRoomLocks() && (command.equals("5") || command.equalsIgnoreCase("inventory")) ||
-								 DrugStore.getRoomLocks() && (command.equals("4") || command.equalsIgnoreCase("inventory")) ||
-								 	   Inn.getRoomLocks() && (command.equals("4") || command.equalsIgnoreCase("inventory")) ||
-					                Saloon.getRoomLocks() && (command.equals("4") || command.equalsIgnoreCase("inventory"))) ||
-					                Saloon.getRoomID().equals("1D") && (command.equals("2") || command.equalsIgnoreCase("inventory")) ||
-					                   Inn.getRoomID().equals("1C") && (command.equals("2") || command.equalsIgnoreCase("inventory"))) {
+		//INVENTORY
+		if(!storeView && (TownHub.getRoomLocks() && (command.equals("5") || command.equalsIgnoreCase("inventory")) ||
+							(DrugStore.getRoomLocks() && (command.equals("4") || command.equalsIgnoreCase("inventory"))) ||
+							(Inn.getRoomLocks() && (command.equals("4") || command.equalsIgnoreCase("inventory"))) ||
+							(Saloon.getRoomLocks() && (command.equals("4") || command.equalsIgnoreCase("inventory")))) ||
+							(Saloon.getRoomID().equals("1D") && (command.equals("2") || command.equalsIgnoreCase("inventory"))) ||
+							(Inn.getRoomID().equals("1C") && (command.equals("2") || command.equalsIgnoreCase("inventory"))) ||
+							(MainDesertHub.getRoomLocks() && (command.equals("5") || command.equalsIgnoreCase("inventory"))) ||
+							(AccessPath1.getRoomLocks() && (command.equals("4") || command.equalsIgnoreCase("inventory"))) ||
+							(AccessPath2.getRoomLocks() && (command.equals("4") || command.equalsIgnoreCase("inventory")))) {
+			
+			room.display(player.displayInventory(), "Action\n" + "Select Item (Enter Item Number)\n" + "0. Back");
+			inventoryView = true;
+			if(TownHub.getRoomLocks()==true) {
 				
-				room.display(player.displayInventory(), "Action\n" + "Select Item (Enter Item Number)\n" + "0. Back");
-				inventoryView = true;
-				if(TownHub.getRoomLocks()==true) {
-					
-					backToGame = TownHub.getRoomLocks();
-					System.out.println("TownHub");
-				}
-				else if(DrugStore.getRoomLocks()==true) {
-					
-					backToGame = DrugStore.getRoomLocks();
-					System.out.println("DrugStore");
-				}
-				else if(Inn.getRoomLocks()==true) {
-					
-					backToGame = Inn.getRoomLocks();
-					System.out.println("Inn");
-				}
-				else if(Saloon.getRoomLocks()==true) {
-					
-					backToGame = Saloon.getRoomLocks();
-					System.out.println("Saloon");
-				}
-				else if(Jail.getRoomLocks()==true) {
-					
-					backToGame = Jail.getRoomLocks();
-					System.out.println("Jail");
-				}
+				backToGame = TownHub.getRoomLocks();
+				System.out.println("TownHub");
 			}
-			else if(!storeView && inventoryView && command.equals("1")) {
-				if(player.inventory.size()>0) {
-					room.display(player.inventory.get(0).name + "\n-----------------\n" + player.inventory.get(0).description,player.inventory.get(0).displayItemOptions(player));
-					itemView = true;
-					itemIndex = 0;
-				}
-				else {
-					commandMenu.prompt(prompt, "INVALID COMMAND");
-				}
+			else if(DrugStore.getRoomLocks()==true) {
 				
+				backToGame = DrugStore.getRoomLocks();
+				System.out.println("DrugStore");
 			}
-			else if(!storeView && inventoryView && command.equals("2")) {
-				if(player.inventory.size()>1) {
-					room.display(player.inventory.get(1).name + "\n-----------------\n" + player.inventory.get(1).description,player.inventory.get(1).displayItemOptions(player));
-					itemView = true;
-					itemIndex = 1;
-				}
-				else {
-					commandMenu.prompt(prompt, "INVALID COMMAND");
-				}
-			}
-			else if(!storeView && inventoryView && command.equals("3")) {
-				if(player.inventory.size()>2) {
-					room.display(player.inventory.get(2).name + "\n-----------------\n" + player.inventory.get(2).description,player.inventory.get(2).displayItemOptions(player));
-					itemView = true;
-					itemIndex =2;
-				}
-				else {
-					commandMenu.prompt(prompt, "INVALID COMMAND");
-				}
-			}
-			else if(!storeView && inventoryView && command.equals("4")) {
-				if(player.inventory.size()>3) {
-					room.display(player.inventory.get(3).name + "\n-----------------\n" + player.inventory.get(3).description,player.inventory.get(3).displayItemOptions(player));
-					itemView = true;
-					itemIndex =3;
-				}
-				else {
-					commandMenu.prompt(prompt, "INVALID COMMAND");
-				}
-			}
-			else if(!storeView && inventoryView && command.equals("5")) {
-				if(player.inventory.size()>4) {
-					room.display(player.inventory.get(4).name + "\n-----------------\n" + player.inventory.get(4).description,player.inventory.get(4).displayItemOptions(player));
-					itemView = true;
-					itemIndex =4;
-				}
-				else {
-					commandMenu.prompt(prompt, "INVALID COMMAND");
-				}
-			}
-			else if(!storeView && inventoryView && command.equals("6")) {
-				if(player.inventory.size()>5) {
-					room.display(player.inventory.get(5).name + "\n-----------------\n" + player.inventory.get(5).description,player.inventory.get(5).displayItemOptions(player));
-					itemView = true;
-					itemIndex =5;
-				}
-				else {
-					commandMenu.prompt(prompt, "INVALID COMMAND");
-				}
-			}
-			else if(!storeView && inventoryView && command.equals("7")) {
-				if(player.inventory.size()>6) {
-					room.display(player.inventory.get(6).name + "\n-----------------\n" + player.inventory.get(6).description,player.inventory.get(6).displayItemOptions(player));
-					itemView = true;
-					itemIndex =6;
-				}
-				else {
-					commandMenu.prompt(prompt, "INVALID COMMAND");
-				}
-			}
-			else if(!storeView && inventoryView && command.equals("8")) {
-				if(player.inventory.size()>7) {
-					room.display(player.inventory.get(7).name + "\n-----------------\n" + player.inventory.get(7).description,player.inventory.get(7).displayItemOptions(player));
-					itemView = true;
-					itemIndex =7;
-				}
-				else {
-					commandMenu.prompt(prompt, "INVALID COMMAND");
-				}
-			}
-			else if(!storeView && inventoryView && command.equals("9")) {
-				if(player.inventory.size()>8) {
-					room.display(player.inventory.get(8).name + "\n-----------------\n" + player.inventory.get(8).description,player.inventory.get(8).displayItemOptions(player));
-					itemView = true;
-					itemIndex =8;
-				}
-				else {
-					commandMenu.prompt(prompt, "INVALID COMMAND");
-				}
-			}
-			else if(!storeView && inventoryView && command.equals("10")) {
-				if(player.inventory.size()>9) {
-					room.display(player.inventory.get(9).name + "\n-----------------\n" + player.inventory.get(9).description,player.inventory.get(9).displayItemOptions(player));
-					itemView = true;
-					itemIndex =9;
-				}
-				else {
-					commandMenu.prompt(prompt, "INVALID COMMAND");
-				}
+			else if(Inn.getRoomLocks()==true) {
 				
+				backToGame = Inn.getRoomLocks();
+				System.out.println("Inn");
 			}
-			else if(itemView  && (command.equals("0"))||command.equalsIgnoreCase("back")) {
-				if(TownHub.getRoomLocks()==true) {
-					storeView = false;
-					inventoryView = false;
-					itemView = false;
-
-					room.TownHub_1A();
-					TownHub.setRoomLocks(true);
-					DrugStore.setRoomLocks(false);
-					Inn.setRoomLocks(false);
-					Saloon.setRoomLocks(false);
-					Jail.setRoomLocks(false);
-					MainDesertHub.setRoomLocks(false);
-					
-					DrugStore.setRoomExits("");
-					Inn.setRoomExits("");
-					Saloon.setRoomExits("");
-					MainDesertHub.setRoomExits("");
-					
-					DrugStore.setRoomID("");
-					Saloon.setRoomID("");
-					Inn.setRoomID("");
-					System.out.println("TownHub");
-				}
-				else if(DrugStore.getRoomLocks()==true) {
-					storeView = false;
-					inventoryView = false;
-					itemView = false;
-
-					
-					room.DrugStore_1B();
-					TownHub.setRoomLocks(false);
-					DrugStore.setRoomLocks(true);
-					Inn.setRoomLocks(false);
-					Saloon.setRoomLocks(false);
-					Jail.setRoomLocks(false);
-					
-					TownHub.setRoomExits("");
-					Inn.setRoomExits("");
-					
-					DrugStore.setRoomID("1B");
-					Inn.setRoomID("");
-					System.out.println("DrugStore");
-				}
-				else if(Inn.getRoomLocks()==true) {
-					storeView = false;
-					inventoryView = false;
-					itemView = false;
-
-					room.Inn_1C();
-					TownHub.setRoomLocks(false);
-					DrugStore.setRoomLocks(false);
-					Inn.setRoomLocks(true);
-					Saloon.setRoomLocks(false);
-					Jail.setRoomLocks(false);
-					
-					TownHub.setRoomExits("");
-					DrugStore.setRoomExits("");
-					
-					Inn.setRoomID("1C");
-					DrugStore.setRoomID("");
-					System.out.println("Inn");
-				}
-				else if(Saloon.getRoomLocks()==true) {
-					storeView = false;
-					inventoryView = false;
-					itemView = false;
-
-					room.Saloon_1D();
-					TownHub.setRoomLocks(false);
-					DrugStore.setRoomLocks(false);
-					Inn.setRoomLocks(false);
-					Saloon.setRoomLocks(true);
-					Jail.setRoomLocks(false);
-					
-					TownHub.setRoomExits("");
-					
-					Saloon.setRoomID("1D");
-					System.out.println("Saloon");
-				}
-				else if(Jail.getRoomLocks()==true) {
-					storeView = false;
-					inventoryView = false;
-					itemView = false;
-					
-					room.Jail_1E();
-					TownHub.setRoomLocks(false);
-					DrugStore.setRoomLocks(false);
-					Inn.setRoomLocks(false);
-					Saloon.setRoomLocks(true);
-					Jail.setRoomLocks(true);
-					
-					Saloon.setRoomID("");
-					System.out.println("Jail");
-				}
-			}
-			else if(itemView && /*(command.equals("1")) || */command.equalsIgnoreCase("use")||command.equalsIgnoreCase("equip")||command.equalsIgnoreCase("unequip")){
-				System.out.println("Item View Handlers Works");
-				if(player.inventory.get(itemIndex).canUse && command.equalsIgnoreCase("use")) {
-					if(player.inventory.get(itemIndex).name.equals("Health Potion")){
-						player.healthMeter(healthBar, this.totalHealth, healthPotion.strength, prompt);
-						player.inventory.remove(itemIndex);
-					}else {
-						player.useItem((Potion)player.inventory.get(itemIndex), commandMenu, prompt);
-						System.out.println("Use Item Success");
-					}
-					if(TownHub.getRoomLocks()==true) {
-						storeView = false;
-						inventoryView = false;
-						itemView = false;
-						
-						room.TownHub_1A();
-						TownHub.setRoomLocks(true);
-						DrugStore.setRoomLocks(false);
-						Inn.setRoomLocks(false);
-						Saloon.setRoomLocks(false);
-						Jail.setRoomLocks(false);
-						MainDesertHub.setRoomLocks(false);
-						
-						DrugStore.setRoomExits("");
-						Inn.setRoomExits("");
-						Saloon.setRoomExits("");
-						
-						DrugStore.setRoomID("");
-						Saloon.setRoomID("");
-						Inn.setRoomID("");
-						System.out.println("TownHub");
-					}
-					else if(DrugStore.getRoomLocks()==true) {
-						storeView = false;
-						inventoryView = false;
-						itemView = false;
-						
-						room.DrugStore_1B();
-						TownHub.setRoomLocks(false);
-						DrugStore.setRoomLocks(true);
-						Inn.setRoomLocks(false);
-						Saloon.setRoomLocks(false);
-						Jail.setRoomLocks(false);
-						
-						TownHub.setRoomExits("");
-						Inn.setRoomExits("");
-						
-						DrugStore.setRoomID("1B");
-						Inn.setRoomID("");
-						System.out.println("DrugStore");
-					}
-					else if(Inn.getRoomLocks()==true) {
-						storeView = false;
-						inventoryView = false;
-						itemView = false;
-						
-						room.Inn_1C();
-						TownHub.setRoomLocks(false);
-						DrugStore.setRoomLocks(false);
-						Inn.setRoomLocks(true);
-						Saloon.setRoomLocks(false);
-						Jail.setRoomLocks(false);
-						
-						TownHub.setRoomExits("");
-						DrugStore.setRoomExits("");
-						
-						Inn.setRoomID("1C");
-						DrugStore.setRoomID("");
-						System.out.println("Inn");
-					}
-					else if(Saloon.getRoomLocks()==true) {
-						storeView = false;
-						inventoryView = false;
-						itemView = false;
-						
-						room.Saloon_1D();
-						TownHub.setRoomLocks(false);
-						DrugStore.setRoomLocks(false);
-						Inn.setRoomLocks(false);
-						Saloon.setRoomLocks(true);
-						Jail.setRoomLocks(false);
-						
-						TownHub.setRoomExits("");
-						
-						Saloon.setRoomID("1D");
-						System.out.println("inv " + inventoryView);
-						System.out.println("st " + storeView);
-						System.out.println("Saloon");
-					}
-					else if(Jail.getRoomLocks()==true) {
-						storeView = false;
-						inventoryView = false;
-						itemView = false;
-						
-						room.Jail_1E();
-						TownHub.setRoomLocks(false);
-						DrugStore.setRoomLocks(false);
-						Inn.setRoomLocks(false);
-						Saloon.setRoomLocks(true);
-						Jail.setRoomLocks(true);
-						
-						Saloon.setRoomID("");
-						System.out.println("Jail");
-					} else if(MainDesertHub.getRoomLocks()==true) {
-						storeView = false;
-						inventoryView = false;
-						itemView = false;
-						
-						room.MainDesertHub_2A();
-						TownHub.setRoomLocks(false);
-						DrugStore.setRoomLocks(false);
-						MainDesertHub.setRoomLocks(true);
-						AccessPath1.setRoomLocks(false);
-						AccessPath2.setRoomLocks(false);
-						
-						MainDesertHub.setRoomExits("");
-						AccessPath2.setRoomExits("");
-						
-						AccessPath1.setRoomExits("");
-						AccessPath2.setRoomExits("");
-						MainDesertHub.setRoomID("2A"); //Open up Search Area command
-						monster.removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
-						this.monsterTotalHealth = this.monsterMaxHealth; //Restore monster health
-					}
-					else if(AccessPath1.getRoomLocks()==true) {
-						storeView = false;
-						inventoryView = false;
-						itemView = false;
-						
-						room.AccessPath1_2B();
-						MainDesertHub.setRoomLocks(false);
-						AccessPath1.setRoomLocks(true);
-						AccessPath2.setRoomLocks(false);
-						
-						MainDesertHub.setRoomExits("");
-						AccessPath1.setRoomExits("");
-						AccessPath2.setRoomExits("");
-						MainDesertHub.setRoomID("");
-					}
-					else if(AccessPath2.getRoomLocks()==true) {
-						storeView = false;
-						inventoryView = false;
-						itemView = false;
-						
-						room.AccessPath2_2C();
-						MainDesertHub.setRoomLocks(false);
-						AccessPath1.setRoomLocks(false);
-						AccessPath2.setRoomLocks(true);
-						
-						MainDesertHub.setRoomExits("");
-						AccessPath1.setRoomExits("");
-						AccessPath2.setRoomExits("");
-						MainDesertHub.setRoomID("");
-						}
-				}else if(player.inventory.get(itemIndex).canEquip && player.inventory.get(itemIndex).equals(player.equippedWeap)) {
-					player.unequipWeapon();
-					commandMenu.prompt(prompt, player.inventory.get(itemIndex).name.toUpperCase() + " UNEQUIPPED");
-					System.out.println("UnEq Success");
-					if(TownHub.getRoomLocks()==true) {
-						storeView = false;
-						inventoryView = false;
-						itemView = false;
-						
-						room.TownHub_1A();
-						TownHub.setRoomLocks(true);
-						DrugStore.setRoomLocks(false);
-						Inn.setRoomLocks(false);
-						Saloon.setRoomLocks(false);
-						Jail.setRoomLocks(false);
-						MainDesertHub.setRoomLocks(false);
-						
-						DrugStore.setRoomExits("");
-						Inn.setRoomExits("");
-						Saloon.setRoomExits("");
-						
-						DrugStore.setRoomID("");
-						Saloon.setRoomID("");
-						Inn.setRoomID("");
-						System.out.println("TownHub");
-					}
-					else if(DrugStore.getRoomLocks()==true) {
-						storeView = false;
-						inventoryView = false;
-						itemView = false;
-						
-						room.DrugStore_1B();
-						TownHub.setRoomLocks(false);
-						DrugStore.setRoomLocks(true);
-						Inn.setRoomLocks(false);
-						Saloon.setRoomLocks(false);
-						Jail.setRoomLocks(false);
-						
-						TownHub.setRoomExits("");
-						Inn.setRoomExits("");
-						
-						DrugStore.setRoomID("1B");
-						Inn.setRoomID("");
-						System.out.println("DrugStore");
-					}
-					else if(Inn.getRoomLocks()==true) {
-						storeView = false;
-						inventoryView = false;
-						itemView = false;
-						
-						room.Inn_1C();
-						TownHub.setRoomLocks(false);
-						DrugStore.setRoomLocks(false);
-						Inn.setRoomLocks(true);
-						Saloon.setRoomLocks(false);
-						Jail.setRoomLocks(false);
-						
-						TownHub.setRoomExits("");
-						DrugStore.setRoomExits("");
-						
-						Inn.setRoomID("1C");
-						DrugStore.setRoomID("");
-						System.out.println("Inn");
-					}
-					else if(Saloon.getRoomLocks()==true) {
-						storeView = false;
-						inventoryView = false;
-						itemView = false;
-						
-						room.Saloon_1D();
-						TownHub.setRoomLocks(false);
-						DrugStore.setRoomLocks(false);
-						Inn.setRoomLocks(false);
-						Saloon.setRoomLocks(true);
-						Jail.setRoomLocks(false);
-						
-						TownHub.setRoomExits("");
-						
-						Saloon.setRoomID("1D");
-						System.out.println("inv " + inventoryView);
-						System.out.println("st " + storeView);
-						System.out.println("Saloon");
-					}
-					else if(Jail.getRoomLocks()==true) {
-						storeView = false;
-						inventoryView = false;
-						itemView = false;
-						
-						room.Jail_1E();
-						TownHub.setRoomLocks(false);
-						DrugStore.setRoomLocks(false);
-						Inn.setRoomLocks(false);
-						Saloon.setRoomLocks(true);
-						Jail.setRoomLocks(true);
-						
-						Saloon.setRoomID("");
-						System.out.println("Jail");
-					} else if(MainDesertHub.getRoomLocks()==true) {
-						storeView = false;
-						inventoryView = false;
-						itemView = false;
-						
-						room.MainDesertHub_2A();
-						TownHub.setRoomLocks(false);
-						DrugStore.setRoomLocks(false);
-						MainDesertHub.setRoomLocks(true);
-						AccessPath1.setRoomLocks(false);
-						AccessPath2.setRoomLocks(false);
-						
-						MainDesertHub.setRoomExits("");
-						AccessPath2.setRoomExits("");
-						
-						AccessPath1.setRoomExits("");
-						AccessPath2.setRoomExits("");
-						MainDesertHub.setRoomID("2A"); //Open up Search Area command
-						monster.removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
-						this.monsterTotalHealth = this.monsterMaxHealth; //Restore monster health
-					}
-					else if(AccessPath1.getRoomLocks()==true) {
-						storeView = false;
-						inventoryView = false;
-						itemView = false;
-						
-						room.AccessPath1_2B();
-						MainDesertHub.setRoomLocks(false);
-						AccessPath1.setRoomLocks(true);
-						AccessPath2.setRoomLocks(false);
-						
-						MainDesertHub.setRoomExits("");
-						AccessPath1.setRoomExits("");
-						AccessPath2.setRoomExits("");
-						MainDesertHub.setRoomID("");
-					}
-					else if(AccessPath2.getRoomLocks()==true) {
-						storeView = false;
-						inventoryView = false;
-						itemView = false;
-						
-						room.AccessPath2_2C();
-						MainDesertHub.setRoomLocks(false);
-						AccessPath1.setRoomLocks(false);
-						AccessPath2.setRoomLocks(true);
-						
-						MainDesertHub.setRoomExits("");
-						AccessPath1.setRoomExits("");
-						AccessPath2.setRoomExits("");
-						MainDesertHub.setRoomID("");
-						}
-				}else if(player.inventory.get(itemIndex).canEquip && !player.inventory.get(itemIndex).equals(player.equippedWeap)) {
-					player.equipWeapon(player.inventory.get(itemIndex));
-					commandMenu.prompt(prompt, player.inventory.get(itemIndex).name.toUpperCase() + " EQUIPPED");
-					System.out.println("Equip Success");
-					if(TownHub.getRoomLocks()==true) {
-						storeView = false;
-						inventoryView = false;
-						itemView = false;
-						
-						room.TownHub_1A();
-						TownHub.setRoomLocks(true);
-						DrugStore.setRoomLocks(false);
-						Inn.setRoomLocks(false);
-						Saloon.setRoomLocks(false);
-						Jail.setRoomLocks(false);
-						MainDesertHub.setRoomLocks(false);
-						
-						DrugStore.setRoomExits("");
-						Inn.setRoomExits("");
-						Saloon.setRoomExits("");
-						
-						DrugStore.setRoomID("");
-						Saloon.setRoomID("");
-						Inn.setRoomID("");
-						System.out.println("TownHub");
-					}
-					else if(DrugStore.getRoomLocks()==true) {
-						storeView = false;
-						inventoryView = false;
-						itemView = false;
-						
-						room.DrugStore_1B();
-						TownHub.setRoomLocks(false);
-						DrugStore.setRoomLocks(true);
-						Inn.setRoomLocks(false);
-						Saloon.setRoomLocks(false);
-						Jail.setRoomLocks(false);
-						
-						TownHub.setRoomExits("");
-						Inn.setRoomExits("");
-						
-						DrugStore.setRoomID("1B");
-						Inn.setRoomID("");
-						System.out.println("DrugStore");
-					}
-					else if(Inn.getRoomLocks()==true) {
-						storeView = false;
-						inventoryView = false;
-						itemView = false;
-						
-						room.Inn_1C();
-						TownHub.setRoomLocks(false);
-						DrugStore.setRoomLocks(false);
-						Inn.setRoomLocks(true);
-						Saloon.setRoomLocks(false);
-						Jail.setRoomLocks(false);
-						
-						TownHub.setRoomExits("");
-						DrugStore.setRoomExits("");
-						
-						Inn.setRoomID("1C");
-						DrugStore.setRoomID("");
-						System.out.println("Inn");
-					}
-					else if(Saloon.getRoomLocks()==true) {
-						storeView = false;
-						inventoryView = false;
-						itemView = false;
-						
-						room.Saloon_1D();
-						TownHub.setRoomLocks(false);
-						DrugStore.setRoomLocks(false);
-						Inn.setRoomLocks(false);
-						Saloon.setRoomLocks(true);
-						Jail.setRoomLocks(false);
-						
-						TownHub.setRoomExits("");
-						
-						Saloon.setRoomID("1D");
-						System.out.println("inv " + inventoryView);
-						System.out.println("st " + storeView);
-						System.out.println("Saloon");
-					}
-					else if(Jail.getRoomLocks()==true) {
-						storeView = false;
-						inventoryView = false;
-						itemView = false;
-						
-						room.Jail_1E();
-						TownHub.setRoomLocks(false);
-						DrugStore.setRoomLocks(false);
-						Inn.setRoomLocks(false);
-						Saloon.setRoomLocks(true);
-						Jail.setRoomLocks(true);
-						
-						Saloon.setRoomID("");
-						System.out.println("Jail");
-					}
-					else if(MainDesertHub.getRoomLocks()==true) {
-						storeView = false;
-						inventoryView = false;
-						itemView = false;
-						
-						room.MainDesertHub_2A();
-						TownHub.setRoomLocks(false);
-						DrugStore.setRoomLocks(false);
-						MainDesertHub.setRoomLocks(true);
-						AccessPath1.setRoomLocks(false);
-						AccessPath2.setRoomLocks(false);
-						
-						MainDesertHub.setRoomExits("");
-						AccessPath2.setRoomExits("");
-						
-						AccessPath1.setRoomExits("");
-						AccessPath2.setRoomExits("");
-						MainDesertHub.setRoomID("2A"); //Open up Search Area command
-						monster.removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
-						this.monsterTotalHealth = this.monsterMaxHealth; //Restore monster health
-					}
-					else if(AccessPath1.getRoomLocks()==true) {
-						storeView = false;
-						inventoryView = false;
-						itemView = false;
-						
-						room.AccessPath1_2B();
-						MainDesertHub.setRoomLocks(false);
-						AccessPath1.setRoomLocks(true);
-						AccessPath2.setRoomLocks(false);
-						
-						MainDesertHub.setRoomExits("");
-						AccessPath1.setRoomExits("");
-						AccessPath2.setRoomExits("");
-						MainDesertHub.setRoomID("");
-					}
-					else if(AccessPath2.getRoomLocks()==true) {
-						storeView = false;
-						inventoryView = false;
-						itemView = false;
-						
-						room.AccessPath2_2C();
-						MainDesertHub.setRoomLocks(false);
-						AccessPath1.setRoomLocks(false);
-						AccessPath2.setRoomLocks(true);
-						
-						MainDesertHub.setRoomExits("");
-						AccessPath1.setRoomExits("");
-						AccessPath2.setRoomExits("");
-						MainDesertHub.setRoomID("");
-						}
+			else if(Saloon.getRoomLocks()==true) {
 				
-				}else {
-					System.out.println("PROBLEM");
-				}
+				backToGame = Saloon.getRoomLocks();
+				System.out.println("Saloon");
 			}
-			else if(itemView && command.equalsIgnoreCase("drop")) {
-				player.dropItem(player.inventory.get(itemIndex), commandMenu, prompt);
+			else if(Jail.getRoomLocks()==true) {
+				
+				backToGame = Jail.getRoomLocks();
+				System.out.println("Jail");
+			}
+			else if(MainDesertHub.getRoomLocks()==true) {
+				
+				backToGame = MainDesertHub.getRoomLocks();
+				System.out.println("MainDesertHub");
+			}
+			else if(AccessPath1.getRoomLocks()==true) {
+				
+				backToGame = AccessPath1.getRoomLocks();
+				System.out.println("AccessPath1");
+			}
+			else if(AccessPath2.getRoomLocks()==true) {
+				
+				backToGame = AccessPath2.getRoomLocks();
+				System.out.println("AccessPath2");
+			}
+		}
+		else if(!storeView && inventoryView && command.equals("1")) {
+			if(player.inventory.size()>0) {
+				room.display(player.inventory.get(0).name + "\n-----------------\n" + player.inventory.get(0).description,player.inventory.get(0).displayItemOptions(player));
+				itemView = true;
+				itemIndex = 0;
+			}
+			else {
+				commandMenu.prompt(prompt, "INVALID COMMAND");
+			}
+			
+		}
+		else if(!storeView && inventoryView && command.equals("2")) {
+			if(player.inventory.size()>1) {
+				room.display(player.inventory.get(1).name + "\n-----------------\n" + player.inventory.get(1).description,player.inventory.get(1).displayItemOptions(player));
+				itemView = true;
+				itemIndex = 1;
+			}
+			else {
+				commandMenu.prompt(prompt, "INVALID COMMAND");
+			}
+		}
+		else if(!storeView && inventoryView && command.equals("3")) {
+			if(player.inventory.size()>2) {
+				room.display(player.inventory.get(2).name + "\n-----------------\n" + player.inventory.get(2).description,player.inventory.get(2).displayItemOptions(player));
+				itemView = true;
+				itemIndex =2;
+			}
+			else {
+				commandMenu.prompt(prompt, "INVALID COMMAND");
+			}
+		}
+		else if(!storeView && inventoryView && command.equals("4")) {
+			if(player.inventory.size()>3) {
+				room.display(player.inventory.get(3).name + "\n-----------------\n" + player.inventory.get(3).description,player.inventory.get(3).displayItemOptions(player));
+				itemView = true;
+				itemIndex =3;
+			}
+			else {
+				commandMenu.prompt(prompt, "INVALID COMMAND");
+			}
+		}
+		else if(!storeView && inventoryView && command.equals("5")) {
+			if(player.inventory.size()>4) {
+				room.display(player.inventory.get(4).name + "\n-----------------\n" + player.inventory.get(4).description,player.inventory.get(4).displayItemOptions(player));
+				itemView = true;
+				itemIndex =4;
+			}
+			else {
+				commandMenu.prompt(prompt, "INVALID COMMAND");
+			}
+		}
+		else if(!storeView && inventoryView && command.equals("6")) {
+			if(player.inventory.size()>5) {
+				room.display(player.inventory.get(5).name + "\n-----------------\n" + player.inventory.get(5).description,player.inventory.get(5).displayItemOptions(player));
+				itemView = true;
+				itemIndex =5;
+			}
+			else {
+				commandMenu.prompt(prompt, "INVALID COMMAND");
+			}
+		}
+		else if(!storeView && inventoryView && command.equals("7")) {
+			if(player.inventory.size()>6) {
+				room.display(player.inventory.get(6).name + "\n-----------------\n" + player.inventory.get(6).description,player.inventory.get(6).displayItemOptions(player));
+				itemView = true;
+				itemIndex =6;
+			}
+			else {
+				commandMenu.prompt(prompt, "INVALID COMMAND");
+			}
+		}
+		else if(!storeView && inventoryView && command.equals("8")) {
+			if(player.inventory.size()>7) {
+				room.display(player.inventory.get(7).name + "\n-----------------\n" + player.inventory.get(7).description,player.inventory.get(7).displayItemOptions(player));
+				itemView = true;
+				itemIndex =7;
+			}
+			else {
+				commandMenu.prompt(prompt, "INVALID COMMAND");
+			}
+		}
+		else if(!storeView && inventoryView && command.equals("9")) {
+			if(player.inventory.size()>8) {
+				room.display(player.inventory.get(8).name + "\n-----------------\n" + player.inventory.get(8).description,player.inventory.get(8).displayItemOptions(player));
+				itemView = true;
+				itemIndex =8;
+			}
+			else {
+				commandMenu.prompt(prompt, "INVALID COMMAND");
+			}
+		}
+		else if(!storeView && inventoryView && command.equals("10")) {
+			if(player.inventory.size()>9) {
+				room.display(player.inventory.get(9).name + "\n-----------------\n" + player.inventory.get(9).description,player.inventory.get(9).displayItemOptions(player));
+				itemView = true;
+				itemIndex =9;
+			}
+			else {
+				commandMenu.prompt(prompt, "INVALID COMMAND");
+			}
+			
+		}
+		else if(itemView  && (command.equals("0"))||command.equalsIgnoreCase("back")) {
+			if(TownHub.getRoomLocks()==true) {
+				storeView = false;
+				inventoryView = false;
+				itemView = false;
+
+				room.TownHub_1A();
+				TownHub.setRoomLocks(true);
+				DrugStore.setRoomLocks(false);
+				Inn.setRoomLocks(false);
+				Saloon.setRoomLocks(false);
+				Jail.setRoomLocks(false);
+				MainDesertHub.setRoomLocks(false);
+				
+				DrugStore.setRoomExits("");
+				Inn.setRoomExits("");
+				Saloon.setRoomExits("");
+				MainDesertHub.setRoomExits("");
+				
+				DrugStore.setRoomID("");
+				Saloon.setRoomID("");
+				Inn.setRoomID("");
+				System.out.println("TownHub");
+			}
+			else if(DrugStore.getRoomLocks()==true) {
+				storeView = false;
+				inventoryView = false;
+				itemView = false;
+
+				
+				room.DrugStore_1B();
+				TownHub.setRoomLocks(false);
+				DrugStore.setRoomLocks(true);
+				Inn.setRoomLocks(false);
+				Saloon.setRoomLocks(false);
+				Jail.setRoomLocks(false);
+				
+				TownHub.setRoomExits("");
+				Inn.setRoomExits("");
+				
+				DrugStore.setRoomID("1B");
+				Inn.setRoomID("");
+				System.out.println("DrugStore");
+			}
+			else if(Inn.getRoomLocks()==true) {
+				storeView = false;
+				inventoryView = false;
+				itemView = false;
+
+				room.Inn_1C();
+				TownHub.setRoomLocks(false);
+				DrugStore.setRoomLocks(false);
+				Inn.setRoomLocks(true);
+				Saloon.setRoomLocks(false);
+				Jail.setRoomLocks(false);
+				
+				TownHub.setRoomExits("");
+				DrugStore.setRoomExits("");
+				
+				Inn.setRoomID("1C");
+				DrugStore.setRoomID("");
+				System.out.println("Inn");
+			}
+			else if(Saloon.getRoomLocks()==true) {
+				storeView = false;
+				inventoryView = false;
+				itemView = false;
+
+				room.Saloon_1D();
+				TownHub.setRoomLocks(false);
+				DrugStore.setRoomLocks(false);
+				Inn.setRoomLocks(false);
+				Saloon.setRoomLocks(true);
+				Jail.setRoomLocks(false);
+				
+				TownHub.setRoomExits("");
+				
+				Saloon.setRoomID("1D");
+				System.out.println("Saloon");
+			}
+			else if(Jail.getRoomLocks()==true) {
+				storeView = false;
+				inventoryView = false;
+				itemView = false;
+				
+				room.Jail_1E();
+				TownHub.setRoomLocks(false);
+				DrugStore.setRoomLocks(false);
+				Inn.setRoomLocks(false);
+				Saloon.setRoomLocks(true);
+				Jail.setRoomLocks(true);
+				
+				Saloon.setRoomID("");
+				System.out.println("Jail");
+			}
+		}
+		else if(itemView && /*(command.equals("1")) || */command.equalsIgnoreCase("use")||command.equalsIgnoreCase("equip")||command.equalsIgnoreCase("unequip")){
+			System.out.println("Item View Handlers Works");
+			if(player.inventory.get(itemIndex).canUse && command.equalsIgnoreCase("use")) {
+				if(player.inventory.get(itemIndex).name.equals("Health Potion")){
+					player.healthMeter(healthBar, this.totalHealth, healthPotion.strength, prompt);
+					player.inventory.remove(itemIndex);
+				}
+				else {
+					player.useItem((Potion)player.inventory.get(itemIndex), commandMenu, prompt);
+					System.out.println("Use Item Success");
+				}
 				if(TownHub.getRoomLocks()==true) {
 					storeView = false;
 					inventoryView = false;
@@ -1580,7 +1151,8 @@ public class GameControl {
 					
 					Saloon.setRoomID("");
 					System.out.println("Jail");
-				}else if(MainDesertHub.getRoomLocks()==true) {
+				} 
+				else if(MainDesertHub.getRoomLocks()==true) {
 					storeView = false;
 					inventoryView = false;
 					itemView = false;
@@ -1630,17 +1202,16 @@ public class GameControl {
 					AccessPath1.setRoomExits("");
 					AccessPath2.setRoomExits("");
 					MainDesertHub.setRoomID("");
-					}
-				
+				}
 			}
-		    
-		    //Back
-			else if(backToGame && (command.equalsIgnoreCase("0") || command.equalsIgnoreCase("back"))) {
-				storeView = false;
-				inventoryView = false;
-				itemView = false;
-				
+			else if(player.inventory.get(itemIndex).canEquip && player.inventory.get(itemIndex).equals(player.equippedWeap)) {
+				player.unequipWeapon();
+				commandMenu.prompt(prompt, player.inventory.get(itemIndex).name.toUpperCase() + " UNEQUIPPED");
+				System.out.println("UnEq Success");
 				if(TownHub.getRoomLocks()==true) {
+					storeView = false;
+					inventoryView = false;
+					itemView = false;
 					
 					room.TownHub_1A();
 					TownHub.setRoomLocks(true);
@@ -1660,6 +1231,9 @@ public class GameControl {
 					System.out.println("TownHub");
 				}
 				else if(DrugStore.getRoomLocks()==true) {
+					storeView = false;
+					inventoryView = false;
+					itemView = false;
 					
 					room.DrugStore_1B();
 					TownHub.setRoomLocks(false);
@@ -1676,6 +1250,9 @@ public class GameControl {
 					System.out.println("DrugStore");
 				}
 				else if(Inn.getRoomLocks()==true) {
+					storeView = false;
+					inventoryView = false;
+					itemView = false;
 					
 					room.Inn_1C();
 					TownHub.setRoomLocks(false);
@@ -1692,6 +1269,9 @@ public class GameControl {
 					System.out.println("Inn");
 				}
 				else if(Saloon.getRoomLocks()==true) {
+					storeView = false;
+					inventoryView = false;
+					itemView = false;
 					
 					room.Saloon_1D();
 					TownHub.setRoomLocks(false);
@@ -1703,9 +1283,164 @@ public class GameControl {
 					TownHub.setRoomExits("");
 					
 					Saloon.setRoomID("1D");
+					System.out.println("inv " + inventoryView);
+					System.out.println("st " + storeView);
 					System.out.println("Saloon");
 				}
 				else if(Jail.getRoomLocks()==true) {
+					storeView = false;
+					inventoryView = false;
+					itemView = false;
+					
+					room.Jail_1E();
+					TownHub.setRoomLocks(false);
+					DrugStore.setRoomLocks(false);
+					Inn.setRoomLocks(false);
+					Saloon.setRoomLocks(true);
+					Jail.setRoomLocks(true);
+					
+					Saloon.setRoomID("");
+					System.out.println("Jail");
+				} 
+				else if(MainDesertHub.getRoomLocks()==true) {
+					storeView = false;
+					inventoryView = false;
+					itemView = false;
+					
+					room.MainDesertHub_2A();
+					TownHub.setRoomLocks(false);
+					DrugStore.setRoomLocks(false);
+					MainDesertHub.setRoomLocks(true);
+					AccessPath1.setRoomLocks(false);
+					AccessPath2.setRoomLocks(false);
+					
+					MainDesertHub.setRoomExits("");
+					AccessPath2.setRoomExits("");
+					
+					AccessPath1.setRoomExits("");
+					AccessPath2.setRoomExits("");
+					MainDesertHub.setRoomID("2A"); //Open up Search Area command
+					monster.removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
+					this.monsterTotalHealth = this.monsterMaxHealth; //Restore monster health
+				}
+				else if(AccessPath1.getRoomLocks()==true) {
+					storeView = false;
+					inventoryView = false;
+					itemView = false;
+					
+					room.AccessPath1_2B();
+					MainDesertHub.setRoomLocks(false);
+					AccessPath1.setRoomLocks(true);
+					AccessPath2.setRoomLocks(false);
+					
+					MainDesertHub.setRoomExits("");
+					AccessPath1.setRoomExits("");
+					AccessPath2.setRoomExits("");
+					MainDesertHub.setRoomID("");
+				}
+				else if(AccessPath2.getRoomLocks()==true) {
+					storeView = false;
+					inventoryView = false;
+					itemView = false;
+					
+					room.AccessPath2_2C();
+					MainDesertHub.setRoomLocks(false);
+					AccessPath1.setRoomLocks(false);
+					AccessPath2.setRoomLocks(true);
+					
+					MainDesertHub.setRoomExits("");
+					AccessPath1.setRoomExits("");
+					AccessPath2.setRoomExits("");
+					MainDesertHub.setRoomID("");
+				}
+			}
+			else if(player.inventory.get(itemIndex).canEquip && !player.inventory.get(itemIndex).equals(player.equippedWeap)) {
+				player.equipWeapon(player.inventory.get(itemIndex));
+				commandMenu.prompt(prompt, player.inventory.get(itemIndex).name.toUpperCase() + " EQUIPPED");
+				System.out.println("Equip Success");
+				if(TownHub.getRoomLocks()==true) {
+					storeView = false;
+					inventoryView = false;
+					itemView = false;
+					
+					room.TownHub_1A();
+					TownHub.setRoomLocks(true);
+					DrugStore.setRoomLocks(false);
+					Inn.setRoomLocks(false);
+					Saloon.setRoomLocks(false);
+					Jail.setRoomLocks(false);
+					MainDesertHub.setRoomLocks(false);
+					
+					DrugStore.setRoomExits("");
+					Inn.setRoomExits("");
+					Saloon.setRoomExits("");
+					
+					DrugStore.setRoomID("");
+					Saloon.setRoomID("");
+					Inn.setRoomID("");
+					System.out.println("TownHub");
+				}
+				else if(DrugStore.getRoomLocks()==true) {
+					storeView = false;
+					inventoryView = false;
+					itemView = false;
+					
+					room.DrugStore_1B();
+					TownHub.setRoomLocks(false);
+					DrugStore.setRoomLocks(true);
+					Inn.setRoomLocks(false);
+					Saloon.setRoomLocks(false);
+					Jail.setRoomLocks(false);
+					
+					TownHub.setRoomExits("");
+					Inn.setRoomExits("");
+					
+					DrugStore.setRoomID("1B");
+					Inn.setRoomID("");
+					System.out.println("DrugStore");
+				}
+				else if(Inn.getRoomLocks()==true) {
+					storeView = false;
+					inventoryView = false;
+					itemView = false;
+					
+					room.Inn_1C();
+					TownHub.setRoomLocks(false);
+					DrugStore.setRoomLocks(false);
+					Inn.setRoomLocks(true);
+					Saloon.setRoomLocks(false);
+					Jail.setRoomLocks(false);
+					
+					TownHub.setRoomExits("");
+					DrugStore.setRoomExits("");
+					
+					Inn.setRoomID("1C");
+					DrugStore.setRoomID("");
+					System.out.println("Inn");
+				}
+				else if(Saloon.getRoomLocks()==true) {
+					storeView = false;
+					inventoryView = false;
+					itemView = false;
+					
+					room.Saloon_1D();
+					TownHub.setRoomLocks(false);
+					DrugStore.setRoomLocks(false);
+					Inn.setRoomLocks(false);
+					Saloon.setRoomLocks(true);
+					Jail.setRoomLocks(false);
+					
+					TownHub.setRoomExits("");
+					
+					Saloon.setRoomID("1D");
+					System.out.println("inv " + inventoryView);
+					System.out.println("st " + storeView);
+					System.out.println("Saloon");
+				}
+				else if(Jail.getRoomLocks()==true) {
+					storeView = false;
+					inventoryView = false;
+					itemView = false;
 					
 					room.Jail_1E();
 					TownHub.setRoomLocks(false);
@@ -1717,18 +1452,342 @@ public class GameControl {
 					Saloon.setRoomID("");
 					System.out.println("Jail");
 				}
+				else if(MainDesertHub.getRoomLocks()==true) {
+					storeView = false;
+					inventoryView = false;
+					itemView = false;
+					
+					room.MainDesertHub_2A();
+					TownHub.setRoomLocks(false);
+					DrugStore.setRoomLocks(false);
+					MainDesertHub.setRoomLocks(true);
+					AccessPath1.setRoomLocks(false);
+					AccessPath2.setRoomLocks(false);
+					
+					MainDesertHub.setRoomExits("");
+					AccessPath2.setRoomExits("");
+					
+					AccessPath1.setRoomExits("");
+					AccessPath2.setRoomExits("");
+					MainDesertHub.setRoomID("2A"); //Open up Search Area command
+					monster.removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
+					this.monsterTotalHealth = this.monsterMaxHealth; //Restore monster health
+				}
+				else if(AccessPath1.getRoomLocks()==true) {
+					storeView = false;
+					inventoryView = false;
+					itemView = false;
+					
+					room.AccessPath1_2B();
+					MainDesertHub.setRoomLocks(false);
+					AccessPath1.setRoomLocks(true);
+					AccessPath2.setRoomLocks(false);
+					
+					MainDesertHub.setRoomExits("");
+					AccessPath1.setRoomExits("");
+					AccessPath2.setRoomExits("");
+					MainDesertHub.setRoomID("");
+				}
+				else if(AccessPath2.getRoomLocks()==true) {
+					storeView = false;
+					inventoryView = false;
+					itemView = false;
+					
+					room.AccessPath2_2C();
+					MainDesertHub.setRoomLocks(false);
+					AccessPath1.setRoomLocks(false);
+					AccessPath2.setRoomLocks(true);
+					
+					MainDesertHub.setRoomExits("");
+					AccessPath1.setRoomExits("");
+					AccessPath2.setRoomExits("");
+					MainDesertHub.setRoomID("");
+				}
 			}
-		    //Save Game
-			else if(!storeView && !inventoryView && !itemView && unlockSaveGame && ((TownHub.getRoomLocks() && (command.equalsIgnoreCase("6") || command.equalsIgnoreCase("save game"))) ||
-					(DrugStore.getRoomLocks() && (command.equalsIgnoreCase("5") || command.equalsIgnoreCase("save game"))) ||
-					(Inn.getRoomLocks() && (command.equalsIgnoreCase("5") || command.equalsIgnoreCase("save game"))) ||
-					(Saloon.getRoomLocks() && (command.equalsIgnoreCase("5") || command.equalsIgnoreCase("save game"))) ||
-					(Jail.getRoomLocks() && (command.equalsIgnoreCase("3") || command.equalsIgnoreCase("save game"))))) {
-				
-				commandMenu.prompt(prompt, "GAME SAVED");
-				commandMenu.saveGame("testGame.ini");
+			else {
+				System.out.println("PROBLEM");
 			}
 		}
+		else if(itemView && command.equalsIgnoreCase("drop")) {
+			player.dropItem(player.inventory.get(itemIndex), commandMenu, prompt);
+			if(TownHub.getRoomLocks()==true) {
+				storeView = false;
+				inventoryView = false;
+				itemView = false;
+				
+				room.TownHub_1A();
+				TownHub.setRoomLocks(true);
+				DrugStore.setRoomLocks(false);
+				Inn.setRoomLocks(false);
+				Saloon.setRoomLocks(false);
+				Jail.setRoomLocks(false);
+				MainDesertHub.setRoomLocks(false);
+				
+				DrugStore.setRoomExits("");
+				Inn.setRoomExits("");
+				Saloon.setRoomExits("");
+				
+				DrugStore.setRoomID("");
+				Saloon.setRoomID("");
+				Inn.setRoomID("");
+				System.out.println("TownHub");
+			}
+			else if(DrugStore.getRoomLocks()==true) {
+				storeView = false;
+				inventoryView = false;
+				itemView = false;
+				
+				room.DrugStore_1B();
+				TownHub.setRoomLocks(false);
+				DrugStore.setRoomLocks(true);
+				Inn.setRoomLocks(false);
+				Saloon.setRoomLocks(false);
+				Jail.setRoomLocks(false);
+				
+				TownHub.setRoomExits("");
+				Inn.setRoomExits("");
+				
+				DrugStore.setRoomID("1B");
+				Inn.setRoomID("");
+				System.out.println("DrugStore");
+			}
+			else if(Inn.getRoomLocks()==true) {
+				storeView = false;
+				inventoryView = false;
+				itemView = false;
+				
+				room.Inn_1C();
+				TownHub.setRoomLocks(false);
+				DrugStore.setRoomLocks(false);
+				Inn.setRoomLocks(true);
+				Saloon.setRoomLocks(false);
+				Jail.setRoomLocks(false);
+				
+				TownHub.setRoomExits("");
+				DrugStore.setRoomExits("");
+				
+				Inn.setRoomID("1C");
+				DrugStore.setRoomID("");
+				System.out.println("Inn");
+			}
+			else if(Saloon.getRoomLocks()==true) {
+				storeView = false;
+				inventoryView = false;
+				itemView = false;
+				
+				room.Saloon_1D();
+				TownHub.setRoomLocks(false);
+				DrugStore.setRoomLocks(false);
+				Inn.setRoomLocks(false);
+				Saloon.setRoomLocks(true);
+				Jail.setRoomLocks(false);
+				
+				TownHub.setRoomExits("");
+				
+				Saloon.setRoomID("1D");
+				System.out.println("inv " + inventoryView);
+				System.out.println("st " + storeView);
+				System.out.println("Saloon");
+			}
+			else if(Jail.getRoomLocks()==true) {
+				storeView = false;
+				inventoryView = false;
+				itemView = false;
+				
+				room.Jail_1E();
+				TownHub.setRoomLocks(false);
+				DrugStore.setRoomLocks(false);
+				Inn.setRoomLocks(false);
+				Saloon.setRoomLocks(true);
+				Jail.setRoomLocks(true);
+				
+				Saloon.setRoomID("");
+				System.out.println("Jail");
+			}else if(MainDesertHub.getRoomLocks()==true) {
+				storeView = false;
+				inventoryView = false;
+				itemView = false;
+				
+				room.MainDesertHub_2A();
+				TownHub.setRoomLocks(false);
+				DrugStore.setRoomLocks(false);
+				MainDesertHub.setRoomLocks(true);
+				AccessPath1.setRoomLocks(false);
+				AccessPath2.setRoomLocks(false);
+				
+				MainDesertHub.setRoomExits("");
+				AccessPath2.setRoomExits("");
+				
+				AccessPath1.setRoomExits("");
+				AccessPath2.setRoomExits("");
+				MainDesertHub.setRoomID("2A"); //Open up Search Area command
+				monster.removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
+				this.monsterTotalHealth = this.monsterMaxHealth; //Restore monster health
+			}
+			else if(AccessPath1.getRoomLocks()==true) {
+				storeView = false;
+				inventoryView = false;
+				itemView = false;
+				
+				room.AccessPath1_2B();
+				MainDesertHub.setRoomLocks(false);
+				AccessPath1.setRoomLocks(true);
+				AccessPath2.setRoomLocks(false);
+				
+				MainDesertHub.setRoomExits("");
+				AccessPath1.setRoomExits("");
+				AccessPath2.setRoomExits("");
+				MainDesertHub.setRoomID("");
+			}
+			else if(AccessPath2.getRoomLocks()==true) {
+				storeView = false;
+				inventoryView = false;
+				itemView = false;
+				
+				room.AccessPath2_2C();
+				MainDesertHub.setRoomLocks(false);
+				AccessPath1.setRoomLocks(false);
+				AccessPath2.setRoomLocks(true);
+				
+				MainDesertHub.setRoomExits("");
+				AccessPath1.setRoomExits("");
+				AccessPath2.setRoomExits("");
+				MainDesertHub.setRoomID("");
+			}
+		}
+	    //Back
+		else if(backToGame && (command.equalsIgnoreCase("0") || command.equalsIgnoreCase("back"))) {
+			storeView = false;
+			inventoryView = false;
+			itemView = false;
+			
+			if(TownHub.getRoomLocks()==true) {
+				
+				room.TownHub_1A();
+				TownHub.setRoomLocks(true);
+				DrugStore.setRoomLocks(false);
+				Inn.setRoomLocks(false);
+				Saloon.setRoomLocks(false);
+				Jail.setRoomLocks(false);
+				MainDesertHub.setRoomLocks(false);
+				
+				DrugStore.setRoomExits("");
+				Inn.setRoomExits("");
+				Saloon.setRoomExits("");
+				
+				DrugStore.setRoomID("");
+				Saloon.setRoomID("");
+				Inn.setRoomID("");
+				System.out.println("TownHub");
+			}
+			else if(DrugStore.getRoomLocks()==true) {
+				
+				room.DrugStore_1B();
+				TownHub.setRoomLocks(false);
+				DrugStore.setRoomLocks(true);
+				Inn.setRoomLocks(false);
+				Saloon.setRoomLocks(false);
+				Jail.setRoomLocks(false);
+				
+				TownHub.setRoomExits("");
+				Inn.setRoomExits("");
+				
+				DrugStore.setRoomID("1B");
+				Inn.setRoomID("");
+				System.out.println("DrugStore");
+			}
+			else if(Inn.getRoomLocks()==true) {
+				
+				room.Inn_1C();
+				TownHub.setRoomLocks(false);
+				DrugStore.setRoomLocks(false);
+				Inn.setRoomLocks(true);
+				Saloon.setRoomLocks(false);
+				Jail.setRoomLocks(false);
+				
+				TownHub.setRoomExits("");
+				DrugStore.setRoomExits("");
+				
+				Inn.setRoomID("1C");
+				DrugStore.setRoomID("");
+				System.out.println("Inn");
+			}
+			else if(Saloon.getRoomLocks()==true) {
+				
+				room.Saloon_1D();
+				TownHub.setRoomLocks(false);
+				DrugStore.setRoomLocks(false);
+				Inn.setRoomLocks(false);
+				Saloon.setRoomLocks(true);
+				Jail.setRoomLocks(false);
+				
+				TownHub.setRoomExits("");
+				
+				Saloon.setRoomID("1D");
+				System.out.println("Saloon");
+			}
+			else if(Jail.getRoomLocks()==true) {
+				
+				room.Jail_1E();
+				TownHub.setRoomLocks(false);
+				DrugStore.setRoomLocks(false);
+				Inn.setRoomLocks(false);
+				Saloon.setRoomLocks(true);
+				Jail.setRoomLocks(true);
+				
+				Saloon.setRoomID("");
+				System.out.println("Jail");
+			}
+			else if(MainDesertHub.getRoomLocks()==true) {
+				
+				room.MainDesertHub_2A();
+				TownHub.setRoomLocks(false);
+				DrugStore.setRoomLocks(false);
+				MainDesertHub.setRoomLocks(true);
+				AccessPath1.setRoomLocks(false);
+				AccessPath2.setRoomLocks(false);
+				
+				MainDesertHub.setRoomExits("");
+				AccessPath2.setRoomExits("");
+				
+				AccessPath1.setRoomExits("");
+				AccessPath2.setRoomExits("");
+				//Generate a random number between 0-7, Open up Search Area command, & monster probability encounter
+				MainDesertHub.setRoomID("2A" + monster.numOfRandomMonster(7)); 
+				monster.removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
+				this.monsterTotalHealth = this.monsterMaxHealth; //Restore monster health
+			}
+			else if(AccessPath1.getRoomLocks()==true) {
+				
+				room.AccessPath1_2B();
+				MainDesertHub.setRoomLocks(false);
+				AccessPath1.setRoomLocks(true);
+				AccessPath2.setRoomLocks(false);
+				
+				MainDesertHub.setRoomExits("");
+				AccessPath1.setRoomExits("");
+				AccessPath2.setRoomExits("");
+				TownHub2.setRoomExits("");
+				MainDesertHub.setRoomID("");
+				//Generate a random number between 0-3, Open up Search Area command, & monster probability encounter
+				AccessPath1.setRoomID("2B" + monster.numOfRandomMonster(3)); 
+				monster.removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
+				this.monsterTotalHealth = this.monsterMaxHealth; //Restore monster health
+			}
+			else if(AccessPath2.getRoomLocks()==true) {
+				
+				room.AccessPath2_2C();
+				MainDesertHub.setRoomLocks(false);
+				AccessPath1.setRoomLocks(false);
+				AccessPath2.setRoomLocks(true);
+				
+				MainDesertHub.setRoomExits("");
+				AccessPath1.setRoomExits("");
+				AccessPath2.setRoomExits("");
+				MainDesertHub.setRoomID("");
+			}
+		}   
+	}
 		
 		if(!inventoryView && !itemView && MainDesertHub.getRoomLevel().equals("Town Access")) {
 			//MAIN DESERT HUB-----------------------------------------------------------------------------------------------------------------------
@@ -2047,94 +2106,10 @@ public class GameControl {
 				AccessPath2.setRoomExits("");
 				MainDesertHub.setRoomID("");
 			}
-			//INVENTORY-------------------------------------------------------------------------------------------------------------------------------------------------
-			else if(!storeView && (MainDesertHub.getRoomLocks() && (command.equals("5") || command.equalsIgnoreCase("inventory"))) ||
-								  (AccessPath1.getRoomLocks() && (command.equals("4") || command.equalsIgnoreCase("inventory"))) ||
-								  (AccessPath2.getRoomLocks() && (command.equals("4") || command.equalsIgnoreCase("inventory")))) {
-				
-				room.display(player.displayInventory(), "Action\n" + "Select Item (Enter Item Number)\n" + "0. Back");
-				inventoryView = true;
-				if(MainDesertHub.getRoomLocks()==true) {
-					
-					backToGame = MainDesertHub.getRoomLocks();
-					System.out.println("MainDesertHub");
-				}
-				else if(AccessPath1.getRoomLocks()==true) {
-					
-					backToGame = AccessPath1.getRoomLocks();
-					System.out.println("AccessPath1");
-				}
-				else if(AccessPath2.getRoomLocks()==true) {
-					
-					backToGame = AccessPath2.getRoomLocks();
-					System.out.println("AccessPath2");
-				}
-			}
-			//INVENTORY > Back
-			else if(backToGame && (command.equalsIgnoreCase("0") || command.equalsIgnoreCase("back"))) {
-				storeView = false;
-				inventoryView = false;
-				itemView = false;
-				
-				if(MainDesertHub.getRoomLocks()==true) {
-					
-					room.MainDesertHub_2A();
-					TownHub.setRoomLocks(false);
-					DrugStore.setRoomLocks(false);
-					MainDesertHub.setRoomLocks(true);
-					AccessPath1.setRoomLocks(false);
-					AccessPath2.setRoomLocks(false);
-					
-					MainDesertHub.setRoomExits("");
-					AccessPath2.setRoomExits("");
-					
-					AccessPath1.setRoomExits("");
-					AccessPath2.setRoomExits("");
-					//Generate a random number between 0-7, Open up Search Area command, & monster probability encounter
-					MainDesertHub.setRoomID("2A" + monster.numOfRandomMonster(7)); 
-					monster.removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
-					this.monsterTotalHealth = this.monsterMaxHealth; //Restore monster health
-				}
-				else if(AccessPath1.getRoomLocks()==true) {
-					
-					room.AccessPath1_2B();
-					MainDesertHub.setRoomLocks(false);
-					AccessPath1.setRoomLocks(true);
-					AccessPath2.setRoomLocks(false);
-					
-					MainDesertHub.setRoomExits("");
-					AccessPath1.setRoomExits("");
-					AccessPath2.setRoomExits("");
-					TownHub2.setRoomExits("");
-					MainDesertHub.setRoomID("");
-					//Generate a random number between 0-3, Open up Search Area command, & monster probability encounter
-					AccessPath1.setRoomID("2B" + monster.numOfRandomMonster(3)); 
-					monster.removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
-					this.monsterTotalHealth = this.monsterMaxHealth; //Restore monster health
-				}
-				else if(AccessPath2.getRoomLocks()==true) {
-					
-					room.AccessPath2_2C();
-					MainDesertHub.setRoomLocks(false);
-					AccessPath1.setRoomLocks(false);
-					AccessPath2.setRoomLocks(true);
-					
-					MainDesertHub.setRoomExits("");
-					AccessPath1.setRoomExits("");
-					AccessPath2.setRoomExits("");
-					MainDesertHub.setRoomID("");
-				}
-			}
-			//SAVE
-			else if(!storeView && !inventoryView && !itemView && unlockSaveGame && ((MainDesertHub.getRoomLocks() && (command.equalsIgnoreCase("6") || command.equalsIgnoreCase("save game"))) ||
-					(AccessPath1.getRoomLocks() && (command.equalsIgnoreCase("5") || command.equalsIgnoreCase("save game"))) ||
-					(AccessPath2.getRoomLocks() && (command.equalsIgnoreCase("5") || command.equalsIgnoreCase("save game"))))) {
-				
-				commandMenu.prompt(prompt, "GAME SAVED");
-				commandMenu.saveGame("testGame.ini");
-			}
 		}
+		
 		if(TownHub2.getRoomLevel().equals("Fort Birman")) {
+			//FORT BIRMAN-------------------------------------------------------------------------------------------------------------------
 			//TOWN HUB 2-----------------------------------------------------------------------------------------------------------------
 			if(AccessPath1.getRoomLocks() && (command.equals("2") || command.equalsIgnoreCase("fort birman") || command.equalsIgnoreCase("east"))) {
 				//ACCESS PATH 1 > FORT BIRMAN (BROWN LOCK)
@@ -2162,6 +2137,19 @@ public class GameControl {
 				}
 				
 			}
+		}
+		//Save Game
+		if(!storeView && !inventoryView && !itemView && unlockSaveGame && ((TownHub.getRoomLocks() && (command.equalsIgnoreCase("6") || command.equalsIgnoreCase("save game"))) ||
+				(DrugStore.getRoomLocks() && (command.equalsIgnoreCase("5") || command.equalsIgnoreCase("save game"))) ||
+				(Inn.getRoomLocks() && (command.equalsIgnoreCase("5") || command.equalsIgnoreCase("save game"))) ||
+				(Saloon.getRoomLocks() && (command.equalsIgnoreCase("5") || command.equalsIgnoreCase("save game"))) ||
+				(Jail.getRoomLocks() && (command.equalsIgnoreCase("3") || command.equalsIgnoreCase("save game"))) ||
+				(MainDesertHub.getRoomLocks() && (command.equalsIgnoreCase("6") || command.equalsIgnoreCase("save game"))) ||
+				(AccessPath1.getRoomLocks() && (command.equalsIgnoreCase("5") || command.equalsIgnoreCase("save game"))) ||
+				(AccessPath2.getRoomLocks() && (command.equalsIgnoreCase("5") || command.equalsIgnoreCase("save game"))))) {
+			
+			commandMenu.prompt(prompt, "GAME SAVED");
+			commandMenu.saveGame("testGame.ini");
 		}
 		//Exit Game
 		if(command.equalsIgnoreCase("exit")) {
