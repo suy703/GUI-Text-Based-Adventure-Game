@@ -259,29 +259,35 @@ public class Monsters{
 		}
 		return monsterTotalHealth;
 	}
+	//RANDOMIZE MONSTER
+	public int numOfRandomMonster(int numOfMonsters) {
+		Random monsterProb = new Random();
+		int numOfRandomMonster = monsterProb.nextInt(numOfMonsters); //Generate a random number between 0-3
+		return numOfRandomMonster;
+	}
 	//COYOTES
-	public void coyotes(Rooms room, Rectangle monsterMaxHealthBar, Rectangle monsterHealthBar, Image monsterIcon, ImageView viewMonsterIcon) {
+	public void coyotes(Rooms room, Rectangle monsterMaxHealthBar, Rectangle monsterHealthBar, Image monsterIcon, ImageView viewMonsterIcon, String roomName) {
 		displayMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon);
-		room.display("Main Desert Hub > Search Area\n\nPack of Coyotes-------------------------------------\nA pack of rabid looking "
+		room.display(roomName + " > Search Area\n\nPack of Coyotes-------------------------------------\nA pack of rabid looking "
 				+ "coyotes. Their eyes are sunken in, and their fur matted; they look as if they haven’t eaten for weeks.", "Action\n" + "0. Runaway\n" +"1. Fight Coyotes");
 	}
 	//BEAR
-	public void bear(Rooms room, Rectangle monsterMaxHealthBar, Rectangle monsterHealthBar, Image monsterIcon, ImageView viewMonsterIcon) {
+	public void bear(Rooms room, Rectangle monsterMaxHealthBar, Rectangle monsterHealthBar, Image monsterIcon, ImageView viewMonsterIcon, String roomName) {
 		displayMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon);
-		room.display("Main Desert Hub > Search Area\n\nBear------------------------------------------------\nA giant grizzly bear, standing "
+		room.display(roomName + " > Search Area\n\nBear------------------------------------------------\nA giant grizzly bear, standing "
 				+ "around 8 feet tall. It’s claws look as sharp as razors, and it gnashes its teeth at you menacingly.", "Action\n" + "0. Runaway\n" +"1. Fight Bear");
 	}
 	//MOUNTAIN MAN
-	public void mountainMan(Rooms room, Rectangle monsterMaxHealthBar, Rectangle monsterHealthBar, Image monsterIcon, ImageView viewMonsterIcon) {
+	public void mountainMan(Rooms room, Rectangle monsterMaxHealthBar, Rectangle monsterHealthBar, Image monsterIcon, ImageView viewMonsterIcon, String roomName) {
 		displayMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon);
-		room.display("Main Desert Hub > Search Area\n\nMountain Man--------------------------------------\nA grizzly looking man "
+		room.display(roomName + " > Search Area\n\nMountain Man--------------------------------------\nA grizzly looking man "
 				+ "with wild eyes and a beard down to his chest. He is wearing clothes made from animal skins and carries a club "
 				+ "made of a bone of unknown origin in his hands.", "Action\n" + "0. Runaway\n" +"1. Fight Mountain Man");
 	}
 	//BANDIT
-	public void bandit(Rooms room, Rectangle monsterMaxHealthBar, Rectangle monsterHealthBar, Image monsterIcon, ImageView viewMonsterIcon) {
+	public void bandit(Rooms room, Rectangle monsterMaxHealthBar, Rectangle monsterHealthBar, Image monsterIcon, ImageView viewMonsterIcon, String roomName) {
 		displayMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon);
-		room.display("Main Desert Hub > Search Area\n\nBandit----------------------------------------------\nA man of average "
+		room.display(roomName + " > Search Area\n\nBandit----------------------------------------------\nA man of average "
 				+ "stature, whose face is shrouded by a red bandana. His clothing is mismatched and ragged, but you can tell it is "
 				+ "made from good quality materials.", "Action\n" + "0. Runaway\n" +"1. Fight Bandit");
 	}

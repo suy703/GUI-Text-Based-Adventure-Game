@@ -122,7 +122,17 @@ public class GameControl {
 				Saloon.setRoomLocks(false);
 				Jail.setRoomLocks(false);
 				MainDesertHub.setRoomLocks(false);
+				
 				TownHub.setRoomExits("D00");
+				DrugStore.setRoomExits("");
+				Inn.setRoomExits("");
+				Saloon.setRoomExits("");
+				MainDesertHub.setRoomExits("");
+				
+				DrugStore.setRoomID("");
+				Saloon.setRoomID("");
+				Inn.setRoomID("");
+				
 				
 				player.displayHealthBar(maxHealthBar, healthBar, healthIcon, viewHealthIcon);
 				
@@ -173,12 +183,12 @@ public class GameControl {
 					MainDesertHub.setRoomExits("D11");
 				}
 			}
-			else if(!inventoryView && !itemView && TownHub.getRoomExits().contains("D00") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n")) ||
-					(DrugStore.getRoomExits().contains("D01") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
-					(TownHub.getRoomExits().contains("D05") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
-					(Inn.getRoomExits().contains("D04") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
-					(TownHub.getRoomExits().contains("D06") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
-					(Saloon.getRoomExits().contains("D07") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
+			else if(!inventoryView && !itemView && TownHub.getRoomExits().equals("D00") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n")) ||
+					(DrugStore.getRoomExits().equals("D01") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
+					(TownHub.getRoomExits().equals("D05") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
+					(Inn.getRoomExits().equals("D04") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
+					(TownHub.getRoomExits().equals("D06") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
+					(Saloon.getRoomExits().equals("D07") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
 					(MainDesertHub.getRoomExits().equals("D10") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
 					(MainDesertHub.getRoomExits().equals("D11") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y")))) {
 				
@@ -218,10 +228,10 @@ public class GameControl {
 					
 				}
 			}
-			else if(!inventoryView && !itemView && (TownHub.getRoomExits().contains("D00") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
-					(DrugStore.getRoomExits().contains("D01") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
-					(DrugStore.getRoomExits().contains("D02") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
-					(Inn.getRoomExits().contains("D03") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y")))) {
+			else if(!inventoryView && !itemView && (TownHub.getRoomExits().equals("D00") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
+					(DrugStore.getRoomExits().equals("D01") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
+					(DrugStore.getRoomExits().equals("D02") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
+					(Inn.getRoomExits().equals("D03") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y")))) {
 				
 				room.DrugStore_1B();
 				TownHub.setRoomLocks(false);
@@ -235,6 +245,7 @@ public class GameControl {
 				
 				DrugStore.setRoomID("1B");
 				Inn.setRoomID("");
+				System.out.println("Check");
 			}
 		    //DRUG STORE > Shop
 			else if(!inventoryView && !itemView && room.isStore && DrugStore.getRoomID().equals("1B") && !storeView &&(command.equalsIgnoreCase("3") || command.equalsIgnoreCase("shop"))) {
@@ -408,10 +419,10 @@ public class GameControl {
 					TownHub.setRoomExits("D05");
 				}
 			}
-			else if(!inventoryView && !itemView && (DrugStore.getRoomExits().contains("D02") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
-					(Inn.getRoomExits().contains("D03") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
-					(TownHub.getRoomExits().contains("D05") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
-					(Inn.getRoomExits().contains("D04") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n")))) {
+			else if(!inventoryView && !itemView && (DrugStore.getRoomExits().equals("D02") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
+					(Inn.getRoomExits().equals("D03") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
+					(TownHub.getRoomExits().equals("D05") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
+					(Inn.getRoomExits().equals("D04") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n")))) {
 				
 				room.Inn_1C();
 				TownHub.setRoomLocks(false);
@@ -525,14 +536,14 @@ public class GameControl {
 					}
 				}
 			}
-			else if(!inventoryView && !itemView && (TownHub.getRoomExits().contains("D06") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) || 
-					(Saloon.getRoomExits().contains("D07") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
-					(Saloon.getRoomExits().contains("D08") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
-					(Jail.getRoomExits().contains("D09") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y")))) {
+			else if(!inventoryView && !itemView && (TownHub.getRoomExits().equals("D06") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) || 
+					(Saloon.getRoomExits().equals("D07") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
+					(Saloon.getRoomExits().equals("D08") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
+					(Jail.getRoomExits().equals("D09") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y")))) {
 				
-				if(!inventoryView && !itemView && (TownHub.getRoomExits().contains("D06") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) || 
-					(Saloon.getRoomExits().contains("D07") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
-					(Saloon.getRoomExits().contains("D08") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n")))) {
+				if(!inventoryView && !itemView && (TownHub.getRoomExits().equals("D06") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) || 
+					(Saloon.getRoomExits().equals("D07") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
+					(Saloon.getRoomExits().equals("D08") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n")))) {
 					room.Saloon_1D();
 					TownHub.setRoomLocks(false);
 					DrugStore.setRoomLocks(false);
@@ -544,7 +555,7 @@ public class GameControl {
 					
 					Saloon.setRoomID("1D");
 				}
-				else if(!inventoryView && !itemView && Jail.getRoomExits().contains("D09") && testPuzzle && (command.equals("1") || command.equalsIgnoreCase("unlock door"))) {
+				else if(!inventoryView && !itemView && Jail.getRoomExits().equals("D09") && testPuzzle && (command.equals("1") || command.equalsIgnoreCase("unlock door"))) {
 					
 					room.display(doorFile[24] + "\n\n" + doorFile[25], "Action\n" + "0. Leave Door\n" + "1. Unlock Door");
 					Jail.setRoomExits("D09");
@@ -554,7 +565,7 @@ public class GameControl {
 					System.out.println("Jail is locked : " + Jail.getRoomLocks()); // Testing Purpose
 				}
 								
-				else if(!inventoryView && !itemView && Jail.getRoomExits().contains("D09") && unlockDoor && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) {
+				else if(!inventoryView && !itemView && Jail.getRoomExits().equals("D09") && unlockDoor && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) {
 					
 					room.Saloon_1D();
 					TownHub.setRoomLocks(false);
@@ -571,7 +582,7 @@ public class GameControl {
 // -----------------------------------------------------------------------------------------------------------------------------	
  
 		    //SALOON > Search Room
-			else if(Saloon.getRoomID().contains("1D") && (command.equals("3") || command.equalsIgnoreCase("search room"))) {
+			else if(Saloon.getRoomID().equals("1D") && (command.equals("3") || command.equalsIgnoreCase("search room"))) {
 				
 				//ENCOUNTER HENCHMAN THEN FIGHT BOSS
 				//Call Monster class
@@ -588,7 +599,7 @@ public class GameControl {
 			} 
 
 		    // Fighting Henchman
-			else if(puzzle.getPuzzleID().contains("P01") && command.equalsIgnoreCase("1") || command.equals("fight henchman")) {
+			else if(puzzle.getPuzzleID().equals("P01") && command.equalsIgnoreCase("1") || command.equals("fight henchman")) {
 				monster.displayMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon);
 				room.display("Saloon > Henchman\n\nThe Henchman is attacking you back! Quickly take time out!", "Action\n" + "0. Back\n" + "1. Attack");
 				puzzle.setPuzzleID("P02");				
@@ -596,7 +607,7 @@ public class GameControl {
 			}
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------		    
 		    // Attacking Henchman
-			else if(puzzle.getPuzzleID().contains("P02") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
+			else if(puzzle.getPuzzleID().equals("P02") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
 
 				Random damageProb = new Random();
 				int damageMonster = -(damageProb.nextInt(50 + 1) + player.attackDamage()); // Damage monster probability between -50 to -25
@@ -626,7 +637,7 @@ public class GameControl {
 			}
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------		    
             // Fighting Deputy Sheriff		    
-			else if(puzzle.getPuzzleID().contains("P03") && (command.equals("1") || command.equalsIgnoreCase("fight Deputy Sheriff"))) {
+			else if(puzzle.getPuzzleID().equals("P03") && (command.equals("1") || command.equalsIgnoreCase("fight Deputy Sheriff"))) {
 				
 				monster.displayMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon);
 				room.display("Jail > Deputy Sheriff\n\n “Heh. You think you can best me? I’m the fastest draw in town.”", "Action\n" + "0. Back\n" + "1. Attack");
@@ -635,7 +646,7 @@ public class GameControl {
 				System.out.println("Attacking Deputy Sheriff : Location Game Control"); // Testing purpose
 		   }
 		    // Attacking Deputy Sheriff
-			else if(puzzle.getPuzzleID().contains("P04") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
+			else if(puzzle.getPuzzleID().equals("P04") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
 				Random damageProb = new Random();
 				int deputyDamage = -(damageProb.nextInt(50 + 1) + player.attackDamage()); // Damage monster probability between -50 to -25
 				System.out.println(deputyDamage); //Display Amount of damage done to monster
@@ -661,7 +672,7 @@ public class GameControl {
 			}
 		    
 		    // picking up key
-			else if(puzzle.getPuzzleID().contains("P05") && command.equalsIgnoreCase("1") || command.equalsIgnoreCase("pick up  key")) {
+			else if(puzzle.getPuzzleID().equals("P05") && command.equalsIgnoreCase("1") || command.equalsIgnoreCase("pick up  key")) {
 				puzzle.setPuzzleID("P06");
 				room.display("Jail > Deputy Sheriff\n\n"
 						+ "Now that you have the key, the jail may now be unlocked and you have earned respect as the new boss around the town hub! Go ahead and unlock"
@@ -748,9 +759,9 @@ public class GameControl {
 			}
 
 		    //JAIL > Locked Door
-			else if(!inventoryView && !itemView && (Saloon.getRoomExits().contains("D08") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y") || command.equalsIgnoreCase("unlock door")))) {
+			else if(!inventoryView && !itemView && (Saloon.getRoomExits().equals("D08") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y") || command.equalsIgnoreCase("unlock door")))) {
 				
-				if(!inventoryView && !itemView && Saloon.getRoomExits().contains("D08") && testPuzzle && (command.equals("1") || command.equalsIgnoreCase("unlock door"))) {
+				if(!inventoryView && !itemView && Saloon.getRoomExits().equals("D08") && testPuzzle && (command.equals("1") || command.equalsIgnoreCase("unlock door"))) {
 					
 					room.display(doorFile[28] + "\n\n" + doorFile[29], "Action\n" + "0. Leave Door\n" + "1. Unlock Door");
 					Saloon.setRoomExits("D08");
@@ -759,8 +770,8 @@ public class GameControl {
 					System.out.println("Attempting to enter locked Jail : Location Game Interface"); // Testing purpose
 
 				}
-				else if(!inventoryView && !itemView && Saloon.getRoomExits().contains("D08") && unlockDoor && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y")) ||
-						(Jail.getRoomExits().contains("D09") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n")))) {
+				else if(!inventoryView && !itemView && Saloon.getRoomExits().equals("D08") && unlockDoor && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y")) ||
+						(Jail.getRoomExits().equals("D09") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n")))) {
 					
 					room.Jail_1E();
 					TownHub.setRoomLocks(false);
@@ -1721,8 +1732,9 @@ public class GameControl {
 					(AccessPath1.getRoomLocks() && (command.equals("1") ||  command.equalsIgnoreCase("town access") || command.equalsIgnoreCase("west"))) ||
 					(AccessPath2.getRoomLocks() && (command.equals("1") ||  command.equalsIgnoreCase("town access") || command.equalsIgnoreCase("east")))) {
 				if(!inventoryView && !itemView && TownHub.getRoomLocks() && (command.equals("4") ||  command.equalsIgnoreCase("access town") || command.equalsIgnoreCase("north"))) {
-					room.display("Town Hub > Path Way\n\nA path that leads out of town and into the wilderness.\n\nDo you want to enter Town Access?. ", "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
+					room.display("Town Hub > Path Way\n\nA path that leads out of town and into the wilderness.\n\nDo you want to enter Town Access? ", "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 					TownHub.setRoomLocks(false);
+					TownHub.setRoomExits("");
 					MainDesertHub.setRoomExits("D10");
 				}
 				else if(!inventoryView && !itemView && AccessPath1.getRoomLocks() && (command.equals("1") ||  command.equalsIgnoreCase("town access") || command.equalsIgnoreCase("west"))) {
@@ -1755,93 +1767,102 @@ public class GameControl {
 				
 				AccessPath1.setRoomExits("");
 				AccessPath2.setRoomExits("");
-				Random monsterProb = new Random();
-				int randomMonster = monsterProb.nextInt(3); //Generate a random number between 0-3
-				MainDesertHub.setRoomID("2A" + randomMonster); //Open up Search Area command & monster probability encounter
+				
+				//Generate a random number between 0-7, Open up Search Area command, & monster probability encounter
+				MainDesertHub.setRoomID("2A" + monster.numOfRandomMonster(7)); 
 				monster.removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
 				this.monsterTotalHealth = this.monsterMaxHealth; //Restore monster health
 				
 			}
 			//MAIN DESERT HUB > Search Area: Coyotes
-			else if(MainDesertHub.getRoomID().contains("2A0") && (command.equals("4") || command.equalsIgnoreCase("search area"))) {
+			else if(MainDesertHub.getRoomID().equals("2A0") && (command.equals("4") || command.equalsIgnoreCase("search area"))) {
 				//ENCOUNTER MONSTER
 				MainDesertHub.setRoomLocks(false);
 				MainDesertHub.setRoomID("2A01"); //Open up attack monster
-				monster.coyotes(room, monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon);
+				monster.coyotes(room, monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon, "Main Desert Hub");
 				
 				System.out.println("Encountering Coyotes : Location Game Control"); // Testing purpose
 			}
 			//MAIN DESERT HUB > Search Area: Bear
-			else if(MainDesertHub.getRoomID().contains("2A1") && (command.equals("4") || command.equalsIgnoreCase("search area"))) {
+			else if(MainDesertHub.getRoomID().equals("2A1") && (command.equals("4") || command.equalsIgnoreCase("search area"))) {
 				//ENCOUNTER MONSTER
 				MainDesertHub.setRoomLocks(false);
 				MainDesertHub.setRoomID("2A11"); //Open up attack monster
-				monster.bear(room, monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon);
+				monster.bear(room, monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon, "Main Desert Hub");
 				
 				System.out.println("Encountering A Bear : Location Game Control"); // Testing purpose
 			}
 			//MAIN DESERT HUB > Search Area: Mountain Man
-			else if(MainDesertHub.getRoomID().contains("2A2") && (command.equals("4") || command.equalsIgnoreCase("search area"))) {
+			else if(MainDesertHub.getRoomID().equals("2A2") && (command.equals("4") || command.equalsIgnoreCase("search area"))) {
 				//ENCOUNTER MONSTER
 				MainDesertHub.setRoomLocks(false);
 				MainDesertHub.setRoomID("2A21"); //Open up attack monster
-				monster.mountainMan(room, monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon);
+				monster.mountainMan(room, monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon, "Main Desert Hub");
 				
 				System.out.println("Encountering A Mountain Man : Location Game Control"); // Testing purpose
 			}
 			//MAIN DESERT HUB > Search Area: Bandit
-			else if(MainDesertHub.getRoomID().contains("2A3") && (command.equals("4") || command.equalsIgnoreCase("search area"))) {
+			else if(MainDesertHub.getRoomID().equals("2A3") && (command.equals("4") || command.equalsIgnoreCase("search area"))) {
 				//ENCOUNTER MONSTER
 				MainDesertHub.setRoomLocks(false);
 				MainDesertHub.setRoomID("2A31"); //Open up attack monster
-				monster.bandit(room, monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon);
+				monster.bandit(room, monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon, "Main Desert Hub");
 				
-				System.out.println("Encountering A Mountain Man : Location Game Control"); // Testing purpose
+				System.out.println("Encountering Bandit : Location Game Control"); // Testing purpose
 			}
-			////MAIN DESERT HUB > Search Area > Fight Coyotes
-			else if(MainDesertHub.getRoomID().contains("2A01") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
+			//MAIN DESERT HUB > Search Area: Nothing
+			else if((MainDesertHub.getRoomID().equals("2A4") || MainDesertHub.getRoomID().equals("2A5") || MainDesertHub.getRoomID().equals("2A6") || MainDesertHub.getRoomID().equals("2A7")) && (command.equals("4") || command.equalsIgnoreCase("search area"))) {
+				//ENCOUNTER MONSTER
+				MainDesertHub.setRoomLocks(false);
+				room.display("Main Desert Hub > Search Area\n\nYou didn't find anything.", "Action\n" + "0. Back");
+				
+				System.out.println("Encountering Nothing : Location Game Control"); // Testing purpose
+			}
+			//MAIN DESERT HUB > Search Area > Fight Coyotes
+			else if(MainDesertHub.getRoomID().equals("2A01") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
 				Random damageProb = new Random();
 				int damageMonster = -(damageProb.nextInt(50 + 1) + 25); // Damage monster probability between -50 to -25
-				System.out.println(damageMonster); //Display Amount of damage done to monster
 				
 				if(this.monsterTotalHealth > 0) {//When monster health is greater than 0 = true
 					this.monsterTotalHealth = monster.monsterHealthMeter(monsterHealthBar, this.monsterTotalHealth, damageMonster, prompt); //Player does damage to monster's health bar
 					this.totalHealth = player.healthMeter(healthBar, this.totalHealth, -4, prompt); //Monster does damage to player's health bar
 					room.display("Main Desert Hub > Search Area > Fight Coyotes\n\nPack of Coyotes-------------------------------------\nA pack of rabid looking "
 							+ "coyotes. Their eyes are sunken in, and their fur matted; they look as if they haven’t eaten for weeks.\n\n\"Grrrrarrrr\"", "Action\n" + "0. Runaway\n" +"1. Attack");
+					
+					if(this.monsterTotalHealth <= 0){
+						commandMenu.prompt(prompt, "YOU LOOT 1 GOLD AND AN ANIMAL CLAW");
+						player.inventory.add(animalClaw);
+						player.gold++;
+						room.display("Main Desert Hub > Search Area\n\n", "Action\n" + "0. Back\n");
+					}
 				}
-				else {
-					commandMenu.prompt(prompt, "YOU LOOT 1 GOLD AND AN ANIMAL CLAW");
-					player.inventory.add(animalClaw);
-					player.gold++;
-					room.display("Main Desert Hub > Search Area\n\n", "Action\n" + "0. Back\n");
-				}
-				
 				System.out.println("Attacking Coyotes : Location Game Control"); // Testing purpose
+			
 			}
 			////MAIN DESERT HUB > Search Area > Fight Bear
-			else if(MainDesertHub.getRoomID().contains("2A11") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
+			else if(MainDesertHub.getRoomID().equals("2A11") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
 				Random damageProb = new Random();
 				int damageMonster = -(damageProb.nextInt(50 + 1) + 25); // Damage monster probability between -50 to -25
 				System.out.println(damageMonster); //Display Amount of damage done to monster
 				
-				if(this.monsterTotalHealth > 0) {//When monster health is greater than 0 = true
+				if(monsterTotalHealth > 0) {//When monster health is greater than 0 = true
 					this.monsterTotalHealth = monster.monsterHealthMeter(monsterHealthBar, this.monsterTotalHealth, damageMonster, prompt); //Player does damage to monster's health bar
 					this.totalHealth = player.healthMeter(healthBar, this.totalHealth, -5, prompt); //Monster does damage to player's health bar
 					room.display("Main Desert Hub > Search Area > Fight Bear\n\nBear------------------------------------------------\nA giant grizzly bear, standing " 
 							+ "around 8 feet tall. It’s claws look as sharp as razors, and it gnashes its teeth at you menacingly.\n\n\"GRRRRRRRRRRRRRRRRRRRRRRRRRRRR\"", "Action\n" + "0. Runaway\n" +"1. Attack");
+					
+					if(monsterTotalHealth <= 0){
+						commandMenu.prompt(prompt, "YOU LOOT 1 GOLD AND AN ANIMAL CLAW");
+						player.inventory.add(animalClaw);
+						player.gold++;
+						room.display("Main Desert Hub > Search Area\n\n", "Action\n" + "0. Back\n");
+					}
 				}
-				else {
-					commandMenu.prompt(prompt, "YOU LOOT 1 GOLD AND AN ANIMAL CLAW");
-					player.inventory.add(animalClaw);
-					player.gold++;
-					room.display("Main Desert Hub > Search Area\n\n", "Action\n" + "0. Back\n");
-				}
-				
 				System.out.println("Attacking A Bear : Location Game Control"); // Testing purpose
+				
 			}
 			////MAIN DESERT HUB > Search Area > Fight Mountain Man
-			else if(MainDesertHub.getRoomID().contains("2A21") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
+			else if(MainDesertHub.getRoomID().equals("2A21") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
 				Random damageProb = new Random();
 				int damageMonster = -(damageProb.nextInt(50 + 1) + 25); // Damage monster probability between -50 to -25
 				System.out.println(damageMonster); //Display Amount of damage done to monster
@@ -1852,18 +1873,18 @@ public class GameControl {
 					room.display("Main Desert Hub > Search Area > Fight Mountain Man\n\nMountain Man--------------------------------------\nA grizzly looking man "
 							+ "with wild eyes and a beard down to his chest. He is wearing clothes made from animal skins and carries a club "
 							+ "made of a bone of unknown origin in his hands.\n\n\"Git yer own land, this here is my territory!\"", "Action\n" + "0. Runaway\n" +"1. Attack");
+					
+					if(this.monsterTotalHealth <= 0){
+						commandMenu.prompt(prompt, "YOU LOOT 1 GOLD AND AN ANIMAL CLAW");
+						player.inventory.add(animalClaw);
+						player.gold++;
+						room.display("Main Desert Hub > Search Area\n\n", "Action\n" + "0. Back\n");
+					}
 				}
-				else {
-					commandMenu.prompt(prompt, "YOU LOOT 1 GOLD AND AN ANIMAL CLAW");
-					player.inventory.add(animalClaw);
-					player.gold++;
-					room.display("Main Desert Hub > Search Area\n\n", "Action\n" + "0. Back\n");
-				}
-				
-				System.out.println("Attacking A Bear : Location Game Control"); // Testing purpose
+				System.out.println("Attacking Mountain Man : Location Game Control"); // Testing purpose
 			}
 			////MAIN DESERT HUB > Search Area > Fight Bandit
-			else if(MainDesertHub.getRoomID().contains("2A31") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
+			else if(MainDesertHub.getRoomID().equals("2A31") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
 				Random damageProb = new Random();
 				int damageMonster = -(damageProb.nextInt(50 + 1) + 25); // Damage monster probability between -50 to -25
 				System.out.println(damageMonster); //Display Amount of damage done to monster
@@ -1874,15 +1895,15 @@ public class GameControl {
 					room.display("Main Desert Hub > Search Area > Fight Bandit\n\nBandit----------------------------------------------\nA man of average "
 							+ "stature, whose face is shrouded by a red bandana. His clothing is mismatched and ragged, but you can tell it is " 
 							+ "made from good quality materials.\n\n\"I think I see some gold coins that are wanting to be liberated\"", "Action\n" + "0. Runaway\n" +"1. Attack");
+					
+					if(this.monsterTotalHealth <= 0){
+						commandMenu.prompt(prompt, "YOU LOOT 1 GOLD AND AN ANIMAL CLAW");
+						player.inventory.add(animalClaw);
+						player.gold++;
+						room.display("Main Desert Hub > Search Area\n\n", "Action\n" + "0. Back\n");
+					}
 				}
-				else {
-					commandMenu.prompt(prompt, "YOU LOOT 1 GOLD AND AN ANIMAL CLAW");
-					player.inventory.add(animalClaw);
-					player.gold++;
-					room.display("Main Desert Hub > Search Area\n\n", "Action\n" + "0. Back\n");
-				}
-				
-				System.out.println("Attacking A Bear : Location Game Control"); // Testing purpose
+				System.out.println("Attacking Bandit : Location Game Control"); // Testing purpose
 			}
 			
 			//ACCESS PATH 1-----------------------------------------------------------------------------------------------------------------------
@@ -1904,7 +1925,8 @@ public class GameControl {
 			else if(!inventoryView && !itemView && (MainDesertHub.getRoomExits().equals("D12") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
 					(AccessPath1.getRoomExits().equals("D13") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) || 
 					(AccessPath1.getRoomExits().equals("D16") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
-					(TownHub2.getRoomExits().equals("D17") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y")))) {
+					(TownHub2.getRoomExits().equals("D17") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
+					(AccessPath1.getRoomID().contains("2B") && (command.equals("0") || command.equalsIgnoreCase("runaway") || command.equalsIgnoreCase("back")))) {
 				room.AccessPath1_2B();
 				MainDesertHub.setRoomLocks(false);
 				AccessPath1.setRoomLocks(true);
@@ -1915,7 +1937,80 @@ public class GameControl {
 				AccessPath2.setRoomExits("");
 				TownHub2.setRoomExits("");
 				MainDesertHub.setRoomID("");
+				//Generate a random number between 0-7, Open up Search Area command, & monster probability encounter
+				AccessPath1.setRoomID("2B" + monster.numOfRandomMonster(3)); 
+				monster.removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
+				this.monsterTotalHealth = this.monsterMaxHealth; //Restore monster health
 			}
+			//ACCESS PATH 1 > Search Area: Coyotes
+			else if(AccessPath1.getRoomID().equals("2B0") && (command.equals("3") || command.equalsIgnoreCase("search area"))) {
+				//ENCOUNTER MONSTER
+				AccessPath1.setRoomLocks(false);
+				AccessPath1.setRoomID("2B01"); //Open up attack monster
+				monster.coyotes(room, monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon, "Access Path 1");
+				
+				System.out.println("Encountering Coyotes : Location Game Control"); // Testing purpose
+			}
+			//ACCESS PATH 1 > Search Area: Bandit
+			else if(AccessPath1.getRoomID().equals("2B1") && (command.equals("3") || command.equalsIgnoreCase("search area"))) {
+				//ENCOUNTER MONSTER
+				AccessPath1.setRoomLocks(false);
+				AccessPath1.setRoomID("2B11"); //Open up attack monster
+				monster.bandit(room, monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon, "Access Path 1");
+				
+				System.out.println("Encountering Bandit : Location Game Control"); // Testing purpose
+			}
+			//ACCESS PATH 1 > Search Area: Nothing
+			else if((AccessPath1.getRoomID().equals("2B2") || MainDesertHub.getRoomID().equals("2B3")) && (command.equals("3") || command.equalsIgnoreCase("search area"))) {
+				//ENCOUNTER MONSTER
+				AccessPath1.setRoomLocks(false);
+				room.display("Access Path 1 > Search Area\n\nYou didn't find anything.", "Action\n" + "0. Back");
+				
+				System.out.println("Encountering Nothing : Location Game Control"); // Testing purpose
+			}
+			//ACCESS PATH 1 > Search Area > Fight Coyotes
+			else if(AccessPath1.getRoomID().equals("2B01") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
+				Random damageProb = new Random();
+				int damageMonster = -(damageProb.nextInt(50 + 1) + 25); // Damage monster probability between -50 to -25
+				
+				if(this.monsterTotalHealth > 0) {//When monster health is greater than 0 = true
+					this.monsterTotalHealth = monster.monsterHealthMeter(monsterHealthBar, this.monsterTotalHealth, damageMonster, prompt); //Player does damage to monster's health bar
+					this.totalHealth = player.healthMeter(healthBar, this.totalHealth, -4, prompt); //Monster does damage to player's health bar
+					room.display("Access Path 1 > Search Area > Fight Coyotes\n\nPack of Coyotes-------------------------------------\nA pack of rabid looking "
+							+ "coyotes. Their eyes are sunken in, and their fur matted; they look as if they haven’t eaten for weeks.\n\n\"Grrrrarrrr\"", "Action\n" + "0. Runaway\n" +"1. Attack");
+					
+					if(this.monsterTotalHealth <= 0){
+						commandMenu.prompt(prompt, "YOU LOOT 1 GOLD AND AN ANIMAL CLAW");
+						player.inventory.add(animalClaw);
+						player.gold++;
+						room.display("Access Path 1 > Search Area\n\n", "Action\n" + "0. Back\n");
+					}
+				}
+				System.out.println("Attacking Coyotes : Location Game Control"); // Testing purpose
+			
+			}
+			else if(AccessPath1.getRoomID().equals("2B11") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
+				Random damageProb = new Random();
+				int damageMonster = -(damageProb.nextInt(50 + 1) + 25); // Damage monster probability between -50 to -25
+				System.out.println(damageMonster); //Display Amount of damage done to monster
+				
+				if(this.monsterTotalHealth > 0) {//When monster health is greater than 0 = true
+					this.monsterTotalHealth = monster.monsterHealthMeter(monsterHealthBar, this.monsterTotalHealth, damageMonster, prompt); //Player does damage to monster's health bar
+					this.totalHealth = player.healthMeter(healthBar, this.totalHealth, -6, prompt); //Monster does damage to player's health bar
+					room.display("Access Path 1 > Search Area > Fight Bandit\n\nBandit----------------------------------------------\nA man of average "
+							+ "stature, whose face is shrouded by a red bandana. His clothing is mismatched and ragged, but you can tell it is " 
+							+ "made from good quality materials.\n\n\"I think I see some gold coins that are wanting to be liberated\"", "Action\n" + "0. Runaway\n" +"1. Attack");
+					
+					if(this.monsterTotalHealth <= 0){
+						commandMenu.prompt(prompt, "YOU LOOT 1 GOLD AND AN ANIMAL CLAW");
+						player.inventory.add(animalClaw);
+						player.gold++;
+						room.display("Access Path 1 > Search Area\n\n", "Action\n" + "0. Back\n");
+					}
+				}
+				System.out.println("Attacking Bandit : Location Game Control"); // Testing purpose
+			}
+			
 			//ACCESS PATH 2-----------------------------------------------------------------------------------------------------------------------
 			//ACCESS PATH 2 > Path Way
 			else if(!inventoryView && !itemView && MainDesertHub.getRoomLocks() && (command.equals("2") || command.equalsIgnoreCase("access path 2") || command.equalsIgnoreCase("west")) ||
@@ -1986,7 +2081,8 @@ public class GameControl {
 					
 					AccessPath1.setRoomExits("");
 					AccessPath2.setRoomExits("");
-					MainDesertHub.setRoomID("2A"); //Open up Search Area command
+					//Generate a random number between 0-7, Open up Search Area command, & monster probability encounter
+					MainDesertHub.setRoomID("2A" + monster.numOfRandomMonster(7)); 
 					monster.removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
 					this.monsterTotalHealth = this.monsterMaxHealth; //Restore monster health
 				}
@@ -2002,6 +2098,10 @@ public class GameControl {
 					AccessPath2.setRoomExits("");
 					TownHub2.setRoomExits("");
 					MainDesertHub.setRoomID("");
+					//Generate a random number between 0-3, Open up Search Area command, & monster probability encounter
+					AccessPath1.setRoomID("2B" + monster.numOfRandomMonster(3)); 
+					monster.removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
+					this.monsterTotalHealth = this.monsterMaxHealth; //Restore monster health
 				}
 				else if(AccessPath2.getRoomLocks()==true) {
 					
