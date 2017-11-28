@@ -1703,7 +1703,7 @@ public class GameControl {
 				}
 			}
 		    //Save Game
-			if(!storeView && !inventoryView && !itemView && unlockSaveGame && ((TownHub.getRoomLocks() && (command.equalsIgnoreCase("6") || command.equalsIgnoreCase("save game"))) ||
+			else if(!storeView && !inventoryView && !itemView && unlockSaveGame && ((TownHub.getRoomLocks() && (command.equalsIgnoreCase("6") || command.equalsIgnoreCase("save game"))) ||
 					(DrugStore.getRoomLocks() && (command.equalsIgnoreCase("5") || command.equalsIgnoreCase("save game"))) ||
 					(Inn.getRoomLocks() && (command.equalsIgnoreCase("5") || command.equalsIgnoreCase("save game"))) ||
 					(Saloon.getRoomLocks() && (command.equalsIgnoreCase("5") || command.equalsIgnoreCase("save game"))) ||
@@ -1755,23 +1755,51 @@ public class GameControl {
 				
 				AccessPath1.setRoomExits("");
 				AccessPath2.setRoomExits("");
-				MainDesertHub.setRoomID("2A"); //Open up Search Area command
+				Random monsterProb = new Random();
+				int randomMonster = monsterProb.nextInt(3); //Generate a random number between 0-3
+				MainDesertHub.setRoomID("2A" + randomMonster); //Open up Search Area command & monster probability encounter
 				monster.removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
 				this.monsterTotalHealth = this.monsterMaxHealth; //Restore monster health
+				
 			}
-			//MAIN DESERT HUB > Search Area
-			else if(MainDesertHub.getRoomID().contains("2A") && (command.equals("4") || command.equalsIgnoreCase("search area"))) {
+			//MAIN DESERT HUB > Search Area: Coyotes
+			else if(MainDesertHub.getRoomID().contains("2A0") && (command.equals("4") || command.equalsIgnoreCase("search area"))) {
 				//ENCOUNTER MONSTER
 				MainDesertHub.setRoomLocks(false);
-				MainDesertHub.setRoomID("2A1"); //Open up attack monster
-				monster.displayMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon);
-				room.display("Main Desert Hub > Search Area\n\nPack of Coyotes-------------------------------------\nA pack of rabid looking "
-						+ "coyotes. Their eyes are sunken in, and their fur matted; they look as if they haven’t eaten for weeks.", "Action\n" + "0. Runaway\n" +"1. Attack");
+				MainDesertHub.setRoomID("2A01"); //Open up attack monster
+				monster.coyotes(room, monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon);
 				
 				System.out.println("Encountering Coyotes : Location Game Control"); // Testing purpose
 			}
-			//ATTACK MONSTER
-			else if(MainDesertHub.getRoomID().contains("2A1") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
+			//MAIN DESERT HUB > Search Area: Bear
+			else if(MainDesertHub.getRoomID().contains("2A1") && (command.equals("4") || command.equalsIgnoreCase("search area"))) {
+				//ENCOUNTER MONSTER
+				MainDesertHub.setRoomLocks(false);
+				MainDesertHub.setRoomID("2A11"); //Open up attack monster
+				monster.bear(room, monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon);
+				
+				System.out.println("Encountering A Bear : Location Game Control"); // Testing purpose
+			}
+			//MAIN DESERT HUB > Search Area: Mountain Man
+			else if(MainDesertHub.getRoomID().contains("2A2") && (command.equals("4") || command.equalsIgnoreCase("search area"))) {
+				//ENCOUNTER MONSTER
+				MainDesertHub.setRoomLocks(false);
+				MainDesertHub.setRoomID("2A21"); //Open up attack monster
+				monster.mountainMan(room, monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon);
+				
+				System.out.println("Encountering A Mountain Man : Location Game Control"); // Testing purpose
+			}
+			//MAIN DESERT HUB > Search Area: Bandit
+			else if(MainDesertHub.getRoomID().contains("2A3") && (command.equals("4") || command.equalsIgnoreCase("search area"))) {
+				//ENCOUNTER MONSTER
+				MainDesertHub.setRoomLocks(false);
+				MainDesertHub.setRoomID("2A31"); //Open up attack monster
+				monster.bandit(room, monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon);
+				
+				System.out.println("Encountering A Mountain Man : Location Game Control"); // Testing purpose
+			}
+			////MAIN DESERT HUB > Search Area > Fight Coyotes
+			else if(MainDesertHub.getRoomID().contains("2A01") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
 				Random damageProb = new Random();
 				int damageMonster = -(damageProb.nextInt(50 + 1) + 25); // Damage monster probability between -50 to -25
 				System.out.println(damageMonster); //Display Amount of damage done to monster
@@ -1779,7 +1807,7 @@ public class GameControl {
 				if(this.monsterTotalHealth > 0) {//When monster health is greater than 0 = true
 					this.monsterTotalHealth = monster.monsterHealthMeter(monsterHealthBar, this.monsterTotalHealth, damageMonster, prompt); //Player does damage to monster's health bar
 					this.totalHealth = player.healthMeter(healthBar, this.totalHealth, -4, prompt); //Monster does damage to player's health bar
-					room.display("Main Desert Hub > Search Area\n\nPack of Coyotes-------------------------------------\nA pack of rabid looking "
+					room.display("Main Desert Hub > Search Area > Fight Coyotes\n\nPack of Coyotes-------------------------------------\nA pack of rabid looking "
 							+ "coyotes. Their eyes are sunken in, and their fur matted; they look as if they haven’t eaten for weeks.\n\n\"Grrrrarrrr\"", "Action\n" + "0. Runaway\n" +"1. Attack");
 				}
 				else {
@@ -1790,6 +1818,71 @@ public class GameControl {
 				}
 				
 				System.out.println("Attacking Coyotes : Location Game Control"); // Testing purpose
+			}
+			////MAIN DESERT HUB > Search Area > Fight Bear
+			else if(MainDesertHub.getRoomID().contains("2A11") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
+				Random damageProb = new Random();
+				int damageMonster = -(damageProb.nextInt(50 + 1) + 25); // Damage monster probability between -50 to -25
+				System.out.println(damageMonster); //Display Amount of damage done to monster
+				
+				if(this.monsterTotalHealth > 0) {//When monster health is greater than 0 = true
+					this.monsterTotalHealth = monster.monsterHealthMeter(monsterHealthBar, this.monsterTotalHealth, damageMonster, prompt); //Player does damage to monster's health bar
+					this.totalHealth = player.healthMeter(healthBar, this.totalHealth, -5, prompt); //Monster does damage to player's health bar
+					room.display("Main Desert Hub > Search Area > Fight Bear\n\nBear------------------------------------------------\nA giant grizzly bear, standing " 
+							+ "around 8 feet tall. It’s claws look as sharp as razors, and it gnashes its teeth at you menacingly.\n\n\"GRRRRRRRRRRRRRRRRRRRRRRRRRRRR\"", "Action\n" + "0. Runaway\n" +"1. Attack");
+				}
+				else {
+					commandMenu.prompt(prompt, "YOU LOOT 1 GOLD AND AN ANIMAL CLAW");
+					player.inventory.add(animalClaw);
+					player.gold++;
+					room.display("Main Desert Hub > Search Area\n\n", "Action\n" + "0. Back\n");
+				}
+				
+				System.out.println("Attacking A Bear : Location Game Control"); // Testing purpose
+			}
+			////MAIN DESERT HUB > Search Area > Fight Mountain Man
+			else if(MainDesertHub.getRoomID().contains("2A21") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
+				Random damageProb = new Random();
+				int damageMonster = -(damageProb.nextInt(50 + 1) + 25); // Damage monster probability between -50 to -25
+				System.out.println(damageMonster); //Display Amount of damage done to monster
+				
+				if(this.monsterTotalHealth > 0) {//When monster health is greater than 0 = true
+					this.monsterTotalHealth = monster.monsterHealthMeter(monsterHealthBar, this.monsterTotalHealth, damageMonster, prompt); //Player does damage to monster's health bar
+					this.totalHealth = player.healthMeter(healthBar, this.totalHealth, -6, prompt); //Monster does damage to player's health bar
+					room.display("Main Desert Hub > Search Area > Fight Mountain Man\n\nMountain Man--------------------------------------\nA grizzly looking man "
+							+ "with wild eyes and a beard down to his chest. He is wearing clothes made from animal skins and carries a club "
+							+ "made of a bone of unknown origin in his hands.\n\n\"Git yer own land, this here is my territory!\"", "Action\n" + "0. Runaway\n" +"1. Attack");
+				}
+				else {
+					commandMenu.prompt(prompt, "YOU LOOT 1 GOLD AND AN ANIMAL CLAW");
+					player.inventory.add(animalClaw);
+					player.gold++;
+					room.display("Main Desert Hub > Search Area\n\n", "Action\n" + "0. Back\n");
+				}
+				
+				System.out.println("Attacking A Bear : Location Game Control"); // Testing purpose
+			}
+			////MAIN DESERT HUB > Search Area > Fight Bandit
+			else if(MainDesertHub.getRoomID().contains("2A31") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
+				Random damageProb = new Random();
+				int damageMonster = -(damageProb.nextInt(50 + 1) + 25); // Damage monster probability between -50 to -25
+				System.out.println(damageMonster); //Display Amount of damage done to monster
+				
+				if(this.monsterTotalHealth > 0) {//When monster health is greater than 0 = true
+					this.monsterTotalHealth = monster.monsterHealthMeter(monsterHealthBar, this.monsterTotalHealth, damageMonster, prompt); //Player does damage to monster's health bar
+					this.totalHealth = player.healthMeter(healthBar, this.totalHealth, -6, prompt); //Monster does damage to player's health bar
+					room.display("Main Desert Hub > Search Area > Fight Bandit\n\nBandit----------------------------------------------\nA man of average "
+							+ "stature, whose face is shrouded by a red bandana. His clothing is mismatched and ragged, but you can tell it is " 
+							+ "made from good quality materials.\n\n\"I think I see some gold coins that are wanting to be liberated\"", "Action\n" + "0. Runaway\n" +"1. Attack");
+				}
+				else {
+					commandMenu.prompt(prompt, "YOU LOOT 1 GOLD AND AN ANIMAL CLAW");
+					player.inventory.add(animalClaw);
+					player.gold++;
+					room.display("Main Desert Hub > Search Area\n\n", "Action\n" + "0. Back\n");
+				}
+				
+				System.out.println("Attacking A Bear : Location Game Control"); // Testing purpose
 			}
 			
 			//ACCESS PATH 1-----------------------------------------------------------------------------------------------------------------------
@@ -1922,6 +2015,14 @@ public class GameControl {
 					AccessPath2.setRoomExits("");
 					MainDesertHub.setRoomID("");
 				}
+			}
+			//SAVE
+			else if(!storeView && !inventoryView && !itemView && unlockSaveGame && ((MainDesertHub.getRoomLocks() && (command.equalsIgnoreCase("6") || command.equalsIgnoreCase("save game"))) ||
+					(AccessPath1.getRoomLocks() && (command.equalsIgnoreCase("5") || command.equalsIgnoreCase("save game"))) ||
+					(AccessPath2.getRoomLocks() && (command.equalsIgnoreCase("5") || command.equalsIgnoreCase("save game"))))) {
+				
+				commandMenu.prompt(prompt, "GAME SAVED");
+				commandMenu.saveGame("testGame.ini");
 			}
 		}
 		if(TownHub2.getRoomLevel().equals("Fort Birman")) {
