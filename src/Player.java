@@ -266,7 +266,7 @@ public class Player extends Character{
 			healthBar.setWidth(totalHealth);
 			healthBar.getWidth();
 		}
-		if(totalHealth == maxHp) {
+		if(totalHealth >= maxHp) {
 			commandMenu.prompt(prompt, "HEALTH IS FULL");
 			totalHealth = maxHp;
 		}

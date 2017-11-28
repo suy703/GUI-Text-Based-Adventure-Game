@@ -425,6 +425,9 @@ public class GameControl {
 					(Inn.getRoomExits().equals("D03") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
 					(TownHub.getRoomExits().equals("D05") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
 					(Inn.getRoomExits().equals("D04") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n")))) {
+				inventoryView = false;
+				itemView = false;
+				storeView = false;
 				
 				room.Inn_1C();
 				TownHub.setRoomLocks(false);
@@ -621,21 +624,22 @@ public class GameControl {
 					room.display("Saloon > Henchman Battle\n\nYou must take him out fast!", "Action\n" + "0. Runaway\n" +"1. Attack");
 					
 					System.out.println("Attacking Henchman : Location Game Control"); // Testing purpose
+					if(this.monsterTotalHealth <= 0) {
+						puzzle.setPuzzleID("P03");
+						monsterTotalHealth = 280; // Reinitialize monster health for Deputy Sheriff
+						room.Jail_1E();
+						room.display("Jail > Henchman\n\n"
+								+ "You took some damage from that fight. The Deputy Sheriff who regularly comes to the Saloon saw you start a fight with the "
+								+ "HenchMan and arrested you. Therefore you are sentenced for six months for aggrevated assult"
+								+ "at the Bombay County Jail. The mission is critical and you do not have time to serve six months. "
+								+ "Your priority is to kill the leader of the gang Long Riders. The Deputy Sheriff is old and fat but "
+								+ "he is the big boss of this jail house. ", "0. Back\n" + "1. Fight Deputy Sheriff");
+						
+						unlockDoor = true;
+						System.out.println("Sent to Jail : Location Game Control"); // Testing purpose
+					}
 				}
-				else {
-					puzzle.setPuzzleID("P03");
-					monsterTotalHealth = 280; // Reinitialize monster health for Deputy Sheriff
-					room.Jail_1E();
-					room.display("Jail > Henchman\n\n"
-							+ "You took some damage from that fight. The Deputy Sheriff who regularly comes to the Saloon saw you start a fight with the "
-							+ "HenchMan and arrested you. Therefore you are sentenced for six months for aggrevated assult"
-							+ "at the Bombay County Jail. The mission is critical and you do not have time to serve six months. "
-							+ "Your priority is to kill the leader of the gang Long Riders. The Deputy Sheriff is old and fat but "
-							+ "he is the big boss of this jail house. ", "0. Back\n" + "1. Fight Deputy Sheriff");
-					
-					unlockDoor = true;
-					System.out.println("Sent to Jail : Location Game Control"); // Testing purpose
-				}
+				
 			}
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------		    
             // Fighting Deputy Sheriff		    
@@ -660,19 +664,20 @@ public class GameControl {
 							+ "at this town hub. He runs the jail, but this will not stop you from taking him out!", "Action\n" + "0. Runaway\n" +"1. Attack");
 					
 					System.out.println("Attacking Deputy Sheriff : Location Game Control"); // Testing purpose
-				}
-				// Key Dropped
-				else {
-					puzzle.setPuzzleID("P05");
-					room.display("Jail > Deputy Sheriff\n\n"
-							+ "Search the Deputy Sheriff's body and try to find a way out of here! You do not have much time"
-							+ " other deputies are making their way to the cell from the sound of gun fire! ", "0. Back\n" + "1. Loot");
-					player.gold += 4;
-					player.inventory.add(dynamite);
+					// Key Dropped
+					if(this.monsterTotalHealth <= 0) {
+						puzzle.setPuzzleID("P05");
+						room.display("Jail > Deputy Sheriff\n\n"
+								+ "Search the Deputy Sheriff's body and try to find a way out of here! You do not have much time"
+								+ " other deputies are making their way to the cell from the sound of gun fire! ", "0. Back\n" + "1. Loot");
+						player.gold += 4;
+						player.inventory.add(dynamite);
+						monster.removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon);
 					
-					
-					System.out.println("Key is dropped : Location Game Control"); // Testing purpose
+						System.out.println("Key is dropped : Location Game Control"); // Testing purpose
+					}
 				}
+				
 			}
 		    
 		    // picking up key
@@ -800,7 +805,6 @@ public class GameControl {
 							(DrugStore.getRoomLocks() && (command.equals("4") || command.equalsIgnoreCase("inventory"))) ||
 							(Inn.getRoomLocks() && (command.equals("4") || command.equalsIgnoreCase("inventory"))) ||
 							(Saloon.getRoomLocks() && (command.equals("4") || command.equalsIgnoreCase("inventory")))) ||
-							(Saloon.getRoomID().equals("1D") && (command.equals("2") || command.equalsIgnoreCase("inventory"))) ||
 							(Inn.getRoomID().equals("1C") && (command.equals("2") || command.equalsIgnoreCase("inventory"))) ||
 							(MainDesertHub.getRoomLocks() && (command.equals("5") || command.equalsIgnoreCase("inventory"))) ||
 							(AccessPath1.getRoomLocks() && (command.equals("4") || command.equalsIgnoreCase("inventory"))) ||
@@ -1827,11 +1831,12 @@ public class GameControl {
 				AccessPath2.setRoomLocks(false);
 				
 				MainDesertHub.setRoomExits("");
-				AccessPath2.setRoomExits("");
-				
 				AccessPath1.setRoomExits("");
 				AccessPath2.setRoomExits("");
 				
+				MainDesertHub.setRoomID("");
+				System.out.println("Check");
+
 				//Generate a random number between 0-7, Open up Search Area command, & monster probability encounter
 				MainDesertHub.setRoomID("2A" + monster.numOfRandomMonster(7)); 
 				monster.removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon); //Remove monster health bar
