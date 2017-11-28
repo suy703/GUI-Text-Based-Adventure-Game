@@ -29,7 +29,6 @@ public class Player extends Character{
 	int bonusAtk;
 	
 	int maxHealth = 280;
-	
 	/**
 	 * Constructor. Define's the player's attributes.
 	 */

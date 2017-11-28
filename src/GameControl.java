@@ -78,6 +78,7 @@ public class GameControl {
 		Rooms MainDesertHub = new Rooms("Town Access", false, "", "Main Desert Hub", "");
 		Rooms AccessPath1 = new Rooms("Town Access", false, "", "Access Path 1", "");
 		Rooms AccessPath2 = new Rooms("Town Access", false, "", "Access Path 2", "");
+		Rooms TownHub2 = new Rooms("Fort Birman", false, "", "Town Hub", "");
 		
 		Monsters monster = new Monsters();
 		//CENTER PANE------------------------------------------------------------------------------------------------------------------------
@@ -167,7 +168,7 @@ public class GameControl {
 					Saloon.setRoomExits("D07");
 				}
 				else if(!inventoryView && !itemView && MainDesertHub.getRoomLocks() && (command.equals("3") ||  command.equalsIgnoreCase("bombay hill") || command.equalsIgnoreCase("south"))) {
-					room.display("Main Desert Hub\n\nA path that leads out of the wilderness and into town\n\nDo you want to enter Town Hub?. ", "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
+					room.display("Main Desert Hub\n\nA path that leads out of the wilderness and into town\n\nDo you want to enter Town Hub?", "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 					MainDesertHub.setRoomLocks(false);
 					MainDesertHub.setRoomExits("D11");
 				}
@@ -192,6 +193,7 @@ public class GameControl {
 				DrugStore.setRoomExits("");
 				Inn.setRoomExits("");
 				Saloon.setRoomExits("");
+				MainDesertHub.setRoomExits("");
 				
 				DrugStore.setRoomID("");
 				Saloon.setRoomID("");
@@ -932,6 +934,7 @@ public class GameControl {
 					DrugStore.setRoomExits("");
 					Inn.setRoomExits("");
 					Saloon.setRoomExits("");
+					MainDesertHub.setRoomExits("");
 					
 					DrugStore.setRoomID("");
 					Saloon.setRoomID("");
@@ -1792,20 +1795,23 @@ public class GameControl {
 			//ACCESS PATH 1-----------------------------------------------------------------------------------------------------------------------
 			//ACCESS PATH 1 > Path Way
 			else if(!inventoryView && !itemView && (MainDesertHub.getRoomLocks() && (command.equals("1") || command.equalsIgnoreCase("access path 1") || command.equalsIgnoreCase("east"))) ||
-					(AccessPath1.getRoomLocks() && (command.equals("2") || command.equalsIgnoreCase("fort birman") || command.equalsIgnoreCase("east")))) {
+					(TownHub2.getRoomLocks() && (command.equals("1") || command.equalsIgnoreCase("town access") || command.equalsIgnoreCase("west")))) {
 				if(!inventoryView && !itemView && MainDesertHub.getRoomLocks() && (command.equals("1") || command.equalsIgnoreCase("access path 1") || command.equalsIgnoreCase("east"))) {
 					room.display("Main Desert Hub > Path Way\n\nThe path continues East to Fort Birman.\n\nDo you want to enter the Access Path 1?", "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 					MainDesertHub.setRoomLocks(false);
 					MainDesertHub.setRoomExits("D12");
 				}
-				//ACCESS PATH 1 > FORT BIRMAN (BROWN LOCK)
-				else if(!inventoryView && !itemView && AccessPath1.getRoomLocks() && (command.equals("2") || command.equalsIgnoreCase("fort birman") || command.equalsIgnoreCase("east"))) {
-					room.display("Access Path 1 > Path Way\n\nA loan shark is blocking the way to the next town, he seems to be looking for something. "
+				else if(TownHub2.getRoomLocks() && (command.equals("1") || command.equalsIgnoreCase("town access") || command.equalsIgnoreCase("west"))) {
+					room.display("Town Hub > Path Way\n\nA loan shark is blocking the way to the next town, he seems to be looking for something. "
 							+ "Probably shouldn’t bother him until you know what he wants.", "Action\n" + "0. Leave Door\n" + "1. ?????");
+					TownHub2.setRoomLocks(false);
+					TownHub2.setRoomExits("D17");
 				}
 			}
 			else if(!inventoryView && !itemView && (MainDesertHub.getRoomExits().equals("D12") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
-					(AccessPath1.getRoomExits().equals("D13") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n")))) {
+					(AccessPath1.getRoomExits().equals("D13") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) || 
+					(AccessPath1.getRoomExits().equals("D16") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
+					(TownHub2.getRoomExits().equals("D17") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y")))) {
 				room.AccessPath1_2B();
 				MainDesertHub.setRoomLocks(false);
 				AccessPath1.setRoomLocks(true);
@@ -1814,6 +1820,7 @@ public class GameControl {
 				MainDesertHub.setRoomExits("");
 				AccessPath1.setRoomExits("");
 				AccessPath2.setRoomExits("");
+				TownHub2.setRoomExits("");
 				MainDesertHub.setRoomID("");
 			}
 			//ACCESS PATH 2-----------------------------------------------------------------------------------------------------------------------
@@ -1900,6 +1907,7 @@ public class GameControl {
 					MainDesertHub.setRoomExits("");
 					AccessPath1.setRoomExits("");
 					AccessPath2.setRoomExits("");
+					TownHub2.setRoomExits("");
 					MainDesertHub.setRoomID("");
 				}
 				else if(AccessPath2.getRoomLocks()==true) {
@@ -1914,6 +1922,35 @@ public class GameControl {
 					AccessPath2.setRoomExits("");
 					MainDesertHub.setRoomID("");
 				}
+			}
+		}
+		if(TownHub2.getRoomLevel().equals("Fort Birman")) {
+			//TOWN HUB 2-----------------------------------------------------------------------------------------------------------------
+			if(AccessPath1.getRoomLocks() && (command.equals("2") || command.equalsIgnoreCase("fort birman") || command.equalsIgnoreCase("east"))) {
+				//ACCESS PATH 1 > FORT BIRMAN (BROWN LOCK)
+				if(!inventoryView && !itemView && AccessPath1.getRoomLocks() && (command.equals("2") || command.equalsIgnoreCase("fort birman") || command.equalsIgnoreCase("east"))) {
+					room.display("Access Path 1 > Path Way\n\nA loan shark is blocking the way to the next town, he seems to be looking for something. "
+							+ "Probably shouldn’t bother him until you know what he wants.", "Action\n" + "0. Leave Door\n" + "1. ?????");
+					AccessPath1.setRoomLocks(false);
+					AccessPath1.setRoomExits("D16");
+				}
+			}
+			if(AccessPath1.getRoomExits().equals("D16") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y")) ||
+					(TownHub2.getRoomExits().equals("D17") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n")))) {
+				//ACCESS PATH 1 > FORT BIRMAN (BROWN LOCK) > Prompt
+				if(AccessPath1.getRoomExits().equals("D16") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) {
+					commandMenu.prompt(prompt, "DEFEAT BOSS IN BOMBAY HILL");
+				}
+				//FORT BIRMAN
+				else if(TownHub2.getRoomExits().equals("D17") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) {
+					room.TownHub_3A();
+					TownHub2.setRoomLocks(true);
+					
+					AccessPath1.setRoomLocks(false);
+					
+					AccessPath1.setRoomExits("");
+				}
+				
 			}
 		}
 		//Exit Game

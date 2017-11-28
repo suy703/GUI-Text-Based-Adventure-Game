@@ -222,4 +222,21 @@ public class Rooms {
 		isStore = false;
 		System.out.println("Loading Access Path 1 : Location Rooms Class"); // Testing purpose
 	}
+	//Town Hub (3A)
+	public void TownHub_3A() {
+		CommandMenu commandMenu = new CommandMenu(map, icon, viewIcon, viewMap, displayStory, displayCommand);
+		Image map = new Image("file:images/FortBirman.png"); 
+		commandMenu.setNavigateMap(map, viewMap, 740, 300);
+		commandMenu.setNavigateIcon(icon, viewIcon, 910, 375); 
+		commandMenu.setLoadGameStory(displayStory, "Town Hub\n\nFort Birman appears to be a structure with large wooden gates and vast stone "
+				+ "walls. As you pass through the gates, the guards give you a strange look but say nothing. The town square seems much like the "
+				+ "last town, run down slightly shabby. There is an Inn to the North-West that looks warm and inviting. Further down the road to "
+				+ "the North-East, there is a building with boards on its windows. You can just barely make out the lettering on the sign, and "
+				+ "you see that it says “General Store”. To the South, you see a saloon with loud piano music emanating from the doors, and two "
+				+ "muscled men standing outside, menacingly glaring at passersby. To the West is the Dessert Hub.");
+		commandMenu.setLoadGameCommand(displayCommand, "Action\n" + "1. Town Access (West)\n" + "2. Inn (North West)\n" 
+				+ "3. Ransacked General Store (North East)\n" + "4. Saloon (South)\n" + "5. Inventory" + "6. Save");
+		
+		System.out.println("Loading Fort Birman : Location Rooms Class"); // Testing purpose
+	}
 }
