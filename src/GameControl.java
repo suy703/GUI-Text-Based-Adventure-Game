@@ -81,7 +81,7 @@ public class GameControl {
 		Rooms AccessPath1 = new Rooms("Town Access", false, "", "Access Path 1", "");
 		Rooms AccessPath2 = new Rooms("Town Access", false, "", "Access Path 2", "");
 		Rooms TownHub2 = new Rooms("Fort Birman", false, "", "Town Hub", "");
-		
+		SoundEffect sound = new SoundEffect();
 		Monsters monster = new Monsters();
 		//CENTER PANE------------------------------------------------------------------------------------------------------------------------
 		//DISPLAY STORY & COMMAND MENU
@@ -139,6 +139,8 @@ public class GameControl {
 				player.displayHealthBar(maxHealthBar, healthBar, healthIcon, viewHealthIcon);
 				
 				puzzle.setPuzzleID(" ");
+				sound.doorOpen();
+
 				System.out.println("Loading Town Hub : Location Game Control"); // Testing purpose
 		    }
 		    //MAIN MENU > Load Game
@@ -210,7 +212,8 @@ public class GameControl {
 				DrugStore.setRoomID("");
 				Saloon.setRoomID("");
 				Inn.setRoomID("");
-				
+				sound.doorOpen();
+
 			}
 		    //DRUG STORE-------------------------------------------------------------------------------------------------------------------------
 			else if(!inventoryView && !itemView && (TownHub.getRoomLocks() && (command.equals("1") || command.equalsIgnoreCase("drug store") || command.equalsIgnoreCase("north west"))) ||
@@ -220,21 +223,21 @@ public class GameControl {
 					room.display(doorFile[9] + "\n\n" + doorFile[10] + "\n\n" + doorFile[11], "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 					TownHub.setRoomLocks(false);
 					TownHub.setRoomExits("D00");
-					
 				}
 				else if(!inventoryView && !itemView && Inn.getRoomLocks() && (command.equals("1") || command.equalsIgnoreCase("drug store") || command.equalsIgnoreCase("north"))) {
 					room.display(doorFile[12] + "\n\n" + doorFile[13] + "\n\n" + doorFile[14], "Action\n" 
 							+ "0. No (N)\n" + "1. Yes (Y)");
 					Inn.setRoomLocks(false);
 					Inn.setRoomExits("D03");
-					
+
 				}
 			}
 			else if(!inventoryView && !itemView && (TownHub.getRoomExits().equals("D00") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y"))) ||
 					(DrugStore.getRoomExits().equals("D01") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
 					(DrugStore.getRoomExits().equals("D02") && (command.equals("0") || command.equalsIgnoreCase("no") || command.equalsIgnoreCase("n"))) ||
 					(Inn.getRoomExits().equals("D03") && (command.equals("1") || command.equalsIgnoreCase("yes") || command.equalsIgnoreCase("y")))) {
-				
+				sound.doorOpen();
+
 				room.DrugStore_1B();
 				TownHub.setRoomLocks(false);
 				DrugStore.setRoomLocks(true);
@@ -441,6 +444,8 @@ public class GameControl {
 				
 				Inn.setRoomID("1C");
 				DrugStore.setRoomID("");
+				sound.doorOpen();
+
 			}
 		    //INN > Search Room
 			else if(!itemView&& !inventoryView&& Inn.getRoomID().equals("1C") && (command.equals("3") || command.equalsIgnoreCase("search room"))) {
@@ -536,8 +541,6 @@ public class GameControl {
 						room.display(doorFile[26] + "\n\n" + doorFile[27], "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 						Jail.setRoomLocks(false);
 						Jail.setRoomExits("D09");
-						
-						
 					}
 				}
 			}
@@ -557,8 +560,9 @@ public class GameControl {
 					Jail.setRoomLocks(false);
 					
 					TownHub.setRoomExits("");
-					
 					Saloon.setRoomID("1D");
+					sound.doorOpen();
+
 				}
 				else if(!inventoryView && !itemView && Jail.getRoomExits().equals("D09") && testPuzzle && (command.equals("1") || command.equalsIgnoreCase("unlock door"))) {
 					
@@ -621,6 +625,7 @@ public class GameControl {
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------		    
 		    // Attacking Henchman
 			else if(puzzle.getPuzzleID().equals("P02") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
+				sound.shoot();
 
 				//Random damageProb = new Random();
 				int damageMonster = -(player.attackDamage()); // Damage monster probability between -50 to -25
@@ -645,15 +650,18 @@ public class GameControl {
 						
 						unlockDoor = true;
 						System.out.println("Sent to Jail : Location Game Control"); // Testing purpose
+						sound.brassFalling();
 					}
+					
 				}
 				
 			}
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------		    
             // Fighting Deputy Sheriff		    
 			else if(puzzle.getPuzzleID().equals("P03") && (command.equals("1") || command.equalsIgnoreCase("fight Deputy Sheriff"))) {
-				
+
 				monster.displayMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon);
+
 				room.display("Jail > Deputy Sheriff\n\n “Heh. You think you can best me? I’m the fastest draw in town.”", "Action\n" + "0. Back\n" + "1. Attack");
 				
 				puzzle.setPuzzleID("P04");
@@ -661,6 +669,8 @@ public class GameControl {
 		   }
 		    // Attacking Deputy Sheriff
 			else if(puzzle.getPuzzleID().equals("P04") && (command.equals("1") || command.equalsIgnoreCase("attack"))) {
+				sound.shoot();
+
 				//Random damageProb = new Random();
 				int deputyDamage = -(player.attackDamage()); // Damage monster probability between -50 to -25
 				System.out.println(deputyDamage); //Display Amount of damage done to monster
@@ -681,7 +691,7 @@ public class GameControl {
 						player.gold += 4;
 						player.inventory.add(dynamite);
 						monster.removeMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, viewMonsterIcon);
-					
+					sound.brassFalling();
 						System.out.println("Key is dropped : Location Game Control"); // Testing purpose
 					}
 				}
@@ -803,7 +813,8 @@ public class GameControl {
 					Saloon.setRoomLocks(false);
 					Jail.setRoomLocks(true);
 					Saloon.setRoomID("");
-					
+					sound.doorOpen();
+
 					System.out.println("Inside Jail : Location Game Control");
 					//testPuzzle = true; //Testing Purpose
 					//unlockDoor = false; //Testing Purpose
