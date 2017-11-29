@@ -26,7 +26,6 @@ public class GameControl {
 	Boolean inventoryView = false;
 	boolean storeView = false;
 	boolean itemView = false;
-	boolean monsterAlive = true;
 	
 	int itemIndex;
 	int damage = 0;
@@ -37,6 +36,7 @@ public class GameControl {
 	Boolean testPuzzle = true;
 	Boolean unlockDoor = false;
 	Boolean inBattle = true;
+	Boolean monsterIsPresent = true;
 	
 	Potion healthPotion = new Potion("i1", "Health Potion", "A bottle shaped like a human heart with a red liquid inside.(Restores 100 HP)", 2, "H", 100);
 	Potion attackPotion = new Potion("i2", "Attack Potion", "A perfectly round bottle with a cork in the top. The liquid has a strange yellow color to it but it smells like a delicious tropical fruit when you uncork it. (+100 Attack Power on your next attack!)", 3, "A", 100);
@@ -514,7 +514,6 @@ public class GameControl {
 					room.display(doorFile[21] + "\n\n" + doorFile[22] + "\n\n" + doorFile[23], "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 					TownHub.setRoomLocks(false);
 					TownHub.setRoomExits("D06");
-					
 					System.out.println("Requesting to enter Saloon : Location Game control"); // Testing purpose
 				}
 				//SALOON > Locked Door/Unlocked Door
@@ -537,6 +536,7 @@ public class GameControl {
 						room.display(doorFile[26] + "\n\n" + doorFile[27], "Action\n" + "0. No (N)\n" + "1. Yes (Y)");
 						Jail.setRoomLocks(false);
 						Jail.setRoomExits("D09");
+						
 						
 					}
 				}
@@ -586,8 +586,8 @@ public class GameControl {
 		    
 // -----------------------------------------------------------------------------------------------------------------------------	
  
-		    //SALOON > Search Room
-			else if(Saloon.getRoomID().equals("1D") && (command.equals("3") || command.equalsIgnoreCase("search room"))) {
+		    //SALOON > Search Room (Henchman is alive)
+			else if(puzzle.getPuzzleID().equals(" ") && Saloon.getRoomID().equals("1D") && (command.equals("3") || command.equalsIgnoreCase("search room"))) {
 				
 				//ENCOUNTER HENCHMAN THEN FIGHT BOSS
 				//Call Monster class
@@ -602,7 +602,15 @@ public class GameControl {
 				System.out.println("Searching around Saloon : Location Game Control");// Testing purpose
 				System.out.println("Hench Man encountered! : Location Game Control"); // Testing purpose
 			} 
-
+		    
+		    //SALOON > Search Room (Henchman is dead)
+			else if(Saloon.getRoomID().equals("1D") && puzzle.getPuzzleID().equals("P07") && command.equals("3") || command.equalsIgnoreCase("search room")) {
+				room.display("Saloon Store > Search Room > \n\n hmmm... what a mess, that Henchman sure was a tough fighter", "Action\n" + "0. Back");
+				Saloon.setRoomLocks(false);
+				
+				System.out.println("Searching around Saloon : Location Game Control (Hench man should not be here!)");
+			}
+		    
 		    // Fighting Henchman
 			else if(puzzle.getPuzzleID().equals("P01") && command.equalsIgnoreCase("1") || command.equals("fight henchman")) {
 				monster.displayMonsterHealthBar(monsterMaxHealthBar, monsterHealthBar, monsterIcon, viewMonsterIcon);
@@ -660,7 +668,7 @@ public class GameControl {
 				if(this.monsterTotalHealth > 0) {//When monster health is greater than 0 = true
 					this.monsterTotalHealth = monster.monsterHealthMeter(monsterHealthBar, this.monsterTotalHealth, deputyDamage, prompt); //Player does damage to monster's health bar
 					this.totalHealth = player.healthMeter(healthBar, this.totalHealth, -4, prompt); //Monster does damage to player's health bar
-					room.display("Saloon > Deputy Sheriff\n\nThe Deputy Sheriff is a tough guy. He is known as the boss "
+					room.display("Jail > Deputy Sheriff\n\nThe Deputy Sheriff is a tough guy. He is known as the boss "
 							+ "at this town hub. He runs the jail, but this will not stop you from taking him out!", "Action\n" + "0. Runaway\n" +"1. Attack");
 					
 					System.out.println("Attacking Deputy Sheriff : Location Game Control"); // Testing purpose
@@ -693,26 +701,30 @@ public class GameControl {
 		    
 		    //jail unlocked returning to saloon
 			else if(puzzle.getPuzzleID().contentEquals("P06") && command.equalsIgnoreCase("1") || command.equalsIgnoreCase("unlock jail")) {
+				
 				room.Saloon_1D();
+				
 				TownHub.setRoomLocks(false);
 				DrugStore.setRoomLocks(false);
 				Inn.setRoomLocks(false);
 				Saloon.setRoomLocks(true);
 				Jail.setRoomLocks(false);
+				
 				Saloon.setRoomExits("D08");
-				
 				TownHub.setRoomExits("");
-				
 				Saloon.setRoomID("1D");
+				Jail.setRoomID("D09");
+				room.Saloon_1D();
 				
 				puzzle.setPuzzleID("P07");
-				room.Saloon_1D();
+				
 				room.display("Saloon\n\nYou unlocked the jail and now is a free man. You are back out at the Saloon covered dirt and sweat after the"
 						+ "fight with the Deputy Sheriff. However, your mission is critical and you must keep moving. The leader of the "
-						+ " Long Riders must be taken out before more cows are killed. It's time to make your way out of this old Town Hub and move on.", "Action\n" + "1. Town Hub");
+						+ " Long Riders must be taken out before more cows are killed. It's time to make your way out of this old Town Hub and move on.", "Action\n" + "1. Town Hub\n" + "2. Jail");
 				System.out.println("Returning to Saloon : Location Game Control"); // Testing purpose
+
 			}
-	    
+
 //-------------------------------------------------------------------------------------------------------------------------------    
 		    //SALOON > Search Room > Back
 			else if(Saloon.getRoomID().equals("1D") && (command.equals("0") || command.equalsIgnoreCase("back"))) {
@@ -732,6 +744,7 @@ public class GameControl {
 				
 				Saloon.setRoomID("1D");
 				
+				puzzle.setPuzzleID("P07");
 				System.out.println("Loading back to Saloon : Location Game Control"); // Testing purpose
 			}
 		    		   
@@ -789,7 +802,6 @@ public class GameControl {
 					Inn.setRoomLocks(false);
 					Saloon.setRoomLocks(false);
 					Jail.setRoomLocks(true);
-					
 					Saloon.setRoomID("");
 					
 					System.out.println("Inside Jail : Location Game Control");
