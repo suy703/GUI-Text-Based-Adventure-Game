@@ -1,5 +1,19 @@
-﻿TEAM AVENGERS (Sinna, Henry, Alex)
+## Project: GUI Text-Based Adventure Game
 
-Henry Huynh - Oct 10, 2018 “Testing git pull, git add, git commit, and git push”
-Alex Croghan- Oct 10, 2018 “Testing git pull, git add, git commit, and git push”
+# Team Members
+<ol>
+  <li><b>Alex</b></li>
+  <li><b>Henry Huynh</b></li>
+  <li><b>Sinna Uy</b></li> 
+</ol>
+
+# Repository Location
+[GUI Text-Based Adventure Game Repository](https://github.com/suy703/GUI-Text-Based-Adventure-Game "GUI Text-Based Adventure Game Repository")
+
+# Team Communication Tools
+<ul>
+  <li>Discord</li>
+  <li>Slack</li>
+  <li>SMS</li>
+</ul>
 
