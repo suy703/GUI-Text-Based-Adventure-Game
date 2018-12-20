@@ -3,8 +3,8 @@
 # Team Members
 <ol>
   <li><b>Alex</b></li>
-  <li><b>Henry Huynh</b></li>
-  <li><b>Sinna Uy</b></li> 
+  <li><b>Henry</b></li>
+  <li><b>Sinna</b></li> 
 </ol>
 
 # Repository Location
